@@ -1,0 +1,143 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LB.MainForm", "LB.MainForm.csproj", "{ECEA6DEB-C611-4487-9EE1-641240CF8CBF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LB.Base", "..\LB.Base\LB.Base.csproj", "{739059D0-9D83-4881-B502-B08CCA50A4E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LB.Common", "..\LB.Common\LB.Common.csproj", "{88240F2E-3447-4A6E-A598-8FEE981B5A4A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LB.Controls", "..\LB.Controls\LB.Controls.csproj", "{04C9AD34-D6AB-4518-9701-9F991D3A8B60}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LB.Login", "..\LB.Login\LB.Login.csproj", "{12978718-AFCB-4AB2-B00F-CDBD3C2AAA23}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LB.SysConfig", "..\LB.SysConfig\LB.SysConfig.csproj", "{948F87EE-5644-4CB5-AFA2-C8AEEB1470C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LB.MI", "..\LB.MI\LB.MI.csproj", "{F53A2FCB-4279-4214-AF1C-857C1942995E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LB.StyleResource", "..\LB.StyleResource\LB.StyleResource.csproj", "{BB3A2964-6A7E-479A-B180-B156FBCC868B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LB.Web.IRemoting", "..\LB.Web.IRemoting\LB.Web.IRemoting.csproj", "{DEB53B6E-B9CE-4D89-8451-F87B6DD3FD4A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ECEA6DEB-C611-4487-9EE1-641240CF8CBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECEA6DEB-C611-4487-9EE1-641240CF8CBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECEA6DEB-C611-4487-9EE1-641240CF8CBF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{ECEA6DEB-C611-4487-9EE1-641240CF8CBF}.Debug|x86.Build.0 = Debug|Any CPU
+		{ECEA6DEB-C611-4487-9EE1-641240CF8CBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECEA6DEB-C611-4487-9EE1-641240CF8CBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECEA6DEB-C611-4487-9EE1-641240CF8CBF}.Release|x86.ActiveCfg = Release|Any CPU
+		{ECEA6DEB-C611-4487-9EE1-641240CF8CBF}.Release|x86.Build.0 = Release|Any CPU
+		{739059D0-9D83-4881-B502-B08CCA50A4E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{739059D0-9D83-4881-B502-B08CCA50A4E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{739059D0-9D83-4881-B502-B08CCA50A4E4}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{739059D0-9D83-4881-B502-B08CCA50A4E4}.Debug|x86.Build.0 = Debug|Any CPU
+		{739059D0-9D83-4881-B502-B08CCA50A4E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{739059D0-9D83-4881-B502-B08CCA50A4E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{739059D0-9D83-4881-B502-B08CCA50A4E4}.Release|x86.ActiveCfg = Release|Any CPU
+		{739059D0-9D83-4881-B502-B08CCA50A4E4}.Release|x86.Build.0 = Release|Any CPU
+		{88240F2E-3447-4A6E-A598-8FEE981B5A4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88240F2E-3447-4A6E-A598-8FEE981B5A4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88240F2E-3447-4A6E-A598-8FEE981B5A4A}.Debug|x86.ActiveCfg = Debug|x86
+		{88240F2E-3447-4A6E-A598-8FEE981B5A4A}.Debug|x86.Build.0 = Debug|x86
+		{88240F2E-3447-4A6E-A598-8FEE981B5A4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88240F2E-3447-4A6E-A598-8FEE981B5A4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88240F2E-3447-4A6E-A598-8FEE981B5A4A}.Release|x86.ActiveCfg = Release|x86
+		{88240F2E-3447-4A6E-A598-8FEE981B5A4A}.Release|x86.Build.0 = Release|x86
+		{04C9AD34-D6AB-4518-9701-9F991D3A8B60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04C9AD34-D6AB-4518-9701-9F991D3A8B60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04C9AD34-D6AB-4518-9701-9F991D3A8B60}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{04C9AD34-D6AB-4518-9701-9F991D3A8B60}.Debug|x86.Build.0 = Debug|Any CPU
+		{04C9AD34-D6AB-4518-9701-9F991D3A8B60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04C9AD34-D6AB-4518-9701-9F991D3A8B60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04C9AD34-D6AB-4518-9701-9F991D3A8B60}.Release|x86.ActiveCfg = Release|Any CPU
+		{04C9AD34-D6AB-4518-9701-9F991D3A8B60}.Release|x86.Build.0 = Release|Any CPU
+		{12978718-AFCB-4AB2-B00F-CDBD3C2AAA23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12978718-AFCB-4AB2-B00F-CDBD3C2AAA23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12978718-AFCB-4AB2-B00F-CDBD3C2AAA23}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{12978718-AFCB-4AB2-B00F-CDBD3C2AAA23}.Debug|x86.Build.0 = Debug|Any CPU
+		{12978718-AFCB-4AB2-B00F-CDBD3C2AAA23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12978718-AFCB-4AB2-B00F-CDBD3C2AAA23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12978718-AFCB-4AB2-B00F-CDBD3C2AAA23}.Release|x86.ActiveCfg = Release|Any CPU
+		{12978718-AFCB-4AB2-B00F-CDBD3C2AAA23}.Release|x86.Build.0 = Release|Any CPU
+		{948F87EE-5644-4CB5-AFA2-C8AEEB1470C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{948F87EE-5644-4CB5-AFA2-C8AEEB1470C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{948F87EE-5644-4CB5-AFA2-C8AEEB1470C2}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{948F87EE-5644-4CB5-AFA2-C8AEEB1470C2}.Debug|x86.Build.0 = Debug|Any CPU
+		{948F87EE-5644-4CB5-AFA2-C8AEEB1470C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{948F87EE-5644-4CB5-AFA2-C8AEEB1470C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{948F87EE-5644-4CB5-AFA2-C8AEEB1470C2}.Release|x86.ActiveCfg = Release|Any CPU
+		{948F87EE-5644-4CB5-AFA2-C8AEEB1470C2}.Release|x86.Build.0 = Release|Any CPU
+		{F53A2FCB-4279-4214-AF1C-857C1942995E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F53A2FCB-4279-4214-AF1C-857C1942995E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F53A2FCB-4279-4214-AF1C-857C1942995E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F53A2FCB-4279-4214-AF1C-857C1942995E}.Debug|x86.Build.0 = Debug|Any CPU
+		{F53A2FCB-4279-4214-AF1C-857C1942995E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F53A2FCB-4279-4214-AF1C-857C1942995E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F53A2FCB-4279-4214-AF1C-857C1942995E}.Release|x86.ActiveCfg = Release|Any CPU
+		{F53A2FCB-4279-4214-AF1C-857C1942995E}.Release|x86.Build.0 = Release|Any CPU
+		{BB3A2964-6A7E-479A-B180-B156FBCC868B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB3A2964-6A7E-479A-B180-B156FBCC868B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB3A2964-6A7E-479A-B180-B156FBCC868B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BB3A2964-6A7E-479A-B180-B156FBCC868B}.Debug|x86.Build.0 = Debug|Any CPU
+		{BB3A2964-6A7E-479A-B180-B156FBCC868B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB3A2964-6A7E-479A-B180-B156FBCC868B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB3A2964-6A7E-479A-B180-B156FBCC868B}.Release|x86.ActiveCfg = Release|Any CPU
+		{BB3A2964-6A7E-479A-B180-B156FBCC868B}.Release|x86.Build.0 = Release|Any CPU
+		{DEB53B6E-B9CE-4D89-8451-F87B6DD3FD4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEB53B6E-B9CE-4D89-8451-F87B6DD3FD4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEB53B6E-B9CE-4D89-8451-F87B6DD3FD4A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DEB53B6E-B9CE-4D89-8451-F87B6DD3FD4A}.Debug|x86.Build.0 = Debug|Any CPU
+		{DEB53B6E-B9CE-4D89-8451-F87B6DD3FD4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEB53B6E-B9CE-4D89-8451-F87B6DD3FD4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEB53B6E-B9CE-4D89-8451-F87B6DD3FD4A}.Release|x86.ActiveCfg = Release|Any CPU
+		{DEB53B6E-B9CE-4D89-8451-F87B6DD3FD4A}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(SourceCodeControl) = preSolution
+		SccNumberOfProjects = 8
+		SccProjectUniqueName0 = LB.MainForm.csproj
+		SccProjectName0 = \u0022$/GrooveManager/GrooveClient/LB.MainForm\u0022,\u0020YNAAAAAA
+		SccLocalPath0 = .
+		SccProvider0 = MSSCCI:Microsoft\u0020Visual\u0020SourceSafe
+		SccProjectUniqueName1 = ..\\LB.Base\\LB.Base.csproj
+		SccProjectName1 = \u0022$/GrooveManager/GrooveClient/LB.Base\u0022,\u0020PQAAAAAA
+		SccLocalPath1 = ..\\LB.Base
+		SccProvider1 = MSSCCI:Microsoft\u0020Visual\u0020SourceSafe
+		SccProjectUniqueName2 = ..\\LB.Common\\LB.Common.csproj
+		SccProjectName2 = \u0022$/GrooveManager/GrooveClient/LB.Common\u0022,\u0020VRAAAAAA
+		SccLocalPath2 = ..\\LB.Common
+		SccProvider2 = MSSCCI:Microsoft\u0020Visual\u0020SourceSafe
+		SccProjectUniqueName3 = ..\\LB.Controls\\LB.Controls.csproj
+		SccProjectName3 = \u0022$/GrooveManager/GrooveClient/LB.Controls\u0022,\u0020XSAAAAAA
+		SccLocalPath3 = ..\\LB.Controls
+		SccProvider3 = MSSCCI:Microsoft\u0020Visual\u0020SourceSafe
+		SccProjectUniqueName4 = ..\\LB.Login\\LB.Login.csproj
+		SccProjectName4 = \u0022$/GrooveManager/GrooveClient/LB.Login\u0022,\u0020YWAAAAAA
+		SccLocalPath4 = ..\\LB.Login
+		SccProvider4 = MSSCCI:Microsoft\u0020Visual\u0020SourceSafe
+		SccProjectUniqueName5 = ..\\LB.MI\\LB.MI.csproj
+		SccProjectName5 = \u0022$/GrooveManager/GrooveClient/LB.MI\u0022,\u0020OXAAAAAA
+		SccLocalPath5 = ..\\LB.MI
+		SccProvider5 = MSSCCI:Microsoft\u0020Visual\u0020SourceSafe
+		SccProjectUniqueName6 = ..\\LB.StyleResource\\LB.StyleResource.csproj
+		SccProjectName6 = \u0022$/GrooveManager/GrooveClient/LB.StyleResource\u0022,\u0020IDBAAAAA
+		SccLocalPath6 = ..\\LB.StyleResource
+		SccProvider6 = MSSCCI:Microsoft\u0020Visual\u0020SourceSafe
+		SccProjectUniqueName7 = ..\\LB.SysConfig\\LB.SysConfig.csproj
+		SccProjectName7 = \u0022$/GrooveManager/GrooveClient/LB.SysConfig\u0022,\u0020GYBAAAAA
+		SccLocalPath7 = ..\\LB.SysConfig
+		SccProvider7 = MSSCCI:Microsoft\u0020Visual\u0020SourceSafe
+	EndGlobalSection
+EndGlobal
