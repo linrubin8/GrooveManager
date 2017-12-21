@@ -77,10 +77,11 @@ namespace LB.Web.DB.BLL
         }
 
         public void CardConfig(FactoryArgs args,t_String ReadCardSerialCOM,t_String WriteCardSerialCOM,
-            t_ID ReadCardBaud,t_String MachineName,t_ID UseReadCard, t_ID UseWriteCard)
+            t_ID ReadCardBaud,t_String MachineName,t_ID UseReadCard, t_ID UseWriteCard,
+            t_ID ConnectType,t_String IPAddress,t_ID IPPort)
         {
             _DALDbCardn.CardConfig(args, ReadCardSerialCOM, WriteCardSerialCOM, ReadCardBaud, MachineName,
-                    UseReadCard, UseWriteCard);
+                    UseReadCard, UseWriteCard, ConnectType, IPAddress, IPPort);
         }
     }
 }

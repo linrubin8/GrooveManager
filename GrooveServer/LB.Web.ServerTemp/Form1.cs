@@ -36,22 +36,36 @@ namespace LB.Web.ServerTemp
             string strServerURL = iniClass.ReadValue("Remoting", "ServerURL");
             string strDBName = iniClass.ReadValue("Remoting", "DBName");
             string strDBServer = iniClass.ReadValue("Remoting", "DBServer");
-
+            string strDBType = iniClass.ReadValue("Remoting", "DBType");
             bool bolLoginSecure = iniClass.ReadValue("Remoting", "LoginSecure") == "1" ? true : false;
             string strDBUser = iniClass.ReadValue("Remoting", "DBUser");
             string strDBPW = iniClass.ReadValue("Remoting", "DBPW");
+            int iDBType;
+            int.TryParse(strDBType, out iDBType);
+            //int iDBType = string.IsNullOrWhiteSpace(strDBType) ? 0 : 1;
             //WriteLog("读取数据库名称："+ strDBName+" 地址："+ strAddress);
             int mPort;
             int.TryParse(strPort, out mPort);
             strServerName = "LRB";
             HttpChannel channel = new HttpChannel(mPort);
             ChannelServices.RegisterChannel(channel, false);
-            RemotingConfiguration.RegisterWellKnownServiceType(
-             typeof(WebRemoting), strServerName, WellKnownObjectMode.Singleton);
 
-            
-            WebRemoting.SetRemotingInfo(strDBName, strDBServer, strDBUser);
-            WebRemoting.LoadAllBLLFunction();
+            if (iDBType == 0)
+            {
+                RemotingConfiguration.RegisterWellKnownServiceType(
+                 typeof(WebRemoting), strServerName, WellKnownObjectMode.Singleton);
+
+                WebRemoting.SetRemotingInfo(strDBName, strDBServer, strDBUser, iDBType);
+                WebRemoting.LoadAllBLLFunction();
+            }
+            else
+            {
+                RemotingConfiguration.RegisterWellKnownServiceType(
+                 typeof(WebRemotingSQLServer), strServerName, WellKnownObjectMode.Singleton);
+
+                WebRemotingSQLServer.SetRemotingInfo(strDBName, strDBServer, bolLoginSecure,strDBUser, strDBPW);
+                WebRemotingSQLServer.LoadAllBLLFunction();
+            }
         }
 
         private void StartServer()

@@ -10,7 +10,7 @@ namespace LB.Web.MI.DAL
 {
     public class DALDbCar
     {
-        public void Car_Insert(FactoryArgs args, out t_BigID CarID,t_String CarCode, t_String CarNum, t_String Description, 
+        public void Car_Insert(FactoryArgs args, out t_BigID CarID, t_String CarCode, t_String CarNum, t_String Description,
             t_Decimal DefaultCarWeight, t_BigID SupplierID, t_BigID CardID)
         {
             CarID = new t_BigID();
@@ -33,6 +33,15 @@ values( @CarNum,@CarCode,@Description, @CreateBy, @CreateTime, @ChangeBy, @Chang
 
 select last_insert_rowid() as CarID;
 ";
+            if (args.DBType == 1)
+            {
+                strSQL = @"
+insert into dbo.DbCar(CarNum,CarCode,Description,CreateBy, CreateTime, ChangeBy, ChangeTime,DefaultCarWeight,SupplierID,CardID)
+values( @CarNum,@CarCode,@Description, @CreateBy, @CreateTime, @ChangeBy, @ChangeTime,@DefaultCarWeight,@SupplierID,@CardID)
+
+select @@identity as CarID
+";
+            }
             DBHelper.ExecuteNonQuery(args, System.Data.CommandType.Text, strSQL, parms, false);
             CarID.Value = Convert.ToInt64(parms["CarID"].Value);
         }
@@ -95,16 +104,24 @@ where CarID = @CarID
             return DBHelper.ExecuteQuery(args, strSQL, parms);
         }
 
-        public void GetMaxCarCode(FactoryArgs args,out t_String MaxCode)
+        public void GetMaxCarCode(FactoryArgs args, out t_String MaxCode)
         {
             MaxCode = new t_String();
             LBDbParameterCollection parms = new LBDbParameterCollection();
-            parms.Add(new LBDbParameter("MaxCode", MaxCode,true));
+            parms.Add(new LBDbParameter("MaxCode", MaxCode, true));
             string strSQL = @"
     select CarCode as MaxCode
     from dbo.DbCar
     order by CarCode desc limit 1
 ";
+            if (args.DBType == 1)
+            {
+                strSQL = @"
+    select top 1 CarCode as MaxCode
+    from dbo.DbCar
+    order by CarCode desc
+";
+            }
             DBHelper.ExecuteNonQuery(args, System.Data.CommandType.Text, strSQL, parms, false);
             MaxCode.SetValueWithObject(parms["MaxCode"].Value);
         }

@@ -56,6 +56,9 @@ namespace LB.SysConfig.SysConfig
                 parmCol.Add(new LBParameter("MachineName", enLBDbType.String, LoginInfo.MachineName));
                 parmCol.Add(new LBParameter("UseReadCard", enLBDbType.Int32, (this.cbUseReadCard.Checked?1:0)));
                 parmCol.Add(new LBParameter("UseWriteCard", enLBDbType.Int32, (this.cbUseWriteCard.Checked ? 1 : 0)));
+                parmCol.Add(new LBParameter("ConnectType", enLBDbType.Int32, (this.rbNet.Checked ? 1 : 0)));
+                parmCol.Add(new LBParameter("IPAddress", enLBDbType.String, this.txtIPAddress.Text));
+                parmCol.Add(new LBParameter("IPPort", enLBDbType.Int32, LBConverter.ToInt32(this.txtPort.Text)));
                 DataSet dsReturn;
                 Dictionary<string, object> dictValue;
                 ExecuteSQL.CallSP(20503, parmCol, out dsReturn, out dictValue);
@@ -79,6 +82,9 @@ namespace LB.SysConfig.SysConfig
                 this.txtReadSerialBaud.Text = LBConverter.ToInt32(dtDesc.Rows[0]["ReadCardBaud"]).ToString();
                 this.cbUseReadCard.Checked = LBConverter.ToInt32(dtDesc.Rows[0]["UseReadCard"]) == 1 ? true : false;
                 this.cbUseWriteCard.Checked = LBConverter.ToInt32(dtDesc.Rows[0]["UseWriteCard"]) == 1 ? true : false;
+                this.rbNet.Checked = LBConverter.ToInt32(dtDesc.Rows[0]["ConnectType"]) == 1 ? true : false;
+                this.txtIPAddress.Text = dtDesc.Rows[0]["IPAddress"].ToString();
+                this.txtPort.Text = dtDesc.Rows[0]["IPPort"].ToString();
             }
         }
 

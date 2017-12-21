@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCardDeviceConfig));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnClose = new LB.Controls.LBToolStripButton(this.components);
             this.btnSave = new LB.Controls.LBToolStripButton(this.components);
@@ -39,11 +40,17 @@
             this.skinLabel2 = new CCWin.SkinControl.SkinLabel();
             this.txtWriteSerialName = new LB.Controls.LBMetroComboBox(this.components);
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.skinLabel3 = new CCWin.SkinControl.SkinLabel();
+            this.skinLabel6 = new CCWin.SkinControl.SkinLabel();
+            this.rbNet = new System.Windows.Forms.RadioButton();
+            this.rbPort = new System.Windows.Forms.RadioButton();
             this.cbUseReadCard = new System.Windows.Forms.CheckBox();
+            this.skinLabel3 = new CCWin.SkinControl.SkinLabel();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.cbUseWriteCard = new System.Windows.Forms.CheckBox();
             this.skinLabel4 = new CCWin.SkinControl.SkinLabel();
+            this.txtIPAddress = new LB.Controls.IPAddressTextBox();
+            this.skinLabel7 = new CCWin.SkinControl.SkinLabel();
+            this.txtPort = new LB.Controls.LBSkinTextBox(this.components);
             this.toolStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -56,7 +63,7 @@
             this.btnSave});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(329, 40);
+            this.toolStrip1.Size = new System.Drawing.Size(647, 40);
             this.toolStrip1.TabIndex = 20;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -87,7 +94,7 @@
             this.skinLabel5.BackColor = System.Drawing.Color.Transparent;
             this.skinLabel5.BorderColor = System.Drawing.Color.White;
             this.skinLabel5.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.skinLabel5.Location = new System.Drawing.Point(17, 54);
+            this.skinLabel5.Location = new System.Drawing.Point(220, 66);
             this.skinLabel5.Name = "skinLabel5";
             this.skinLabel5.Size = new System.Drawing.Size(116, 32);
             this.skinLabel5.TabIndex = 25;
@@ -101,9 +108,9 @@
             this.txtReadSerialName.DM_UseSelectable = true;
             this.txtReadSerialName.FormattingEnabled = true;
             this.txtReadSerialName.ItemHeight = 24;
-            this.txtReadSerialName.Location = new System.Drawing.Point(139, 56);
+            this.txtReadSerialName.Location = new System.Drawing.Point(342, 68);
             this.txtReadSerialName.Name = "txtReadSerialName";
-            this.txtReadSerialName.Size = new System.Drawing.Size(165, 30);
+            this.txtReadSerialName.Size = new System.Drawing.Size(125, 30);
             this.txtReadSerialName.TabIndex = 26;
             // 
             // skinLabel1
@@ -111,7 +118,7 @@
             this.skinLabel1.BackColor = System.Drawing.Color.Transparent;
             this.skinLabel1.BorderColor = System.Drawing.Color.White;
             this.skinLabel1.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.skinLabel1.Location = new System.Drawing.Point(32, 97);
+            this.skinLabel1.Location = new System.Drawing.Point(209, 19);
             this.skinLabel1.Name = "skinLabel1";
             this.skinLabel1.Size = new System.Drawing.Size(80, 32);
             this.skinLabel1.TabIndex = 27;
@@ -157,9 +164,9 @@
             "28",
             "29",
             "30"});
-            this.txtReadSerialBaud.Location = new System.Drawing.Point(139, 97);
+            this.txtReadSerialBaud.Location = new System.Drawing.Point(342, 19);
             this.txtReadSerialBaud.Name = "txtReadSerialBaud";
-            this.txtReadSerialBaud.Size = new System.Drawing.Size(165, 30);
+            this.txtReadSerialBaud.Size = new System.Drawing.Size(125, 30);
             this.txtReadSerialBaud.TabIndex = 28;
             // 
             // skinLabel2
@@ -188,6 +195,12 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.txtPort);
+            this.groupBox1.Controls.Add(this.skinLabel7);
+            this.groupBox1.Controls.Add(this.txtIPAddress);
+            this.groupBox1.Controls.Add(this.skinLabel6);
+            this.groupBox1.Controls.Add(this.rbNet);
+            this.groupBox1.Controls.Add(this.rbPort);
             this.groupBox1.Controls.Add(this.cbUseReadCard);
             this.groupBox1.Controls.Add(this.skinLabel3);
             this.groupBox1.Controls.Add(this.skinLabel5);
@@ -197,24 +210,56 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Location = new System.Drawing.Point(0, 40);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(329, 137);
+            this.groupBox1.Size = new System.Drawing.Size(647, 154);
             this.groupBox1.TabIndex = 31;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "读卡面板设置";
             // 
-            // groupBox2
+            // skinLabel6
             // 
-            this.groupBox2.Controls.Add(this.cbUseWriteCard);
-            this.groupBox2.Controls.Add(this.skinLabel4);
-            this.groupBox2.Controls.Add(this.skinLabel2);
-            this.groupBox2.Controls.Add(this.txtWriteSerialName);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox2.Location = new System.Drawing.Point(0, 177);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(329, 100);
-            this.groupBox2.TabIndex = 32;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "写卡器设置";
+            this.skinLabel6.BackColor = System.Drawing.Color.Transparent;
+            this.skinLabel6.BorderColor = System.Drawing.Color.White;
+            this.skinLabel6.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.skinLabel6.Location = new System.Drawing.Point(220, 111);
+            this.skinLabel6.Name = "skinLabel6";
+            this.skinLabel6.Size = new System.Drawing.Size(69, 32);
+            this.skinLabel6.TabIndex = 33;
+            this.skinLabel6.Text = "IP地址";
+            this.skinLabel6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // rbNet
+            // 
+            this.rbNet.AutoSize = true;
+            this.rbNet.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.rbNet.Location = new System.Drawing.Point(38, 115);
+            this.rbNet.Name = "rbNet";
+            this.rbNet.Size = new System.Drawing.Size(156, 25);
+            this.rbNet.TabIndex = 32;
+            this.rbNet.TabStop = true;
+            this.rbNet.Text = "使用网口通讯方式";
+            this.rbNet.UseVisualStyleBackColor = true;
+            // 
+            // rbPort
+            // 
+            this.rbPort.AutoSize = true;
+            this.rbPort.Checked = true;
+            this.rbPort.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.rbPort.Location = new System.Drawing.Point(38, 68);
+            this.rbPort.Name = "rbPort";
+            this.rbPort.Size = new System.Drawing.Size(156, 25);
+            this.rbPort.TabIndex = 31;
+            this.rbPort.TabStop = true;
+            this.rbPort.Text = "使用串口通讯方式";
+            this.rbPort.UseVisualStyleBackColor = true;
+            // 
+            // cbUseReadCard
+            // 
+            this.cbUseReadCard.AutoSize = true;
+            this.cbUseReadCard.Location = new System.Drawing.Point(139, 29);
+            this.cbUseReadCard.Name = "cbUseReadCard";
+            this.cbUseReadCard.Size = new System.Drawing.Size(15, 14);
+            this.cbUseReadCard.TabIndex = 30;
+            this.cbUseReadCard.UseVisualStyleBackColor = true;
             // 
             // skinLabel3
             // 
@@ -228,14 +273,19 @@
             this.skinLabel3.Text = "启用读卡器";
             this.skinLabel3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // cbUseReadCard
+            // groupBox2
             // 
-            this.cbUseReadCard.AutoSize = true;
-            this.cbUseReadCard.Location = new System.Drawing.Point(139, 29);
-            this.cbUseReadCard.Name = "cbUseReadCard";
-            this.cbUseReadCard.Size = new System.Drawing.Size(15, 14);
-            this.cbUseReadCard.TabIndex = 30;
-            this.cbUseReadCard.UseVisualStyleBackColor = true;
+            this.groupBox2.Controls.Add(this.cbUseWriteCard);
+            this.groupBox2.Controls.Add(this.skinLabel4);
+            this.groupBox2.Controls.Add(this.skinLabel2);
+            this.groupBox2.Controls.Add(this.txtWriteSerialName);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox2.Location = new System.Drawing.Point(0, 194);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(647, 100);
+            this.groupBox2.TabIndex = 32;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "写卡器设置";
             // 
             // cbUseWriteCard
             // 
@@ -258,6 +308,77 @@
             this.skinLabel4.Text = "启用写卡器";
             this.skinLabel4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // txtIPAddress
+            // 
+            this.txtIPAddress.BackColor = System.Drawing.Color.White;
+            this.txtIPAddress.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtIPAddress.Location = new System.Drawing.Point(342, 115);
+            this.txtIPAddress.Name = "txtIPAddress";
+            this.txtIPAddress.Size = new System.Drawing.Size(125, 28);
+            this.txtIPAddress.TabIndex = 34;
+            this.txtIPAddress.Value = ((System.Net.IPAddress)(resources.GetObject("txtIPAddress.Value")));
+            // 
+            // skinLabel7
+            // 
+            this.skinLabel7.BackColor = System.Drawing.Color.Transparent;
+            this.skinLabel7.BorderColor = System.Drawing.Color.White;
+            this.skinLabel7.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.skinLabel7.Location = new System.Drawing.Point(473, 111);
+            this.skinLabel7.Name = "skinLabel7";
+            this.skinLabel7.Size = new System.Drawing.Size(69, 32);
+            this.skinLabel7.TabIndex = 35;
+            this.skinLabel7.Text = "端口";
+            this.skinLabel7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // txtPort
+            // 
+            this.txtPort.BackColor = System.Drawing.Color.Transparent;
+            this.txtPort.CanBeEmpty = false;
+            this.txtPort.Caption = "方案名称";
+            this.txtPort.DownBack = null;
+            this.txtPort.Icon = null;
+            this.txtPort.IconIsButton = false;
+            this.txtPort.IconMouseState = CCWin.SkinClass.ControlState.Normal;
+            this.txtPort.IsPasswordChat = '\0';
+            this.txtPort.IsSystemPasswordChar = false;
+            this.txtPort.Lines = new string[0];
+            this.txtPort.Location = new System.Drawing.Point(545, 115);
+            this.txtPort.Margin = new System.Windows.Forms.Padding(0);
+            this.txtPort.MaxLength = 32767;
+            this.txtPort.MinimumSize = new System.Drawing.Size(28, 28);
+            this.txtPort.MouseBack = null;
+            this.txtPort.MouseState = CCWin.SkinClass.ControlState.Normal;
+            this.txtPort.Multiline = false;
+            this.txtPort.Name = "txtPort";
+            this.txtPort.NormlBack = null;
+            this.txtPort.Padding = new System.Windows.Forms.Padding(5);
+            this.txtPort.ReadOnly = false;
+            this.txtPort.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.txtPort.Size = new System.Drawing.Size(71, 28);
+            // 
+            // 
+            // 
+            this.txtPort.SkinTxt.AccessibleName = "";
+            this.txtPort.SkinTxt.AutoCompleteCustomSource.AddRange(new string[] {
+            "asdfasdf",
+            "adsfasdf"});
+            this.txtPort.SkinTxt.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.txtPort.SkinTxt.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.txtPort.SkinTxt.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtPort.SkinTxt.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtPort.SkinTxt.Font = new System.Drawing.Font("微软雅黑", 9.75F);
+            this.txtPort.SkinTxt.Location = new System.Drawing.Point(5, 5);
+            this.txtPort.SkinTxt.Name = "BaseText";
+            this.txtPort.SkinTxt.Size = new System.Drawing.Size(61, 18);
+            this.txtPort.SkinTxt.TabIndex = 0;
+            this.txtPort.SkinTxt.WaterColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.txtPort.SkinTxt.WaterText = "";
+            this.txtPort.TabIndex = 36;
+            this.txtPort.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtPort.WaterColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.txtPort.WaterText = "";
+            this.txtPort.WordWrap = true;
+            // 
             // frmCardDeviceConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -267,7 +388,7 @@
             this.Controls.Add(this.toolStrip1);
             this.LBPageTitle = "红外线对射器设置";
             this.Name = "frmCardDeviceConfig";
-            this.Size = new System.Drawing.Size(329, 288);
+            this.Size = new System.Drawing.Size(647, 301);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -295,5 +416,11 @@
         private System.Windows.Forms.CheckBox cbUseReadCard;
         private System.Windows.Forms.CheckBox cbUseWriteCard;
         private CCWin.SkinControl.SkinLabel skinLabel4;
+        private System.Windows.Forms.RadioButton rbPort;
+        private System.Windows.Forms.RadioButton rbNet;
+        private CCWin.SkinControl.SkinLabel skinLabel6;
+        private CCWin.SkinControl.SkinLabel skinLabel7;
+        private Controls.IPAddressTextBox txtIPAddress;
+        private Controls.LBSkinTextBox txtPort;
     }
 }

@@ -15,14 +15,14 @@ namespace LB.Web.DB.DAL
         {
             UserID = new t_BigID();
             LBDbParameterCollection parms = new LBDbParameterCollection();
-            parms.Add(new LBDbParameter("UserID",  UserID,true ));
-            parms.Add(new LBDbParameter("LoginName",  LoginName));
-            parms.Add(new LBDbParameter("UserPassword",  UserPassword));
-            parms.Add(new LBDbParameter("UserName",  UserName));
+            parms.Add(new LBDbParameter("UserID", UserID, true));
+            parms.Add(new LBDbParameter("LoginName", LoginName));
+            parms.Add(new LBDbParameter("UserPassword", UserPassword));
+            parms.Add(new LBDbParameter("UserName", UserName));
             parms.Add(new LBDbParameter("UserType", UserType));
-            parms.Add(new LBDbParameter("UserSex",  UserSex));
-            parms.Add(new LBDbParameter("ChangeBy", new t_String( args.LoginName)));
-            parms.Add(new LBDbParameter("ChangeTime", new t_DTSmall( DateTime.Now)));
+            parms.Add(new LBDbParameter("UserSex", UserSex));
+            parms.Add(new LBDbParameter("ChangeBy", new t_String(args.LoginName)));
+            parms.Add(new LBDbParameter("ChangeTime", new t_DTSmall(DateTime.Now)));
 
             string strSQL = @"
 insert into dbo.DBUser( LoginName, UserPassword, ForbidLogin, IsManager, ChangeBy, ChangeTime, UserType, UserName, UserSex)
@@ -30,6 +30,15 @@ values( @LoginName, @UserPassword, 0, 0, @ChangeBy, @ChangeTime, @UserType, @Use
 
 select last_insert_rowid() as UserID;
 ";
+            if (args.DBType == 1)
+            {
+                strSQL = @"
+insert into dbo.DBUser( LoginName, UserPassword, ForbidLogin, IsManager, ChangeBy, ChangeTime, UserType, UserName, UserSex)
+values( @LoginName, @UserPassword, 0, 0, @ChangeBy, @ChangeTime, @UserType, @UserName, @UserSex)
+
+select @@identity as UserID
+";
+            }
             DBHelper.ExecuteNonQuery(args, System.Data.CommandType.Text, strSQL, parms, false);
             UserID.Value = Convert.ToInt64(parms["UserID"].Value);
         }

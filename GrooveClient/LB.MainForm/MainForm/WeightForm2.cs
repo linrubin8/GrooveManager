@@ -1812,6 +1812,10 @@ where PermissionDataID = {4};
 
         #endregion
 
+        private void btnSQLBuilder_Click(object sender, EventArgs e)
+        {
+            ExportSQLConfig.ExportAction();
+        }
     }
 
 

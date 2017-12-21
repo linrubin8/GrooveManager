@@ -60,6 +60,7 @@
             this.btnFilter = new System.Windows.Forms.Button();
             this.txtFilter = new System.Windows.Forms.TextBox();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.lblWeightUnConnect = new CCWin.SkinControl.SkinLabel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.lblCardNum = new CCWin.SkinControl.SkinLabel();
             this.skinLabel4 = new CCWin.SkinControl.SkinLabel();
@@ -129,7 +130,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.lblCurrentTime = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.lblWeightUnConnect = new CCWin.SkinControl.SkinLabel();
             this.panel2.SuspendLayout();
             this.pnlBill.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdMain)).BeginInit();
@@ -434,6 +434,19 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(687, 235);
             this.panel4.TabIndex = 52;
+            // 
+            // lblWeightUnConnect
+            // 
+            this.lblWeightUnConnect.BackColor = System.Drawing.Color.Transparent;
+            this.lblWeightUnConnect.BorderColor = System.Drawing.Color.White;
+            this.lblWeightUnConnect.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.lblWeightUnConnect.ForeColor = System.Drawing.Color.Red;
+            this.lblWeightUnConnect.Location = new System.Drawing.Point(3, 42);
+            this.lblWeightUnConnect.Name = "lblWeightUnConnect";
+            this.lblWeightUnConnect.Size = new System.Drawing.Size(108, 30);
+            this.lblWeightUnConnect.TabIndex = 75;
+            this.lblWeightUnConnect.Text = "地磅连接异常";
+            this.lblWeightUnConnect.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // panel3
             // 
@@ -977,14 +990,14 @@
             // 
             this.btnViewConfig.LBPermissionCode = "";
             this.btnViewConfig.Name = "btnViewConfig";
-            this.btnViewConfig.Size = new System.Drawing.Size(148, 22);
+            this.btnViewConfig.Size = new System.Drawing.Size(152, 22);
             this.btnViewConfig.Text = "视图配置";
             // 
             // btnPermissionConfig
             // 
             this.btnPermissionConfig.LBPermissionCode = "";
             this.btnPermissionConfig.Name = "btnPermissionConfig";
-            this.btnPermissionConfig.Size = new System.Drawing.Size(148, 22);
+            this.btnPermissionConfig.Size = new System.Drawing.Size(152, 22);
             this.btnPermissionConfig.Text = "权限配置";
             this.btnPermissionConfig.Click += new System.EventHandler(this.btnPermissionConfig_Click);
             // 
@@ -992,21 +1005,22 @@
             // 
             this.btnSQLBuilder.LBPermissionCode = "";
             this.btnSQLBuilder.Name = "btnSQLBuilder";
-            this.btnSQLBuilder.Size = new System.Drawing.Size(148, 22);
+            this.btnSQLBuilder.Size = new System.Drawing.Size(152, 22);
             this.btnSQLBuilder.Text = "SQL生成器";
+            this.btnSQLBuilder.Click += new System.EventHandler(this.btnSQLBuilder_Click);
             // 
             // btnExportConfigSQL
             // 
             this.btnExportConfigSQL.LBPermissionCode = "";
             this.btnExportConfigSQL.Name = "btnExportConfigSQL";
-            this.btnExportConfigSQL.Size = new System.Drawing.Size(148, 22);
+            this.btnExportConfigSQL.Size = new System.Drawing.Size(152, 22);
             this.btnExportConfigSQL.Text = "导出配置";
             this.btnExportConfigSQL.Click += new System.EventHandler(this.btnExportConfigSQL_Click);
             // 
             // 导入客户余额ToolStripMenuItem
             // 
             this.导入客户余额ToolStripMenuItem.Name = "导入客户余额ToolStripMenuItem";
-            this.导入客户余额ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.导入客户余额ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.导入客户余额ToolStripMenuItem.Text = "导入客户余额";
             // 
             // lbToolStripDropDownButton2
@@ -1172,19 +1186,6 @@
             this.label2.Size = new System.Drawing.Size(88, 16);
             this.label2.TabIndex = 0;
             this.label2.Text = "当前时间：";
-            // 
-            // lblWeightUnConnect
-            // 
-            this.lblWeightUnConnect.BackColor = System.Drawing.Color.Transparent;
-            this.lblWeightUnConnect.BorderColor = System.Drawing.Color.White;
-            this.lblWeightUnConnect.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.lblWeightUnConnect.ForeColor = System.Drawing.Color.Red;
-            this.lblWeightUnConnect.Location = new System.Drawing.Point(3, 42);
-            this.lblWeightUnConnect.Name = "lblWeightUnConnect";
-            this.lblWeightUnConnect.Size = new System.Drawing.Size(108, 30);
-            this.lblWeightUnConnect.TabIndex = 75;
-            this.lblWeightUnConnect.Text = "地磅连接异常";
-            this.lblWeightUnConnect.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // WeightForm2
             // 

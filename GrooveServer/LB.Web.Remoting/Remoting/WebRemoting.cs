@@ -39,13 +39,15 @@ namespace LB.Web.Remoting
         }
         private static string mstrDBPath = "";
         private static string mstrDBUser = "";
-        public static void SetRemotingInfo(string strDBName, string strDBPath,string strDBUser)
+        
+        public static void SetRemotingInfo(string strDBName, string strDBPath,string strDBUser,int iDBType)
         {
             mstrDBName = strDBName;
             mstrDBPath = strDBPath;
             DBMSSQL.InitSettings(3000, strDBPath, strDBName);
             DBHelper.DBName = strDBName;
             DBHelper.DBUer = strDBUser;
+            DBHelper.DBType = iDBType;
         }
 
         //public static event RemotingEventHandler RemotingSendedEvent;
@@ -147,7 +149,7 @@ namespace LB.Web.Remoting
                     //获取需要传入的参数
                     ParameterInfo[] parms = method.GetParameters();
 
-                    FactoryArgs factoryArgs = new FactoryArgs(DBHelper.DBName, strLoginName, null, null);
+                    FactoryArgs factoryArgs = new FactoryArgs(DBHelper.DBName, strLoginName, DBHelper.DBType, null, null);
                     Dictionary<int, string> dictOutFieldName = new Dictionary<int, string>();
                     object[] objValue = new object[parms.Length];
                     int iParmIndex = 0;
@@ -316,17 +318,26 @@ namespace LB.Web.Remoting
                 //LogHelper.WriteLog("SysViewName");
                 string strSysViewName = dtView.Rows[0]["SysViewName"].ToString().TrimEnd();
                 //LogHelper.WriteLog(strSysViewName);
-                DataTable dtViewExists = SQLServerDAL.Query(@"
-SELECT 1 FROM sqlite_master WHERE (type = 'view' or type = 'table') AND name = '"+ strSysViewName + "'");
+
+                DataTable dtViewExists = null;
+                if (DBHelper.DBType == 0)
+                {
+                    dtViewExists = SQLServerDAL.Query(@"
+SELECT 1 FROM sqlite_master WHERE (type = 'view' or type = 'table') AND name = '" + strSysViewName + "'");
+
+                    strWhere = strWhere.Replace("isnull(", "ifnull(");
+                    strFieldNames = strFieldNames.Replace("isnull(", "ifnull(");
+                    strOrderBy = strOrderBy.Replace("isnull(", "ifnull(");
+                }
+                else
+                {
+                    dtViewExists = SQLServerDAL.Query(@"select * from sysobjects where id = object_id(N'[" + strSysViewName + @"]')");
+                }
                 if (dtViewExists.Rows.Count == 0)
                 {
                     throw new Exception("查询出错！视图名称：【" + strSysViewName + "】不存在！");
                 }
-
-                strWhere = strWhere.Replace("isnull(", "ifnull(");
-                strFieldNames = strFieldNames.Replace("isnull(", "ifnull(");
-                strOrderBy = strOrderBy.Replace("isnull(", "ifnull(");
-
+                
                 string strFields = string.IsNullOrEmpty(strFieldNames) ? "*" : strFieldNames;
                 //LogHelper.WriteLog(strFields);
                 strWhere = string.IsNullOrEmpty(strWhere) ? "" : "where " + strWhere;
@@ -362,7 +373,10 @@ from {1}
             {
                 string strConn = GetConnectionStr();
                 SQLServerDAL.GetConnectionString = strConn;
-                strSQL = strSQL.Replace("isnull(", "ifnull(");
+                if (DBHelper.DBType == 0)
+                {
+                    strSQL = strSQL.Replace("isnull(", "ifnull(");
+                }
                 dtReturn = SQLServerDAL.Query(strSQL);
                 dtReturn.TableName = "Result";
             }

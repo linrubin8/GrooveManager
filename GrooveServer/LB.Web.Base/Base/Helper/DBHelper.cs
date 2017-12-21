@@ -13,6 +13,10 @@ namespace LB.Web.Base.Helper
         public static string DBName = "";
         public static string DBPath = "";
         public static string DBUer = "";
+        public static int DBType = 0;//0-SQLite  1-SQLServer2008
+        public static string DBServer = "";
+        public static string DBPw = "";
+        public static bool LoginSecure = false;
         public static IDBBase Provider = null;
 
 		#region -- ExecuteNonQuery --
@@ -226,7 +230,7 @@ namespace LB.Web.Base.Helper
 						{
 							using( DbCommand cmd = Provider.CreateCommand() )
 							{
-                                FactoryArgs argsTran = new FactoryArgs( args.DBName, args.LoginName, conn, trans );
+                                FactoryArgs argsTran = new FactoryArgs( args.DBName, args.LoginName, DBHelper.DBType, conn, trans );
 								try
 								{
 									execDelegate( argsTran );

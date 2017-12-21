@@ -37,10 +37,37 @@ namespace LB.SysConfig.SysConfig
             //strSQLOut = "";
             //strSQLOut = GetInsertSQLCommon("PermissionID", "DbPermission", true, true, out dtOutData);
             //strBuildSQL.AppendLine(strSQLOut);
-
-            strSQLOut = "";
-            strSQLOut = GetInsertSQLCommon("PermissionDataID", "DbPermissionData", true, true, out dtOutData);
-            strBuildSQL.AppendLine(strSQLOut);
+            strBuildSQL.AppendLine(GetSQLServer("BillTypeID", "DbBillType"));
+            strBuildSQL.AppendLine(GetSQLServer("CameraConfigID", "DbCameraConfig"));
+            strBuildSQL.AppendLine(GetSQLServer("CarID", "DbCar"));
+            strBuildSQL.AppendLine(GetSQLServer("CardID", "DbCard"));
+            strBuildSQL.AppendLine(GetSQLServer("CardConfigID", "DbCardConfig"));
+            strBuildSQL.AppendLine(GetSQLServer("CarWeightID", "DbCarWeight"));
+            strBuildSQL.AppendLine(GetSQLServer("CustomerID", "DbCustomer"));
+            strBuildSQL.AppendLine(GetSQLServer("CustomerCarID", "DbCustomerCar"));
+            strBuildSQL.AppendLine(GetSQLServer("InfraredConfigID", "DbInfraredDeviceConfig"));
+            strBuildSQL.AppendLine(GetSQLServer("ItemID", "DbItemBase"));
+            strBuildSQL.AppendLine(GetSQLServer("ItemTypeID", "DbItemType"));
+            strBuildSQL.AppendLine(GetSQLServer("PermissionID", "DbPermission"));
+            strBuildSQL.AppendLine(GetSQLServer("PermissionDataID", "DbPermissionData"));
+            strBuildSQL.AppendLine(GetSQLServer("PrinterConfigID", "DbPrinterConfig"));
+            strBuildSQL.AppendLine(GetSQLServer("ReportTemplateID", "DbReportTemplate"));
+            strBuildSQL.AppendLine(GetSQLServer("ReportTypeID", "DbReportType"));
+            strBuildSQL.AppendLine(GetSQLServer("SupplierID", "DbSupplier"));
+            strBuildSQL.AppendLine(GetSQLServer("SysConfigFieldID", "DbSysConfigField"));
+            strBuildSQL.AppendLine(GetSQLServer("SysConfigValueID", "DbSysConfigValue"));
+            strBuildSQL.AppendLine(GetSQLServer("SystemConstID", "DbSystemConst"));
+            strBuildSQL.AppendLine(GetSQLServer("UOMID", "DbUOM"));
+            strBuildSQL.AppendLine(GetSQLServer("UserID", "DBUser"));
+            strBuildSQL.AppendLine(GetSQLServer("UserPermissionID", "DbUserPermission"));
+            strBuildSQL.AppendLine(GetSQLServer("UserPermissionDataID", "DbUserPermissionData"));
+            strBuildSQL.AppendLine(GetSQLServer("WeightDeviceConfigID", "DbWeightDeviceConfig"));
+            strBuildSQL.AppendLine(GetSQLServer("WeightDeviceUserConfigID", "DbWeightDeviceUserConfig"));
+            strBuildSQL.AppendLine(GetSQLServer("WeightDeviceUserTypeID", "DbWeightDeviceUserType"));
+            strBuildSQL.AppendLine(GetSQLServer("WeightTypeID", "DbWeightType"));
+            strBuildSQL.AppendLine(GetSQLServer("SaleCarInBillID", "SaleCarInBill"));
+            strBuildSQL.AppendLine(GetSQLServer("WeightLogID", "SalesCarWeightLog"));
+            strBuildSQL.AppendLine(GetSQLServer("SysViewTypeID", "SysViewType"));
 
             //strSQLOut = "";
             //strSQLOut = GetInsertSQLCommon("ReportTypeID", "DbReportType", true, true, out dtOutData);
@@ -125,6 +152,80 @@ namespace LB.SysConfig.SysConfig
             }
 
             return LB.WinFunction.ExecuteSQL.CallDirectSQL(sql);
+        }
+
+        private static string GetSQLServer(string strPKeyName, string strTableName)
+        {
+            DataTable dt = GetTableData(strTableName,true);
+            StringBuilder strBuilder = new StringBuilder();
+
+            string strColumns = "";
+            foreach(DataColumn dc in dt.Columns)
+            {
+                if (strColumns != "")
+                    strColumns += ",";
+                strColumns += dc.ColumnName;
+            }
+            strBuilder.AppendLine("delete " + strTableName);
+            strBuilder.AppendLine("set IDENTITY_INSERT "+ strTableName + " on");
+
+            foreach(DataRow dr in dt.Rows)
+            {
+                string strValues = "";
+                foreach (DataColumn dc in dt.Columns)
+                {
+                    if (strValues != "")
+                        strValues += ",";
+                    if (dr[dc.ColumnName] == DBNull.Value || dr[dc.ColumnName] == null)
+                    {
+                        strValues += "null";
+                    }
+                    else if (dc.DataType== typeof(string))
+                    {
+                        DateTime date;
+                        if (DateTime.TryParse(dr[dc.ColumnName].ToString(), out date))
+                        {
+                            strValues += "'" + Convert.ToDateTime(dr[dc.ColumnName].ToString()).ToString("yyyy-MM-dd") + "'";
+                        }
+                        else
+                        {
+                            strValues += "'" + dr[dc.ColumnName].ToString() + "'";
+                        }
+                    }
+                    else if ( dc.DataType == typeof(DateTime)||dc.DataType == typeof(DateTime))
+                    {
+                        strValues += "'" + Convert.ToDateTime(dr[dc.ColumnName].ToString()).ToString("yyyy-MM-dd") + "'";
+                    }
+                    else if (dc.DataType == typeof(bool))
+                    {
+                        strValues +=  dr[dc.ColumnName].ToString().ToLower().Equals("false")?0:1;
+                    }
+                    else if (dc.DataType == typeof(byte[]))
+                    {
+                        byte[] strByte = dr[dc.ColumnName] as byte[];
+                        StringBuilder sb = new StringBuilder();
+                        if (strByte != null)
+                        {
+                            int capacity = strByte.Length * 2;
+                            foreach (byte b in strByte)
+                            {
+                                sb.Append(b.ToString("X2"));
+                            }
+                            strValues+= "0x" + sb.ToString();
+                        }
+                    }
+                    else
+                    {
+                        strValues += dr[dc.ColumnName].ToString();
+                    }
+                }
+
+                strBuilder.AppendLine("insert "+ strTableName+"("+ strColumns+")");
+                strBuilder.AppendLine("values "  + "(" + strValues + ")");
+            }
+
+            strBuilder.AppendLine("set IDENTITY_INSERT " + strTableName + " off");
+            return strBuilder.ToString();
         }
 
         private static string GetInsertSQLCommon(string strPKeyName, string strTableName, bool bolIdentity, bool bolIsNeedUpdate, out DataTable dtOutData)

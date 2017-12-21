@@ -73,8 +73,22 @@ namespace LB.Web.Base.Factory
             }
         }
 
-        public FactoryArgs(string dbName, string loginName, DbConnection conn, DbTransaction trans)
+        private int mDBType = 0;
+        public int DBType
         {
+            get
+            {
+                return mDBType;
+            }
+            set
+            {
+                mDBType = value;
+            }
+        }
+
+        public FactoryArgs(string dbName, string loginName, int iDBType, DbConnection conn, DbTransaction trans)
+        {
+            DBType = iDBType;
             _DBName = dbName;
             _LoginName = loginName;
             mDbConnection = conn;

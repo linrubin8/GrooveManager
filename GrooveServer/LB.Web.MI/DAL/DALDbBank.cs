@@ -24,10 +24,19 @@ namespace LB.Web.MI.DAL
 
             string strSQL = @"
 insert into dbo.DbReceiveBank( BankCode,BankName,ChangeBy,ChangeTime )
+values(@BankCode,  @BankName, @ChangeBy, @ChangeTime )
+
+select @@identity as ReceiveBankID
+";
+            if(args.DBType==1)
+            {
+                strSQL = @"
+insert into dbo.DbReceiveBank( BankCode,BankName,ChangeBy,ChangeTime )
 values(@BankCode,  @BankName, @ChangeBy, @ChangeTime );
 
 select last_insert_rowid() as ReceiveBankID;
 ";
+            }
             DBHelper.ExecuteNonQuery(args, System.Data.CommandType.Text, strSQL, parms, false);
             ReceiveBankID.Value = Convert.ToInt64(parms["ReceiveBankID"].Value);
         }
@@ -73,7 +82,15 @@ where ReceiveBankID = @ReceiveBankID
     from dbo.DbReceiveBank
     order by BankCode desc limit 1
 ";
-            DBHelper.ExecuteNonQuery(args, System.Data.CommandType.Text, strSQL, parms, false);
+            if (args.DBType == 1)
+            {
+                strSQL = @"
+    select top 1 BankCode as MaxCode
+    from dbo.DbReceiveBank
+    order by BankCode desc
+";
+            }
+                DBHelper.ExecuteNonQuery(args, System.Data.CommandType.Text, strSQL, parms, false);
             MaxCode.SetValueWithObject(parms["MaxCode"].Value);
         }
 

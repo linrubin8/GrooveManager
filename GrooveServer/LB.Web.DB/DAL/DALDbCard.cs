@@ -85,7 +85,8 @@ where CardID = @CardID
 
         public void CardConfig(FactoryArgs args, t_String ReadCardSerialCOM, t_String WriteCardSerialCOM,
             t_ID ReadCardBaud, t_String MachineName,
-            t_ID UseReadCard, t_ID UseWriteCard)
+            t_ID UseReadCard, t_ID UseWriteCard,
+            t_ID ConnectType, t_String IPAddress, t_ID IPPort)
         {
             LBDbParameterCollection parms = new LBDbParameterCollection();
             parms.Add(new LBDbParameter("ReadCardSerialCOM", ReadCardSerialCOM));
@@ -94,6 +95,9 @@ where CardID = @CardID
             parms.Add(new LBDbParameter("MachineName", MachineName));
             parms.Add(new LBDbParameter("UseReadCard", UseReadCard));
             parms.Add(new LBDbParameter("UseWriteCard", UseWriteCard));
+            parms.Add(new LBDbParameter("ConnectType", ConnectType));
+            parms.Add(new LBDbParameter("IPAddress", IPAddress));
+            parms.Add(new LBDbParameter("IPPort", IPPort));
 
             string strSQL = @"
 select 1 from DbCardConfig where rtrim(MachineName)=rtrim(@MachineName)
@@ -108,14 +112,18 @@ set ReadCardSerialCOM = @ReadCardSerialCOM,
     WriteCardSerialCOM = @WriteCardSerialCOM,
     ReadCardBaud = @ReadCardBaud,
     UseReadCard = @UseReadCard,
-    UseWriteCard = @UseWriteCard
+    UseWriteCard = @UseWriteCard,
+    ConnectType = @ConnectType,
+    IPAddress = @IPAddress,
+    IPPort = @IPPort
 where rtrim(MachineName)=rtrim(@MachineName)";
                 }
                 else
                 {
                     strSQL = @"
-insert into  DbCardConfig(ReadCardSerialCOM,WriteCardSerialCOM,ReadCardBaud,MachineName)
-values(@ReadCardSerialCOM,@WriteCardSerialCOM,@ReadCardBaud,@MachineName)";
+insert into  DbCardConfig(ReadCardSerialCOM,WriteCardSerialCOM,ReadCardBaud,MachineName,
+    ConnectType,IPAddress,IPPort)
+values(@ReadCardSerialCOM,@WriteCardSerialCOM,@ReadCardBaud,@MachineName,@ConnectType,@IPAddress,@IPPort)";
                 }
                 DBHelper.ExecuteNonQuery(args, System.Data.CommandType.Text, strSQL, parms, false);
             }

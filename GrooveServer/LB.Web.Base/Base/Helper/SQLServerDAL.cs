@@ -542,100 +542,104 @@ namespace LB.Web.Base.Helper
         }
         #endregion
 
-        //public static void ExecuteProcedure(string strProcName,DataTable dtParmValue,out DataTable dtOut,out DataSet dsReturn)
-        //{
-        //    dsReturn = new DataSet();
-        //    dtOut = null;
-        //    IDataParameter[] parms = GetProcedureParam(strProcName);
-        //    if (parms.Length == 0)
-        //    {
-        //        throw new Exception("存储过程名称[" + strProcName + "]不存在！");
-        //    }
-        //    using (SQLiteConnection conn = new SQLiteConnection(GetConnectionString))
-        //    {
-        //        int iTableIndex = 1;
-        //        conn.Open();
-        //        foreach (DataRow drParmValue in dtParmValue.Rows)
-        //        {
-        //            SQLiteDataAdapter sqlDA = new SQLiteDataAdapter();
-        //            SQLiteCommand command = new SQLiteCommand(strProcName, conn);
-        //            command.CommandType = CommandType.StoredProcedure;
-        //            sqlDA.SelectCommand = command;
-        //            try
-        //            {
-        //                foreach (IDataParameter parm in parms)
-        //                {
-        //                    SQLiteParameter tmp_param = parm as SQLiteParameter;
-        //                    string strParmName = parm.ParameterName.Substring(1, parm.ParameterName.Length - 1);
-        //                    SQLiteParameter param = new SQLiteParameter(strParmName, tmp_param.SqlDbType, tmp_param.Size);
-        //                    param.Direction = parm.Direction;
-        //                    if (dtParmValue.Columns.Contains(strParmName))
-        //                    {
-        //                        param.Value = drParmValue[strParmName];
-        //                    }
+        #region -- sqlserver --
 
-        //                    if (parm.Direction == ParameterDirection.Output ||
-        //                        parm.Direction == ParameterDirection.InputOutput)
-        //                    {
-        //                        if(dtOut==null)
-        //                            dtOut = new DataTable("OUT");
+        public static void ExecuteProcedure(string strProcName, DataTable dtParmValue, out DataTable dtOut, out DataSet dsReturn)
+        {
+            dsReturn = new DataSet();
+            dtOut = null;
+            IDataParameter[] parms = GetProcedureParam(strProcName);
+            if (parms.Length == 0)
+            {
+                throw new Exception("存储过程名称[" + strProcName + "]不存在！");
+            }
+            using (SQLiteConnection conn = new SQLiteConnection(GetConnectionString))
+            {
+                int iTableIndex = 1;
+                conn.Open();
+                foreach (DataRow drParmValue in dtParmValue.Rows)
+                {
+                    SQLiteDataAdapter sqlDA = new SQLiteDataAdapter();
+                    SQLiteCommand command = new SQLiteCommand(strProcName, conn);
+                    command.CommandType = CommandType.StoredProcedure;
+                    sqlDA.SelectCommand = command;
+                    try
+                    {
+                        foreach (IDataParameter parm in parms)
+                        {
+                            SQLiteParameter tmp_param = parm as SQLiteParameter;
+                            string strParmName = parm.ParameterName.Substring(1, parm.ParameterName.Length - 1);
+                            SQLiteParameter param = new SQLiteParameter(strParmName, tmp_param.DbType, tmp_param.Size);
+                            param.Direction = parm.Direction;
+                            if (dtParmValue.Columns.Contains(strParmName))
+                            {
+                                param.Value = drParmValue[strParmName];
+                            }
 
-        //                        if (!dtOut.Columns.Contains(param.ParameterName))
-        //                            dtOut.Columns.Add(param.ParameterName,typeof(string));
-        //                    }
+                            if (parm.Direction == ParameterDirection.Output ||
+                                parm.Direction == ParameterDirection.InputOutput)
+                            {
+                                if (dtOut == null)
+                                    dtOut = new DataTable("OUT");
 
-        //                    command.Parameters.Add(param);
-        //                }
-        //                sqlDA.Fill(dsReturn, "Return" + iTableIndex);
-        //                foreach (SqlParameter param in command.Parameters)
-        //                {
-        //                    if (param.Direction == ParameterDirection.InputOutput ||
-        //                        param.Direction == ParameterDirection.Output)
-        //                    {
-        //                        string strParmName = param.ParameterName;
-        //                        if (dtParmValue.Columns.Contains(strParmName))
-        //                        {
-        //                            DataRow drOut = dtOut.NewRow();
-        //                            drOut[param.ParameterName] = param.Value;
-        //                            dtOut.Rows.Add(drOut);
-        //                        }
-        //                    }
-        //                }
-        //            }
-        //            catch (System.Data.SqlClient.SqlException E)
-        //            {
-        //                throw new Exception(E.Message);
-        //            }
-        //        }
-        //    }
-        //}
+                                if (!dtOut.Columns.Contains(param.ParameterName))
+                                    dtOut.Columns.Add(param.ParameterName, typeof(string));
+                            }
 
-//        private static IDataParameter[] GetProcedureParam(string strProcedureName)
-//        {
-//            List<IDataParameter> lstParam = new List<IDataParameter>();
-//            //IDataParameter[] parameters = null;
-//            string strSQL = @"
-//SELECT syscolumns.name,syscolumns.status,systypes.name as datatype,syscolumns.isnullable,syscolumns.length 
-//FROM syscolumns, systypes 
-//WHERE syscolumns.xusertype = systypes.xusertype AND syscolumns.id = object_id('" + strProcedureName + "')  ";
-//            DataTable dtProcedute = Query(strSQL);
-//            foreach (DataRow dr in dtProcedute.Rows)
-//            {
-//                string strFieldName = dr["name"].ToString().TrimEnd();
-//                string strDatatype = dr["datatype"].ToString().TrimEnd();
-//                string strIsnullable = dr["isnullable"].ToString().TrimEnd();
-//                int istatus =Convert.ToInt32( dr["status"]);
-//                int iLength = Convert.ToInt32(dr["length"]);
+                            command.Parameters.Add(param);
+                        }
+                        sqlDA.Fill(dsReturn, "Return" + iTableIndex);
+                        foreach (SqlParameter param in command.Parameters)
+                        {
+                            if (param.Direction == ParameterDirection.InputOutput ||
+                                param.Direction == ParameterDirection.Output)
+                            {
+                                string strParmName = param.ParameterName;
+                                if (dtParmValue.Columns.Contains(strParmName))
+                                {
+                                    DataRow drOut = dtOut.NewRow();
+                                    drOut[param.ParameterName] = param.Value;
+                                    dtOut.Rows.Add(drOut);
+                                }
+                            }
+                        }
+                    }
+                    catch (System.Data.SqlClient.SqlException E)
+                    {
+                        throw new Exception(E.Message);
+                    }
+                }
+            }
+        }
 
-//                SqlParameter param = new SqlParameter(strFieldName, GetSqlDbType(strDatatype), iLength);
-//                if (istatus == 72)
-//                {
-//                    param.Direction = ParameterDirection.InputOutput;
-//                }
-//                lstParam.Add(param);
-//            }
-//            return lstParam.ToArray();
-//        }
+        private static IDataParameter[] GetProcedureParam(string strProcedureName)
+        {
+            List<IDataParameter> lstParam = new List<IDataParameter>();
+            //IDataParameter[] parameters = null;
+            string strSQL = @"
+        SELECT syscolumns.name,syscolumns.status,systypes.name as datatype,syscolumns.isnullable,syscolumns.length 
+        FROM syscolumns, systypes 
+        WHERE syscolumns.xusertype = systypes.xusertype AND syscolumns.id = object_id('" + strProcedureName + "')  ";
+            DataTable dtProcedute = Query(strSQL);
+            foreach (DataRow dr in dtProcedute.Rows)
+            {
+                string strFieldName = dr["name"].ToString().TrimEnd();
+                string strDatatype = dr["datatype"].ToString().TrimEnd();
+                string strIsnullable = dr["isnullable"].ToString().TrimEnd();
+                int istatus = Convert.ToInt32(dr["status"]);
+                int iLength = Convert.ToInt32(dr["length"]);
+
+                SqlParameter param = new SqlParameter(strFieldName, GetSqlDbType(strDatatype), iLength);
+                if (istatus == 72)
+                {
+                    param.Direction = ParameterDirection.InputOutput;
+                }
+                lstParam.Add(param);
+            }
+            return lstParam.ToArray();
+        }
+
+        #endregion -- sqlserver --
 
         private static SqlDbType GetSqlDbType(string strSQLType)
         {

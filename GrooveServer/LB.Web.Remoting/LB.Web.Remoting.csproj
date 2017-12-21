@@ -49,6 +49,7 @@
     <Compile Include="Remoting\ClientHelper.cs" />
     <Compile Include="Remoting\Factory\LBFactory.cs" />
     <Compile Include="Remoting\WebRemoting.cs" />
+    <Compile Include="Remoting\WebRemotingSQLServer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LB.Web.Base\LB.Web.Base.csproj">

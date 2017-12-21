@@ -97,17 +97,17 @@ else
 			}
 		}
 
-		#region -- InitSettings --
+        #region -- InitSettings --
 
-		//public const string MC_strConnection = "server={0};database={1};Integrated Security=True;";
-  //      public const string MC_strConnectionByUser = "server={0};database={1};User ID={2};Password={3};";
+        public const string MC_strConnection = "server={0};database={1};Integrated Security=True;";
+        public const string MC_strConnectionByUser = "server={0};database={1};User ID={2};Password={3};";
 
-		#region -- 配置值 --
+        #region -- 配置值 --
 
-		private static int miCommandTimeout;
-		//private static string mstrUserID = "";
-		//private static string mstrPassword = "";
-		private static string mstrDBPath = "";
+        private static int miCommandTimeout;
+        private static string mstrUserID = "";
+        private static string mstrPassword = "";
+        private static string mstrDBPath = "";
 		private static string mstrCtrlDBName = "";
 		private static bool mbLoginSecure = false;
 
@@ -119,23 +119,23 @@ else
 			}
 		}
 
-		//private static string UserID
-		//{
-		//	get
-		//	{
-		//		return mstrUserID;
-		//	}
-		//}
+        private static string UserID
+        {
+            get
+            {
+                return mstrUserID;
+            }
+        }
 
-		//private static string Password
-		//{
-		//	get
-		//	{
-		//		return mstrPassword;
-		//	}
-		//}
+        private static string Password
+        {
+            get
+            {
+                return mstrPassword;
+            }
+        }
 
-		private static string DBPath
+        private static string DBPath
 		{
 			get
 			{
@@ -151,13 +151,13 @@ else
             }
         }
 
-        //private static bool LoginSecure
-        //{
-        //	get
-        //	{
-        //		return mbLoginSecure;
-        //	}
-        //}
+        private static bool LoginSecure
+        {
+            get
+            {
+                return mbLoginSecure;
+            }
+        }
 
         public static void InitSettings(
 			int commandTimeout, string dbPath,string strCtrlDBName)
@@ -170,21 +170,32 @@ else
             mstrCtrlDBName = strCtrlDBName;
 		}
 
-		#endregion -- 配置值 --
+        public static void InitSettings(
+            int commandTimeout, string dbPath, string strCtrlDBName,bool bLoginSecure,string strUser,string strPassword)
+        {
+            miCommandTimeout = commandTimeout;
+            mstrDBPath = dbPath;
+            mbLoginSecure = bLoginSecure;
+            mstrUserID = strUser;
+            mstrPassword = strPassword;
+            mstrCtrlDBName = strCtrlDBName;
+        }
 
-		private static string GetConnectString( string dbPath, string dbName )
+        #endregion -- 配置值 --
+
+        private static string GetConnectString( string dbPath, string dbName )
 		{
-			//string strResult = "";
-			//if( LoginSecure )
-			//{
-			//	strResult = string.Format( MC_strConnection, dbPath, dbName );
-			//}
-			//else
-			//{
-			//	strResult = string.Format( MC_strConnectionByUser, dbPath, dbName, UserID, Password );
-			//}
+            string strResult = "";
+            if (LoginSecure)
+            {
+                strResult = string.Format(MC_strConnection, dbPath, dbName);
+            }
+            else
+            {
+                strResult = string.Format(MC_strConnectionByUser, dbPath, dbName, UserID, Password);
+            }
 
-   //         LogHelper.WriteLog(strResult);
+            LogHelper.WriteLog(strResult);
 
 
             return "Data Source=" + Path.Combine(dbPath, dbName);

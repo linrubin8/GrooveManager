@@ -27,6 +27,9 @@ namespace LB.Common
         private static int _PreReadCardLinesCount = 0;
 
         private static string _Com="";
+        private static string _NetIPAddress = "";
+        private static int _NetPort = 0;
+        private static bool _IsUseNet = false;
 
         private static Thread mThread = null;
         //public static List<CardInfo> LstCardCode = new List<CardInfo>();
@@ -38,6 +41,42 @@ namespace LB.Common
             get
             {
                 return _Com;
+            }
+        }
+
+        public static string NetIPAddress
+        {
+            get
+            {
+                return _NetIPAddress;
+            }
+            set
+            {
+                _NetIPAddress = value;
+            }
+        }
+
+        public static int NetPort
+        {
+            get
+            {
+                return _NetPort;
+            }
+            set
+            {
+                _NetPort = value;
+            }
+        }
+
+        public static bool IsUseNet
+        {
+            get
+            {
+                return _IsUseNet;
+            }
+            set
+            {
+                _IsUseNet = value;
             }
         }
 
@@ -61,6 +100,9 @@ namespace LB.Common
                     {
                         _Com = dtDesc.Rows[0]["ReadCardSerialCOM"].ToString().TrimEnd();
                         IsUseReadCard = LBConverter.ToBoolean(dtDesc.Rows[0]["UseReadCard"]);
+                        _IsUseNet = LBConverter.ToInt32(dtDesc.Rows[0]["ConnectType"].ToString().TrimEnd()) == 1 ? true : false;
+                        _NetIPAddress = dtDesc.Rows[0]["IPAddress"].ToString().TrimEnd();
+                        _NetPort = LBConverter.ToInt32(dtDesc.Rows[0]["IPPort"].ToString().TrimEnd());
                     }
                     else
                     {
@@ -207,7 +249,15 @@ namespace LB.Common
                 fBaud = Convert.ToByte(i);
                 if (fBaud == 3)
                     continue;
-                openresult = StaticClassReaderB.OpenComPort(port, ref fComAdr, fBaud, ref frmcomportindex);
+
+                if (!_IsUseNet)
+                {
+                    openresult = StaticClassReaderB.OpenComPort(port, ref fComAdr, fBaud, ref frmcomportindex);
+                }
+                else
+                {
+                    openresult = StaticClassReaderB.OpenNetPort(_NetPort, _NetIPAddress, ref fComAdr, ref frmcomportindex);
+                }
                 
                 fOpenComIndex = frmcomportindex;
                 if (openresult == 0x35)
@@ -250,7 +300,11 @@ namespace LB.Common
             {
                 if (frmcomportindex > 0)
                 {
-                    StaticClassReaderB.CloseSpecComPort(frmcomportindex);
+                    if(_IsUseNet)
+                        StaticClassReaderB.CloseNetPort(frmcomportindex);
+                    else
+                        StaticClassReaderB.CloseSpecComPort(frmcomportindex);
+                    
                     COMIsOpen = false;
                 }
             }
