@@ -27,6 +27,15 @@ values( @WeightDeviceType, @MachineName,@SerialName);
 select last_insert_rowid() as WeightDeviceUserTypeID;
 
 ";
+            if (args.DBType == 1)
+            {
+                strSQL = @"
+insert into dbo.DbWeightDeviceUserType( WeightDeviceType,MachineName,SerialName )
+values( @WeightDeviceType, @MachineName,@SerialName)
+
+select @@identity as WeightDeviceUserTypeID
+";
+            }
             DBHelper.ExecuteNonQuery(args, System.Data.CommandType.Text, strSQL, parms, false);
             WeightDeviceUserTypeID.SetValueWithObject(parms["WeightDeviceUserTypeID"].Value);
         }

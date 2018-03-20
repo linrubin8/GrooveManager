@@ -33,6 +33,15 @@ values( @MachineName,@SerialName,
 
 
 ";
+            if (args.DBType == 1)
+            {
+                strSQL = @"
+insert into dbo.DbInfraredDeviceConfig( MachineName,SerialName,
+    HeaderXType,TailXType,SuccessYType,FailYType,IsHeaderEffect,IsTailEffect,IsAlermEffect )
+values( @MachineName,@SerialName,
+    @HeaderXType,@TailXType,@SuccessYType,@FailYType,@IsHeaderEffect,@IsTailEffect,@IsAlermEffect)
+";
+            }
             DBHelper.ExecuteNonQuery(args, System.Data.CommandType.Text, strSQL, parms, false);
         }
 

@@ -24,6 +24,15 @@ values(@ReportViewName,@ReportDataSource);
 
 select last_insert_rowid() as ReportViewID;
 ";
+            if (args.DBType == 1)
+            {
+                strSQL = @"
+insert dbo.DbReportView( ReportViewName,ReportDataSource)
+values(@ReportViewName,@ReportDataSource)
+
+select @@identity as ReportViewID
+";
+            }
             DBHelper.ExecuteNonQuery(args, System.Data.CommandType.Text, strSQL, parms, false);
             ReportViewID.SetValueWithObject(parms["ReportViewID"].Value);
         }
@@ -55,6 +64,16 @@ where ReportViewID = @ReportViewID;
 delete dbo.DbReportView
 where ReportViewID = @ReportViewID
 ";
+            if (args.DBType == 1)
+            {
+                strSQL = @"
+delete dbo.DbReportViewField
+where ReportViewID = @ReportViewID
+
+delete dbo.DbReportView
+where ReportViewID = @ReportViewID
+";
+            }
             DBHelper.ExecuteNonQuery(args, System.Data.CommandType.Text, strSQL, parms, false);
         }
 
@@ -74,6 +93,15 @@ values(@ReportViewID,@FieldName,@FieldType,@FieldText);
 
 select last_insert_rowid() as ReportViewFieldID;
 ";
+            if (args.DBType == 1)
+            {
+                strSQL = @"
+insert dbo.DbReportViewField( ReportViewID,FieldName,FieldType,FieldText)
+values(@ReportViewID,@FieldName,@FieldType,@FieldText)
+
+select @@identity as ReportViewFieldID
+";
+            }
             DBHelper.ExecuteNonQuery(args, System.Data.CommandType.Text, strSQL, parms, false);
             ReportViewFieldID.SetValueWithObject(parms["ReportViewFieldID"].Value);
         }

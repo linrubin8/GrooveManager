@@ -25,6 +25,15 @@ values( @CardCode, @CardName,@ChangeBy,datetime('now','localtime'));
 
 select last_insert_rowid() as CardID;
 ";
+            if (args.DBType == 1)
+            {
+                strSQL = @"
+insert into DbCard( CardCode, CardName, ChangeBy, ChangeTime)
+values( @CardCode, @CardName,@ChangeBy,getdate()
+
+select @@identity as CardID
+";
+            }
             DBHelper.ExecuteNonQuery(args, System.Data.CommandType.Text, strSQL, parms, false);
             CardID.Value = Convert.ToInt64(parms["CardID"].Value);
         }
@@ -45,6 +54,17 @@ set CardCode = @CardCode,
     ChangeTime = datetime('now','localtime')
 where CardID = @CardID
 ";
+            if (args.DBType == 1)
+            {
+                strSQL = @"
+update DbCard
+set CardCode = @CardCode,
+    CardName = @CardName,
+    ChangeBy= @ChangeBy,
+    ChangeTime = getdate()
+where CardID = @CardID
+";
+            }
             DBHelper.ExecuteNonQuery(args, System.Data.CommandType.Text, strSQL, parms, false);
         }
 

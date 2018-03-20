@@ -24,6 +24,15 @@ values( @SysViewType, @SysViewName)
 
 select last_insert_rowid() as SysViewTypeID;
 ";
+            if (args.DBType == 1)
+            {
+                strSQL = @"
+insert into dbo.SysViewType( SysViewType, SysViewName)
+values( @SysViewType, @SysViewName)
+
+select @@identity as SysViewTypeID
+";
+            }
             DBHelper.ExecuteNonQuery(args, System.Data.CommandType.Text, strSQL, parms, false);
             SysViewTypeID.SetValueWithObject( Convert.ToInt64(parms["SysViewTypeID"].Value));
         }

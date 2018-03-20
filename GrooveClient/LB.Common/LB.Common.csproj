@@ -78,9 +78,9 @@
     <Compile Include="Common\Camera\ViewCamera.Designer.cs">
       <DependentUpon>ViewCamera.cs</DependentUpon>
     </Compile>
+    <Compile Include="Common\CHCNetSDK.cs" />
     <Compile Include="Common\CommonHelper.cs" />
     <Compile Include="Common\Enum\EnumHelper.cs" />
-    <Compile Include="Common\HikSDK.cs" />
     <Compile Include="Common\LBCardHelper.cs" />
     <Compile Include="Common\LBConst.cs" />
     <Compile Include="Common\LBConverter.cs" />

@@ -33,6 +33,15 @@ from dbo.SaleCarOutBill
 where SaleCarOutBillCode like '" + strBillFont + @"%'
 order by SaleCarOutBillCode desc limit 1
 ";
+            if (args.DBType == 1)
+            {
+                strSQL = @"
+select top 1 SaleCarOutBillCode
+from dbo.SaleCarOutBill
+where SaleCarOutBillCode like '" + strBillFont + @"%'
+order by SaleCarOutBillCode desc
+";
+            }
             return DBHelper.ExecuteQuery(args, strSQL);
         }
 
@@ -45,6 +54,15 @@ from dbo.SaleCarInBill
 where SaleCarInBillCode like '" + strBillFont + @"%'
 order by SaleCarInBillCode desc limit 1
 ";
+            if (args.DBType == 1)
+            {
+                strSQL = @"
+select top 1 SaleCarInBillCode
+from dbo.SaleCarInBill
+where SaleCarInBillCode like '" + strBillFont + @"%'
+order by SaleCarInBillCode desc
+";
+            }
             return DBHelper.ExecuteQuery(args, strSQL);
         }
 
@@ -77,6 +95,19 @@ values( @SaleCarInBillCode, @CarID,0,
 
 select last_insert_rowid() as SaleCarInBillID;
 ";
+            if (args.DBType == 1)
+            {
+                strSQL = @"
+insert into dbo.SaleCarInBill(  SaleCarInBillCode, CarID,PrintCount,
+            ItemID, BillDate, BillStatus, CarTare, SupplierID,Description,
+            IsCancel, CreateBy, CreateTime,CancelByDate,CardCode,TotalWeight,SuttleWeight)
+values( @SaleCarInBillCode, @CarID,0,
+        @ItemID, @BillDate, 1, @CarTare, @SupplierID,@Description,
+        0,@CreateBy,@BillDate,getdate(),@CardCode,@TotalWeight,@SuttleWeight)
+
+select @@identity as SaleCarInBillID
+";
+            }
             DBHelper.ExecuteNonQuery(args, System.Data.CommandType.Text, strSQL, parms, false);
             SaleCarInBillID.Value = Convert.ToInt64(parms["SaleCarInBillID"].Value);
         }

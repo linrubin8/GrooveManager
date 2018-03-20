@@ -524,5 +524,11 @@ from {1}
             
            
         }
+
+        public void ReadRegister(out bool IsRegister, out DateTime DeadLine)
+        {
+            IsRegister = LB.Web.Encrypt.LBEncrypt.IsRegister;
+            DeadLine = LB.Web.Encrypt.LBEncrypt.DeadLine;
+        }
     }
 }

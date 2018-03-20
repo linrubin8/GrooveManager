@@ -22,6 +22,15 @@ values( datetime('now','localtime'),0);
 
 select last_insert_rowid() as WeightLogID;
 ";
+            if (args.DBType == 1)
+            {
+                strSQL = @"
+insert into SalesCarWeightLog(  InWeightTime,CarWeightStatus)
+values(getdate(),0)
+
+select @@identity as WeightLogID
+";
+            }
             DBHelper.ExecuteNonQuery(args, System.Data.CommandType.Text, strSQL, parms, false);
             WeightLogID.Value = Convert.ToInt64(parms["WeightLogID"].Value);
         }
@@ -37,6 +46,15 @@ set SteadyWeightTime = datetime('now','localtime'),
     CarWeightStatus = 1
 where WeightLogID = @WeightLogID;
 ";
+            if (args.DBType == 1)
+            {
+                strSQL = @"
+update SalesCarWeightLog
+set SteadyWeightTime = getdate(),
+    CarWeightStatus = 1
+where WeightLogID = @WeightLogID
+";
+            }
             DBHelper.ExecuteNonQuery(args, System.Data.CommandType.Text, strSQL, parms, false);
         }
 
@@ -51,6 +69,15 @@ set OutWeightTime = datetime('now','localtime'),
     CarWeightStatus = 2
 where WeightLogID = @WeightLogID;
 ";
+            if (args.DBType == 1)
+            {
+                strSQL = @"
+update SalesCarWeightLog
+set OutWeightTime = getdate(),
+    CarWeightStatus = 2
+where WeightLogID = @WeightLogID
+";
+            }
             DBHelper.ExecuteNonQuery(args, System.Data.CommandType.Text, strSQL, parms, false);
         }
 

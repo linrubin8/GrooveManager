@@ -25,5 +25,7 @@ namespace LB.Web.IRemoting
         DataTable ReadClientFileInfo();
 
         void ReadFileByte(string strFileFullName, int iPosition, int iMaxLength, out byte[] bSplitFile);
+
+        void ReadRegister(out bool IsRegister, out DateTime DeadLine);
     }
 }

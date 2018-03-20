@@ -35,6 +35,17 @@ values( @BackUpType, @BackUpWeek, @BackUpHour, @BackUpMinu, @IsEffect,
 select last_insert_rowid() as BackUpConfigID;
 
 ";
+            if (args.DBType == 1)
+            {
+                strSQL = @"
+insert into dbo.DbBackUpConfig( BackUpType, BackUpWeek, BackUpHour, BackUpMinu, IsEffect, 
+BackUpFileMaxNum, ChangedBy, ChangedTime, BackUpPath, BackUpName)
+values( @BackUpType, @BackUpWeek, @BackUpHour, @BackUpMinu, @IsEffect, 
+@BackUpFileMaxNum, @ChangedBy, getdate(), @BackUpPath, @BackUpName)
+
+select @@identity as BackUpConfigID
+";
+            }
             DBHelper.ExecuteNonQuery(args, System.Data.CommandType.Text, strSQL, parms, false);
             BackUpConfigID.SetValueWithObject(parms["BackUpConfigID"].Value);
         }
@@ -69,6 +80,23 @@ set BackUpType=@BackUpType,
     BackUpName=@BackUpName
 where BackUpConfigID = @BackUpConfigID
 ";
+            if (args.DBType == 1)
+            {
+                strSQL = @"
+update dbo.DbBackUpConfig
+set BackUpType=@BackUpType,
+    BackUpWeek=@BackUpWeek,
+    BackUpHour=@BackUpHour,
+    BackUpMinu=@BackUpMinu,
+    IsEffect=@IsEffect,
+    BackUpFileMaxNum=@BackUpFileMaxNum,
+    ChangedBy=@ChangedBy,
+    ChangedTime=getdate(),
+    BackUpPath=@BackUpPath,
+    BackUpName=@BackUpName
+where BackUpConfigID = @BackUpConfigID
+";
+            }
             DBHelper.ExecuteNonQuery(args, System.Data.CommandType.Text, strSQL, parms, false);
         }
 

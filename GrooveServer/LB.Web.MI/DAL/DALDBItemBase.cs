@@ -37,6 +37,17 @@ values( @ItemTypeID, @ItemCode, @ItemName, @ItemMode, @ItemRate, @UOMID, @Descri
 
 select last_insert_rowid() as ItemID;
 ";
+            if (args.DBType == 1)
+            {
+                strSQL = @"
+insert into dbo.DbItemBase( ItemTypeID, ItemCode, ItemName, ItemMode, ItemRate, UOMID, Description, 
+IsForbid, ChangeBy, ChangeTime,ItemPrice)
+values( @ItemTypeID, @ItemCode, @ItemName, @ItemMode, @ItemRate, @UOMID, @Description, 
+@IsForbid, @ChangeBy, @ChangeTime,@ItemPrice)
+
+select @@identity as ItemID
+";
+            }
             DBHelper.ExecuteNonQuery(args, System.Data.CommandType.Text, strSQL, parms, false);
             ItemID.Value = Convert.ToInt64(parms["ItemID"].Value);
         }
@@ -98,6 +109,14 @@ where ItemID = @ItemID
     from dbo.DbItemBase
     order by ItemCode desc limit 1
 ";
+            if (args.DBType == 1)
+            {
+                strSQL = @"
+select top 1 ItemCode as MaxCode
+    from dbo.DbItemBase
+    order by ItemCode desc
+";
+            }
             DBHelper.ExecuteNonQuery(args, System.Data.CommandType.Text, strSQL, parms, false);
             MaxCode.SetValueWithObject(parms["MaxCode"].Value);
         }

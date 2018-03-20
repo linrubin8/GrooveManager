@@ -32,7 +32,16 @@ from dbo.DbPermissionData d
     inner join dbo.DbPermission p on
         p.PermissionID = d.PermissionID
 where PermissionCode = @PermissionCode limit 1";
-
+            if (args.DBType == 1)
+            {
+                strSQL = @"
+select top 1 d.PermissionID,d.PermissionDataName,p.PermissionName,d.PermissionDataID
+from dbo.DbPermissionData d
+    inner join dbo.DbPermission p on
+        p.PermissionID = d.PermissionID
+where PermissionCode = @PermissionCode
+";
+            }
             DataTable dtReturn = DBHelper.ExecuteQuery(args, strSQL, parms);
 
             if (dtReturn.Rows.Count > 0)
@@ -281,6 +290,17 @@ values(@PermissionID, @PermissionCode, @PermissionDataName, @PermissionType, @Pe
 
 select last_insert_rowid() as PermissionDataID;
 ";
+            if (args.DBType == 1)
+            {
+                strSQL = @"
+insert into dbo.DbPermissionData(PermissionID, PermissionCode, PermissionDataName, PermissionType, 
+PermissionSPType, PermissionViewType, LogFieldName,DetailIndex, Forbid)
+values(@PermissionID, @PermissionCode, @PermissionDataName, @PermissionType, @PermissionSPType,
+@PermissionViewType,@LogFieldName,@DetailIndex, @Forbid)
+
+select @@identity as PermissionDataID
+";
+            }
             DBHelper.ExecuteNonQuery(args, System.Data.CommandType.Text, strSQL, parms, false);
             PermissionDataID.SetValueWithObject(parms["PermissionDataID"].Value);
         }

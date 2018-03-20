@@ -59,6 +59,19 @@ values(@CustomerCode, @CustomerName, @Contact, @Phone, @Address, @CarIsLimit, @A
 
 select last_insert_rowid() as CustomerID;
 ";
+            if (args.DBType == 1)
+            {
+                strSQL = @"
+insert into dbo.DbCustomer(CustomerCode,CustomerName, Contact, Phone, Address, CarIsLimit, AmountType, LicenceNum, 
+    Description, IsForbid, ReceiveType, CreditAmount, IsDisplayPrice, IsDisplayAmount, IsPrintAmount, IsAllowOverFul, 
+    CreateBy, CreateTime, ChangeBy, ChangeTime,IsAllowEmptyIn)
+values(@CustomerCode, @CustomerName, @Contact, @Phone, @Address, @CarIsLimit, @AmountType, @LicenceNum, 
+    @Description, @IsForbid, @ReceiveType, @CreditAmount, @IsDisplayPrice, @IsDisplayAmount, @IsPrintAmount, @IsAllowOverFul, 
+    @CreateBy, @CreateTime, @ChangeBy, @ChangeTime,@IsAllowEmptyIn)
+
+select @@identity as CustomerID
+";
+            }
             DBHelper.ExecuteNonQuery(args, System.Data.CommandType.Text, strSQL, parms, false);
             CustomerID.Value = Convert.ToInt64(parms["CustomerID"].Value);
         }
@@ -145,6 +158,14 @@ where CustomerID = @CustomerID
     from dbo.DbCustomer
     order by CustomerCode desc limit 1
 ";
+            if (args.DBType == 1)
+            {
+                strSQL = @"
+select top1 CustomerCode as MaxCode
+    from dbo.DbCustomer
+    order by CustomerCode desc
+";
+            }
             DBHelper.ExecuteNonQuery(args, System.Data.CommandType.Text, strSQL, parms, false);
             MaxCode.SetValueWithObject(parms["MaxCode"].Value);
         }

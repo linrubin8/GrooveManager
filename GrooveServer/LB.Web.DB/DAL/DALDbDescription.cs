@@ -26,6 +26,15 @@ values( @Description, @ChangedBy, datetime('now','localtime'));
 select last_insert_rowid() as DescriptionID;
 
 ";
+            if (args.DBType == 1)
+            {
+                strSQL = @"
+insert into dbo.DbDescription( Description,ChangedBy, ChangeTime)
+values( @Description, @ChangedBy, getdate())
+
+select @@identity as DescriptionID
+";
+            }
             DBHelper.ExecuteNonQuery(args, System.Data.CommandType.Text, strSQL, parms, false);
             DescriptionID.SetValueWithObject(parms["DescriptionID"].Value);
         }
@@ -46,6 +55,16 @@ set Description=@Description,
 where DescriptionID = @DescriptionID
 
 ";
+            if (args.DBType == 1)
+            {
+                strSQL = @"
+update dbo.DbDescription
+set Description=@Description,   
+    ChangedBy=@ChangedBy,  
+    ChangeTime=getdate()
+where DescriptionID = @DescriptionID
+";
+            }
             DBHelper.ExecuteNonQuery(args, System.Data.CommandType.Text, strSQL, parms, false);
         }
 

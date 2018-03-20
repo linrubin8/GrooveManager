@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LB.Web.SM", "..\LB.Web.SM\L
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LB.Web.IBLL", "..\LB.Web.IBLL\LB.Web.IBLL.csproj", "{DF0FFE8C-33B4-46FE-85A1-44689EC20F01}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LB.Web.Encrypt", "..\LB.Web.Encrypt\LB.Web.Encrypt.csproj", "{CDF00A86-5BFA-4B80-AA97-FB96AD59FDE8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,47 +65,12 @@ Global
 		{DF0FFE8C-33B4-46FE-85A1-44689EC20F01}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF0FFE8C-33B4-46FE-85A1-44689EC20F01}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF0FFE8C-33B4-46FE-85A1-44689EC20F01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDF00A86-5BFA-4B80-AA97-FB96AD59FDE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDF00A86-5BFA-4B80-AA97-FB96AD59FDE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDF00A86-5BFA-4B80-AA97-FB96AD59FDE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDF00A86-5BFA-4B80-AA97-FB96AD59FDE8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(SourceCodeControl) = preSolution
-		SccNumberOfProjects = 9
-		SccProjectUniqueName0 = ..\\LB.Web.Base\\LB.Web.Base.csproj
-		SccProjectName0 = \u0022$/GrooveManager/GrooveServer/LB.Web.Base\u0022,\u0020ECCAAAAA
-		SccLocalPath0 = ..\\LB.Web.Base
-		SccProvider0 = MSSCCI:Microsoft\u0020Visual\u0020SourceSafe
-		SccProjectUniqueName1 = ..\\LB.Web.Contants\\LB.Web.Contants.csproj
-		SccProjectName1 = \u0022$/GrooveManager/GrooveServer/LB.Web.Contants\u0022,\u0020DDCAAAAA
-		SccLocalPath1 = ..\\LB.Web.Contants
-		SccProvider1 = MSSCCI:Microsoft\u0020Visual\u0020SourceSafe
-		SccProjectUniqueName2 = ..\\LB.Web.DB\\LB.Web.DB.csproj
-		SccProjectName2 = \u0022$/GrooveManager/GrooveServer/LB.Web.DB\u0022,\u0020YDCAAAAA
-		SccLocalPath2 = ..\\LB.Web.DB
-		SccProvider2 = MSSCCI:Microsoft\u0020Visual\u0020SourceSafe
-		SccProjectUniqueName3 = ..\\LB.Web.IBLL\\LB.Web.IBLL.csproj
-		SccProjectName3 = \u0022$/GrooveManager/GrooveServer/LB.Web.IBLL\u0022,\u0020RFCAAAAA
-		SccLocalPath3 = ..\\LB.Web.IBLL
-		SccProvider3 = MSSCCI:Microsoft\u0020Visual\u0020SourceSafe
-		SccProjectUniqueName4 = ..\\LB.Web.IRemoting\\LB.Web.IRemoting.csproj
-		SccProjectName4 = \u0022$/GrooveManager/GrooveServer/LB.Web.IRemoting\u0022,\u0020GGCAAAAA
-		SccLocalPath4 = ..\\LB.Web.IRemoting
-		SccProvider4 = MSSCCI:Microsoft\u0020Visual\u0020SourceSafe
-		SccProjectUniqueName5 = ..\\LB.Web.MI\\LB.Web.MI.csproj
-		SccProjectName5 = \u0022$/GrooveManager/GrooveServer/LB.Web.MI\u0022,\u0020MGCAAAAA
-		SccLocalPath5 = ..\\LB.Web.MI
-		SccProvider5 = MSSCCI:Microsoft\u0020Visual\u0020SourceSafe
-		SccProjectUniqueName6 = ..\\LB.Web.Remoting\\LB.Web.Remoting.csproj
-		SccProjectName6 = \u0022$/GrooveManager/GrooveServer/LB.Web.Remoting\u0022,\u0020LHCAAAAA
-		SccLocalPath6 = ..\\LB.Web.Remoting
-		SccProvider6 = MSSCCI:Microsoft\u0020Visual\u0020SourceSafe
-		SccProjectUniqueName7 = LB.Web.ServerTool.csproj
-		SccProjectName7 = \u0022$/GrooveManager/GrooveServer/LB.Web.ServerTool\u0022,\u0020WHCAAAAA
-		SccLocalPath7 = .
-		SccProvider7 = MSSCCI:Microsoft\u0020Visual\u0020SourceSafe
-		SccProjectUniqueName8 = ..\\LB.Web.SM\\LB.Web.SM.csproj
-		SccProjectName8 = \u0022$/GrooveManager/GrooveServer/LB.Web.SM\u0022,\u0020LICAAAAA
-		SccLocalPath8 = ..\\LB.Web.SM
-		SccProvider8 = MSSCCI:Microsoft\u0020Visual\u0020SourceSafe
 	EndGlobalSection
 EndGlobal

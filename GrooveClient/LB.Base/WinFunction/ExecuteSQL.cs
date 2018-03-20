@@ -219,6 +219,12 @@ namespace LB.WinFunction
             return dtResult;
         }
 
+        public static void ReadRegister(out bool IsRegister, out DateTime DeadLine)
+        {
+            Web.IRemoting.IMyRemoting webservice = GetWebService();
+            webservice.ReadRegister(out IsRegister, out DeadLine);
+        }
+
         /// <summary>
         /// 测试连接状态
         /// </summary>

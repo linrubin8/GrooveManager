@@ -26,7 +26,7 @@ namespace LB.Web.MI.DAL
 insert into dbo.DbReceiveBank( BankCode,BankName,ChangeBy,ChangeTime )
 values(@BankCode,  @BankName, @ChangeBy, @ChangeTime )
 
-select @@identity as ReceiveBankID
+select last_insert_rowid() as ReceiveBankID
 ";
             if(args.DBType==1)
             {
@@ -34,7 +34,7 @@ select @@identity as ReceiveBankID
 insert into dbo.DbReceiveBank( BankCode,BankName,ChangeBy,ChangeTime )
 values(@BankCode,  @BankName, @ChangeBy, @ChangeTime );
 
-select last_insert_rowid() as ReceiveBankID;
+select @@identity as ReceiveBankID;
 ";
             }
             DBHelper.ExecuteNonQuery(args, System.Data.CommandType.Text, strSQL, parms, false);

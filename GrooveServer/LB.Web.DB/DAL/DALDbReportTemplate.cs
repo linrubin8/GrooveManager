@@ -60,6 +60,20 @@ PaperType, IsManualPaperSize, PaperSizeHeight, PaperSizeWidth, IsPaperTransverse
 values(@ReportTemplateID, @PrinterName, @MachineName, @IsManualPaperType, 
 @PaperType, @IsManualPaperSize, @PaperSizeHeight, @PaperSizeWidth, @IsPaperTransverse);
 ";
+            if (args.DBType == 1)
+            {
+                strSQL = @"
+insert into dbo.DbReportTemplate( ReportTemplateName,ReportTemplateNameExt, TemplateFileTime,TemplateSeq,Description,TemplateData,ReportTypeID)
+values( @ReportTemplateName,'.frx', @TemplateFileTime,@TemplateSeq,@Description,@TemplateData,@ReportTypeID)
+
+select @@identity as ReportTemplateID
+
+insert into dbo.DbPrinterConfig( ReportTemplateID, PrinterName, MachineName, IsManualPaperType, 
+PaperType, IsManualPaperSize, PaperSizeHeight, PaperSizeWidth, IsPaperTransverse)
+values(@ReportTemplateID, @PrinterName, @MachineName, @IsManualPaperType, 
+@PaperType, @IsManualPaperSize, @PaperSizeHeight, @PaperSizeWidth, @IsPaperTransverse)
+";
+            }
             DBHelper.ExecuteNonQuery(args, System.Data.CommandType.Text, strSQL, parms, false);
             ReportTemplateID.SetValueWithObject(parms["ReportTemplateID"].Value);
         }

@@ -28,7 +28,9 @@ namespace LB.Web.ServerTemp
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-           
+
+            LB.Web.Encrypt.LBEncrypt.Decrypt();//校验注册信息
+
             string strRemotingPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "LBRemoting.Config");
             IniClass iniClass = new IniClass(strRemotingPath);
             string strPort = iniClass.ReadValue("Remoting", "Port");
@@ -174,6 +176,19 @@ namespace LB.Web.ServerTemp
         private void notifyIcon1_MouseDown(object sender, MouseEventArgs e)
         {
 
+        }
+
+        private void btnRegister_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                frmDisk frm = new ServerTool.frmDisk();
+                frm.ShowDialog();
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+            }
         }
     }
 }

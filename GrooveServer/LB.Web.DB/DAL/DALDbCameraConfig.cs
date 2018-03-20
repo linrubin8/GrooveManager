@@ -56,6 +56,21 @@ values( @MachineName, @IPAddress1, @Port1, @Account1, @Password1,
 select last_insert_rowid() as CameraConfigID;
 
 ";
+            if (args.DBType == 1)
+            {
+                strSQL = @"
+insert into DbCameraConfig( MachineName, IPAddress1, Port1, Account1, Password1, 
+IPAddress2, Port2, Account2, Password2, IPAddress3, Port3, Account3, Password3, 
+IPAddress4, Port4, Account4, Password4, ChangedBy, ChangeTime,
+UseCamera1,UseCamera2,UseCamera3,UseCamera4)
+values( @MachineName, @IPAddress1, @Port1, @Account1, @Password1, 
+@IPAddress2, @Port2, @Account2, @Password2, @IPAddress3, @Port3, @Account3, @Password3, 
+@IPAddress4, @Port4, @Account4, @Password4, @ChangedBy, getdate(),
+@UseCamera1,@UseCamera2,@UseCamera3,@UseCamera4)
+
+select @@identity as CameraConfigID
+";
+            }
             DBHelper.ExecuteNonQuery(args, System.Data.CommandType.Text, strSQL, parms, false);
             CameraConfigID.SetValueWithObject(parms["CameraConfigID"].Value);
         }
@@ -121,6 +136,37 @@ set MachineName=@MachineName,
 where CameraConfigID = @CameraConfigID
 
 ";
+            if (args.DBType == 1)
+            {
+                strSQL = @"
+update dbo.DbCameraConfig
+set MachineName=@MachineName, 
+    IPAddress1=@IPAddress1,  
+    Port1=@Port1,  
+    Account1=@Account1,  
+    Password1=@Password1, 
+    IPAddress2=@IPAddress2,  
+    Port2=@Port2,  
+    Account2=@Account2,  
+    Password2=@Password2,  
+    IPAddress3=@IPAddress3,  
+    Port3=@Port3,  
+    Account3=@Account3,  
+    Password3=@Password3, 
+    IPAddress4=@IPAddress4,  
+    Port4=@Port4,  
+    Account4=@Account4,  
+    Password4=@Password4,  
+    ChangedBy=@ChangedBy,  
+    ChangeTime=getdate(),
+    UseCamera1 = @UseCamera1,
+    UseCamera2 = @UseCamera2,
+    UseCamera3 = @UseCamera3,
+    UseCamera4 = @UseCamera4
+    
+where CameraConfigID = @CameraConfigID
+";
+            }
             DBHelper.ExecuteNonQuery(args, System.Data.CommandType.Text, strSQL, parms, false);
         }
 

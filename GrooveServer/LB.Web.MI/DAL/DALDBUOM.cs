@@ -24,6 +24,15 @@ values( @UOMName, @UOMType);
 
 select last_insert_rowid() as UOMID;
 ";
+            if (args.DBType == 1)
+            {
+                strSQL = @"
+insert into dbo.DbUOM( UOMName, UOMType)
+values( @UOMName, @UOMType)
+
+select @@identity as UOMID
+";
+            }
             DBHelper.ExecuteNonQuery(args, System.Data.CommandType.Text, strSQL, parms, false);
             UOMID.Value = Convert.ToInt64(parms["UOMID"].Value);
         }

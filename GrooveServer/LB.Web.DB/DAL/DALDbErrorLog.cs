@@ -20,6 +20,13 @@ namespace LB.Web.DB.DAL
 insert into dbo.SbErrorLog(ErrorLogMsg,CreateBy,CreateTime,LogType)
 values(@ErrorLogMsg,@CreateBy,datetime('now','localtime'),@LogType)
 ";
+            if (args.DBType == 1)
+            {
+                strSQL = @"
+insert into dbo.SbErrorLog(ErrorLogMsg,CreateBy,CreateTime,LogType)
+values(@ErrorLogMsg,@CreateBy,getdate(),@LogType)
+";
+            }
             DBHelper.ExecuteNonQuery(args, System.Data.CommandType.Text, strSQL, parms, false);
         }
     }

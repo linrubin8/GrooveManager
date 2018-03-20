@@ -242,7 +242,8 @@ namespace LB.Common
             int port = 0;
             int openresult, i;
             openresult = 30;
-            port = Convert.ToInt32(_Com.Substring(3, _Com.Length - 3));
+            if (!_IsUseNet)
+                port = Convert.ToInt32(_Com.Substring(3, _Com.Length - 3));
             int fOpenComIndex = 0;
             for (i = 6; i >= 0; i--)
             {

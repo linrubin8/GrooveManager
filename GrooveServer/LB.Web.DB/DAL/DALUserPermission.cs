@@ -72,6 +72,13 @@ where UserID=@UserID
 insert into dbo.DbUserPermissionData(UserID, PermissionDataID, ChangedBy, ChangeTime, HasPermission)
 values(@UserID, @PermissionDataID, @ChangedBy, datetime('now','localtime'), 1)
 ";
+            if (args.DBType == 1)
+            {
+                strSQL = @"
+insert into dbo.DbUserPermissionData(UserID, PermissionDataID, ChangedBy, ChangeTime, HasPermission)
+values(@UserID, @PermissionDataID, @ChangedBy, getdate(), 1)
+";
+            }
             DBHelper.ExecuteNonQuery(args, System.Data.CommandType.Text, strSQL, parms, false);
         }
 
@@ -85,6 +92,13 @@ values(@UserID, @PermissionDataID, @ChangedBy, datetime('now','localtime'), 1)
 insert into dbo.DbUserPermission(UserID, PermissionID, ChangedBy, ChangeTime, HasPermission)
 values(@UserID, @PermissionID, @ChangedBy, datetime('now','localtime'), 1)
 ";
+            if (args.DBType == 1)
+            {
+                strSQL = @"
+insert into dbo.DbUserPermission(UserID, PermissionID, ChangedBy, ChangeTime, HasPermission)
+values(@UserID, @PermissionID, @ChangedBy, getdate(), 1)
+";
+            }
             DBHelper.ExecuteNonQuery(args, System.Data.CommandType.Text, strSQL, parms, false);
         }
     }

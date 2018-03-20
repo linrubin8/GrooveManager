@@ -35,6 +35,7 @@
             this.itemOpenForm = new System.Windows.Forms.ToolStripMenuItem();
             this.itemExit = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnRegister = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuIcon.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -50,21 +51,22 @@
             // 
             this.contextMenuIcon.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.itemOpenForm,
+            this.btnRegister,
             this.itemExit});
             this.contextMenuIcon.Name = "contextMenuIcon";
-            this.contextMenuIcon.Size = new System.Drawing.Size(125, 48);
+            this.contextMenuIcon.Size = new System.Drawing.Size(153, 92);
             // 
             // itemOpenForm
             // 
             this.itemOpenForm.Name = "itemOpenForm";
-            this.itemOpenForm.Size = new System.Drawing.Size(124, 22);
+            this.itemOpenForm.Size = new System.Drawing.Size(152, 22);
             this.itemOpenForm.Text = "打开窗口";
             this.itemOpenForm.Click += new System.EventHandler(this.itemOpenForm_Click);
             // 
             // itemExit
             // 
             this.itemExit.Name = "itemExit";
-            this.itemExit.Size = new System.Drawing.Size(124, 22);
+            this.itemExit.Size = new System.Drawing.Size(152, 22);
             this.itemExit.Text = "退出";
             this.itemExit.Click += new System.EventHandler(this.itemExit_Click);
             // 
@@ -77,6 +79,13 @@
             this.label1.Size = new System.Drawing.Size(359, 19);
             this.label1.TabIndex = 1;
             this.label1.Text = "入槽软件服务器已启动................";
+            // 
+            // btnRegister
+            // 
+            this.btnRegister.Name = "btnRegister";
+            this.btnRegister.Size = new System.Drawing.Size(152, 22);
+            this.btnRegister.Text = "注册";
+            this.btnRegister.Click += new System.EventHandler(this.btnRegister_Click);
             // 
             // Form1
             // 
@@ -104,6 +113,7 @@
         private System.Windows.Forms.ToolStripMenuItem itemOpenForm;
         private System.Windows.Forms.ToolStripMenuItem itemExit;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ToolStripMenuItem btnRegister;
     }
 }
 

@@ -27,6 +27,15 @@ values( @SupplierName,@SupplierCode,@IsForbidden, @ChangeBy, @ChangeTime);
 
 select last_insert_rowid() as SupplierID;
 ";
+            if (args.DBType == 1)
+            {
+                strSQL = @"
+insert into dbo.DbSupplier(SupplierName,SupplierCode,IsForbidden, ChangeBy, ChangeTime)
+values( @SupplierName,@SupplierCode,@IsForbidden, @ChangeBy, @ChangeTime)
+
+select @@identity as SupplierID
+";
+            }
             DBHelper.ExecuteNonQuery(args, System.Data.CommandType.Text, strSQL, parms, false);
             SupplierID.Value = Convert.ToInt64(parms["SupplierID"].Value);
         }
@@ -73,6 +82,14 @@ where SupplierID = @SupplierID
     from dbo.DbSupplier
     order by SupplierCode desc limit 1
 ";
+            if (args.DBType == 1)
+            {
+                strSQL = @"
+ select top 1 SupplierCode as MaxCode
+    from dbo.DbSupplier
+    order by SupplierCode desc
+";
+            }
             DBHelper.ExecuteNonQuery(args, System.Data.CommandType.Text, strSQL, parms, false);
             MaxCode.SetValueWithObject(parms["MaxCode"].Value);
         }

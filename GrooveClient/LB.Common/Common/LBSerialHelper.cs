@@ -288,7 +288,7 @@ namespace LB.Common
                     mReceiveData.AppendLine("-" + data + "-");
                     string strData = "";
                     int.TryParse(data, out WeightValue);
-                    //WeightValue = WeightValue * 1000;
+                    WeightValue = WeightValue * 1000;
                     if (WeightValue == PreWeightValue)
                     {
                         WeightCount++;

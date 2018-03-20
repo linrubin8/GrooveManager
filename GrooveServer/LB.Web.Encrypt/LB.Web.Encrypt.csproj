@@ -4,23 +4,19 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D773829B-9401-4B36-BFC5-BF2D3E6B40DD}</ProjectGuid>
+    <ProjectGuid>{CDF00A86-5BFA-4B80-AA97-FB96AD59FDE8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LB.Web</RootNamespace>
-    <AssemblyName>LB.Web.Remoting</AssemblyName>
+    <RootNamespace>LB.Web.Encrypt</RootNamespace>
+    <AssemblyName>LB.Web.Encrypt</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\LB.Web.ServiceMonitor\bin\Debug\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -44,30 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="IniClass.cs" />
+    <Compile Include="LBEncrypt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Remoting\ClientHelper.cs" />
-    <Compile Include="Remoting\Factory\LBFactory.cs" />
-    <Compile Include="Remoting\WebRemoting.cs" />
-    <Compile Include="Remoting\WebRemotingSQLServer.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\LB.Web.Base\LB.Web.Base.csproj">
-      <Project>{2dcbbc87-24b2-42d4-b680-21ea0245fe01}</Project>
-      <Name>LB.Web.Base</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\LB.Web.Contants\LB.Web.Contants.csproj">
-      <Project>{dad2cbf3-e516-412b-8350-e4e0e717b09e}</Project>
-      <Name>LB.Web.Contants</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\LB.Web.Encrypt\LB.Web.Encrypt.csproj">
-      <Project>{cdf00a86-5bfa-4b80-aa97-fb96ad59fde8}</Project>
-      <Name>LB.Web.Encrypt</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\LB.Web.IRemoting\LB.Web.IRemoting.csproj">
-      <Project>{deb53b6e-b9ce-4d89-8451-f87b6dd3fd4a}</Project>
-      <Name>LB.Web.IRemoting</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
