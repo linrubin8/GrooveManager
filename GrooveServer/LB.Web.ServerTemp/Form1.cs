@@ -134,11 +134,6 @@ namespace LB.Web.ServerTemp
         {
             try
             {
-                HardwareInfo hd = new HardwareInfo();
-                string strHard = hd.GetHardDiskID();
-                string strMac = hd.GetMacAddress();
-
-
                 base.OnFormClosing(e);
                 if (!mbCloseFromNotifyIcon && e.CloseReason == CloseReason.UserClosing)
                 {

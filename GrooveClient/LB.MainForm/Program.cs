@@ -50,12 +50,26 @@ namespace LB.MainForm
                     Application.Run(login);
                     if (LoginInfo.IsVerifySuccess)
                     {
-                        using (WeightForm2 mainForm = new WeightForm2())
+                        if (login.ProductType == 1)
                         {
-                            Application.Run(mainForm);
-                            if (!mainForm.bolIsCancel)
+                            using (WeightForm2 mainForm = new WeightForm2())
                             {
-                                break;
+                                Application.Run(mainForm);
+                                if (!mainForm.bolIsCancel)
+                                {
+                                    break;
+                                }
+                            }
+                        }
+                        else if (login.ProductType == 2)
+                        {
+                            using (WeightFormCalcalute mainForm = new WeightFormCalcalute())
+                            {
+                                Application.Run(mainForm);
+                                if (!mainForm.bolIsCancel)
+                                {
+                                    break;
+                                }
                             }
                         }
                     }

@@ -45,6 +45,9 @@ namespace LB.Common
                 case enSpeakType.PleaseCard:
                     strSpeak = "请刷卡";
                     break;
+                case enSpeakType.ReadCardSuccess:
+                    strSpeak = "刷卡成功，请离开！";
+                    break;
             }
 
             if (strSpeak != "")
@@ -63,15 +66,17 @@ namespace LB.Common
                 //speak.Dispose();  //释放之前的资源
             }
         }
-        
-        public static void Speak(string strSpeak)
+
+        public static bool Speak(string strSpeak)
         {
-             if (strSpeak != "")
+            bool bolIsCompleted = false;
+            if (strSpeak != "")
             {
                 try
                 {
-                    if (prompt==null || prompt.IsCompleted)
+                    if (prompt == null || prompt.IsCompleted)
                     {
+                        bolIsCompleted = true;
                         speak.Rate = -3;
                         speak.Volume = 100;
                         //speak.SelectVoice("Microsoft Lili");
@@ -85,6 +90,7 @@ namespace LB.Common
 
                 }
             }
+            return bolIsCompleted;
         }
     }
 
@@ -113,6 +119,10 @@ namespace LB.Common
         /// <summary>
         /// 请刷卡
         /// </summary>
-        PleaseCard
+        PleaseCard,
+        /// <summary>
+        /// 刷卡成功，请离开
+        /// </summary>
+        ReadCardSuccess
     }
 }

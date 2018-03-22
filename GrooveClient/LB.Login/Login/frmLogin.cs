@@ -13,7 +13,7 @@ namespace LB.Login
 {
     public partial class frmLogin : LBForm
     {
-        
+        public int  ProductType=0;
 
         public frmLogin()
         {
@@ -57,12 +57,12 @@ namespace LB.Login
                 //校验权限
                 bool IsRegister;
                 DateTime DeadLine;
-                ExecuteSQL.ReadRegister(out IsRegister, out DeadLine);
-                if (!IsRegister)
+                ExecuteSQL.ReadRegister(out IsRegister,out ProductType, out DeadLine);
+                if ((ProductType != 1 && ProductType != 2) || !IsRegister)
                 {
                     throw new Exception("该系统未注册，请与供应商联系！");
                 }
-                else if (DeadLine.Subtract(DateTime.Now).TotalHours<=0)
+                else if (DeadLine.Subtract(DateTime.Now).TotalHours <= 0)
                 {
                     throw new Exception("该系统注册已过期，请与供应商联系！");
                 }

@@ -35,6 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LB.Web.IRemoting, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\GrooveServer\LB.Web.ServiceMonitor\bin\Debug\LB.Web.IRemoting.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -105,12 +109,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Web References\LBWebService\LBWebService.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\LB.Web.IRemoting\LB.Web.IRemoting.csproj">
-      <Project>{deb53b6e-b9ce-4d89-8451-f87b6dd3fd4a}</Project>
-      <Name>LB.Web.IRemoting</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

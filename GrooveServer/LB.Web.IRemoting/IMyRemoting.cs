@@ -16,7 +16,7 @@ namespace LB.Web.IRemoting
 
         DataTable RunView(int iViewType, string strLoginName, string strFieldNames, string strWhere, string strOrderBy,
             out string ErrorMsg, out bool bolIsError);
-
+        
         DataTable RunDirectSQL(string strLoginName, string strSQL,
            out string ErrorMsg, out bool bolIsError);
 
@@ -26,6 +26,6 @@ namespace LB.Web.IRemoting
 
         void ReadFileByte(string strFileFullName, int iPosition, int iMaxLength, out byte[] bSplitFile);
 
-        void ReadRegister(out bool IsRegister,out DateTime DeadLine);
+        void ReadRegister(out bool IsRegister,out int ProductType,out DateTime DeadLine);
     }
 }

@@ -75,6 +75,9 @@ namespace LB.Web.SM.BLL
                     strFunName = "ReadSaleInfo";
                     break;
                     
+                case 14114:
+                    strFunName = "ReadTopBillDateByCardCode";
+                    break;
             }
             return strFunName;
         }
@@ -816,6 +819,13 @@ namespace LB.Web.SM.BLL
             _DALSaleCarInOutBill.GetTodayTotalWeight(args,out SalesTotalWeight,out TotalCar);
         }
 
+        public void ReadTopBillDateByCardCode(FactoryArgs args,t_String CardCode,
+            out t_String BillDate)
+        {
+            //_DALSaleCarInOutBill.GetInsideCarCount(args, out InsideCarCount);
+            _DALSaleCarInOutBill.ReadTopBillDateByCardCode(args, CardCode, out BillDate);
+        }
+
         //public void InsertChangeBill(FactoryArgs args, out t_BigID SaleCarChangeBillID,
         //    t_BigID SaleCarInBillID,  t_String ChangeDesc,
         //    t_String ChangeDetail, t_Bool IsPayMoney, t_Decimal PayMoney,
@@ -867,7 +877,7 @@ namespace LB.Web.SM.BLL
         //                }
         //            }
         //        }
-                
+
         //        using (DataTable dtBill = _DALSaleCarInOutBill.GetGetSaleCarInOutBill(argsInTrans, SaleCarInBillID))
         //        {
         //            DataRow drBill = dtBill.Rows[0];
@@ -901,10 +911,10 @@ namespace LB.Web.SM.BLL
         //                   CustomerPayAmount, new t_String(drBill["Description"]),new t_ID(0));
         //            }
         //        }
-                
+
         //        _DALSaleCarInOutBill.InsertChangeBill(argsInTrans, out TempSaleCarChangeBillID, SaleCarInBillID,
         //                ChangeDate, ChangeBy, ChangeDesc, ChangeDetail);
-                
+
         //    };
         //    DBHelper.ExecInTrans(args, exec);
         //    SaleCarChangeBillID.Value = TempSaleCarChangeBillID.Value;
@@ -932,7 +942,7 @@ namespace LB.Web.SM.BLL
         //            t_DTSmall BillDateOut = new t_DTSmall(drBill["BillDateOut"]);
 
         //            //生成新的入场记录
-                    
+
         //            t_DTSmall NewBillDate;
         //            this.InsertInBill(argsInTrans, out NewSaleCarInBillID_temp, out NewSaleCarInBillCode_temp, out NewBillDate,
         //                new t_BigID(drBill["CarID"]), new t_BigID(drBill["ItemID"]),new t_ID(drBill["ReceiveType"]),

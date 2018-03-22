@@ -124,6 +124,12 @@
     <Compile Include="MainForm\Permission\frmPermissionConfig.Designer.cs">
       <DependentUpon>frmPermissionConfig.cs</DependentUpon>
     </Compile>
+    <Compile Include="MainForm\WeightFormCalcalute.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm\WeightFormCalcalute.designer.cs">
+      <DependentUpon>WeightFormCalcalute.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm\WeightForm2.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -158,6 +164,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm\Permission\frmPermissionConfig.resx">
       <DependentUpon>frmPermissionConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm\WeightFormCalcalute.resx">
+      <DependentUpon>WeightFormCalcalute.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm\WeightForm2.resx">
       <DependentUpon>WeightForm2.cs</DependentUpon>

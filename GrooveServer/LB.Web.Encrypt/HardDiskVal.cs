@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 using System.Management;
 using System.Collections.Generic;
 
-namespace LB.Web.ServerTool
+namespace LB.Web.Encrypt
 {
     /// <summary>   
     /// HardwareInfo 的摘要说明。   
@@ -209,5 +209,59 @@ namespace LB.Web.ServerTool
             return addr.Replace(' ', '0');
         }
 
+        public static string GetCurrentVal()
+        {
+            string volume = System.Windows.Forms.Application.StartupPath.Substring(0, System.Windows.Forms.Application.StartupPath.IndexOf(':'));
+            const int MAX_FILENAME_LEN = 256;
+            int retVal = 0;
+            int a = 0;
+            int b = 0;
+            string str1 = null;
+            string str2 = null;
+            int i = GetVolumeInformation(
+            volume + @":\",
+            str1,
+            MAX_FILENAME_LEN,
+            ref retVal,
+            a,
+            b,
+            str2,
+            MAX_FILENAME_LEN
+            );
+            return retVal.ToString("x");
+        }
+
+        [DllImport("kernel32.dll")]
+        private static extern int GetVolumeInformation(
+            string lpRootPathName,
+            string lpVolumeNameBuffer,
+            int nVolumeNameSize,
+            ref int lpVolumeSerialNumber,
+            int lpMaximumComponentLength,
+            int lpFileSystemFlags,
+            string lpFileSystemNameBuffer,
+            int nFileSystemNameSize
+            );
+        
+        public static string HDVal()
+        {
+            const int MAX_FILENAME_LEN = 256;
+            int retVal = 0;
+            int a = 0;
+            int b = 0;
+            string str1 = null;
+            string str2 = null;
+            int i = GetVolumeInformation(
+            "c:\\",
+            str1,
+            MAX_FILENAME_LEN,
+            ref retVal,
+            a,
+            b,
+            str2,
+            MAX_FILENAME_LEN
+            );
+            return retVal.ToString();
+        }
     }
 } 

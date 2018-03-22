@@ -66,6 +66,36 @@ order by SaleCarInBillCode desc
             return DBHelper.ExecuteQuery(args, strSQL);
         }
 
+        public void ReadTopBillDateByCardCode(FactoryArgs args, t_String CardCode,
+            out t_String BillDate)
+        {
+            BillDate = new t_String("");
+            LBDbParameterCollection parms = new LBDbParameterCollection();
+            parms.Add(new LBDbParameter("CardCode", CardCode));
+
+            string strSQL = @"
+select BillDate
+from dbo.SaleCarInBill
+where CardCode = @CardCode
+order by BillDate desc  limit 1
+";
+            if (args.DBType == 1)
+            {
+                strSQL = @"
+select top 1 BillDate
+from dbo.SaleCarInBill
+where CardCode = @CardCode
+order by BillDate desc
+";
+            }
+
+            DataTable dt = DBHelper.ExecuteQuery(args, strSQL, parms);
+            if (dt.Rows.Count > 0)
+            {
+                BillDate.Value = dt.Rows[0]["BillDate"].ToString().TrimEnd();
+            }
+        }
+
         public void InsertInBill(FactoryArgs args, out t_BigID SaleCarInBillID, t_String SaleCarInBillCode, t_BigID CarID,
             t_BigID ItemID, t_DTSmall BillDate, t_Float CarTare, t_BigID SupplierID, t_String Description,
             t_String CardCode, t_Float TotalWeight, t_Float SuttleWeight)
