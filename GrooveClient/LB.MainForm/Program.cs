@@ -23,7 +23,7 @@ namespace LB.MainForm
             Process[] processAry = Process.GetProcesses();
             foreach(Process peo in processAry)
             {
-                if (peo.ProcessName.Contains("LB.Web.ServerTool"))
+                if (peo.ProcessName.Contains("LB.Web.ServerTool")&& !peo.ProcessName.Contains("LB.Web.ServerTool.vshost"))
                 {
                     bolExists = true;
                     break;

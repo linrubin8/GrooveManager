@@ -288,6 +288,10 @@ namespace LB.Common
                     fCmdRet = StaticClassReaderB.SetPowerDbm(ref fComAdr, powerDbm, frmcomportindex);//设置功率
                     break;
                 }
+                else if (_IsUseNet)
+                {
+                    break;
+                }
             }
             
             if ((fOpenComIndex == -1) && (openresult == 0x30))

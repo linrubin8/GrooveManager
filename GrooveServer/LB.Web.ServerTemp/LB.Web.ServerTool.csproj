@@ -100,7 +100,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LB.Web.Encrypt\LB.Web.Encrypt.csproj">
+    <ProjectReference Include="..\..\..\WeightManager\QuarryServer\LB.Web.Encrypt\LB.Web.Encrypt.csproj">
       <Project>{cdf00a86-5bfa-4b80-aa97-fb96ad59fde8}</Project>
       <Name>LB.Web.Encrypt</Name>
     </ProjectReference>

@@ -57,7 +57,8 @@ namespace LB.Login
                 //校验权限
                 bool IsRegister;
                 DateTime DeadLine;
-                ExecuteSQL.ReadRegister(out IsRegister,out ProductType, out DeadLine);
+                string RegisterInfoJson;
+                ExecuteSQL.ReadRegister(out IsRegister,out ProductType,out RegisterInfoJson, out DeadLine);
                 if ((ProductType != 1 && ProductType != 2) || !IsRegister)
                 {
                     throw new Exception("该系统未注册，请与供应商联系！");

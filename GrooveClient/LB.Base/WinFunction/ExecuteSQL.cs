@@ -219,10 +219,10 @@ namespace LB.WinFunction
             return dtResult;
         }
 
-        public static void ReadRegister(out bool IsRegister,out int ProductType, out DateTime DeadLine)
+        public static void ReadRegister(out bool IsRegister,out int ProductType,out string RegisterInfoJson, out DateTime DeadLine)
         {
             Web.IRemoting.IMyRemoting webservice = GetWebService();
-            webservice.ReadRegister(out IsRegister,out ProductType, out DeadLine);
+            webservice.ReadRegister(out IsRegister,out ProductType,out RegisterInfoJson, out DeadLine);
         }
 
         /// <summary>

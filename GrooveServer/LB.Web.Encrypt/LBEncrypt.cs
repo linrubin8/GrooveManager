@@ -14,7 +14,6 @@ namespace LB.Web.Encrypt
     {
         public static bool IsRegister = false;
         public static DateTime DeadLine = DateTime.MinValue;
-        public static int ProductType=-1;
 
         public static void Decrypt()
         {
@@ -69,10 +68,6 @@ namespace LB.Web.Encrypt
                             {
                                 DateTime.TryParse(value, out DeadLine);
                             }
-                            else if (key.Equals("ProductType"))
-                            {
-                                int.TryParse(value, out ProductType);
-                            }
                         }
                     }
                 }
@@ -103,26 +98,25 @@ namespace LB.Web.Encrypt
         {
             try
             {
-                return HardwareInfo.GetCurrentVal();
-                //ManagementClass cimObject = new ManagementClass("Win32_PhysicalMedia");
-                //ManagementObjectCollection moc = cimObject.GetInstances();
-                //Dictionary<string, string> dict = new Dictionary<string, string>();
-                //foreach (ManagementObject mo in moc)
-                //{
-                //    string tag = mo.Properties["Tag"].Value.ToString().ToLower().Trim();
-                //    string hdId = (string)mo.Properties["SerialNumber"].Value ?? string.Empty;
-                //    hdId = hdId.Trim();
-                //    dict.Add(tag, hdId);
-                //}
-                //cimObject = new ManagementClass("Win32_OperatingSystem");
-                //moc = cimObject.GetInstances();
-                //string currentSysRunDisk = string.Empty;
-                //foreach (ManagementObject mo in moc)
-                //{
-                //    currentSysRunDisk = Regex.Match(mo.Properties["Name"].Value.ToString().ToLower(), @"harddisk\d+").Value;
-                //}
-                //var results = dict.Where(x => Regex.IsMatch(x.Key, @"physicaldrive" + Regex.Match(currentSysRunDisk, @"\d+$").Value));
-                //if (results.Any()) return results.ElementAt(0).Value;
+                ManagementClass cimObject = new ManagementClass("Win32_PhysicalMedia");
+                ManagementObjectCollection moc = cimObject.GetInstances();
+                Dictionary<string, string> dict = new Dictionary<string, string>();
+                foreach (ManagementObject mo in moc)
+                {
+                    string tag = mo.Properties["Tag"].Value.ToString().ToLower().Trim();
+                    string hdId = (string)mo.Properties["SerialNumber"].Value ?? string.Empty;
+                    hdId = hdId.Trim();
+                    dict.Add(tag, hdId);
+                }
+                cimObject = new ManagementClass("Win32_OperatingSystem");
+                moc = cimObject.GetInstances();
+                string currentSysRunDisk = string.Empty;
+                foreach (ManagementObject mo in moc)
+                {
+                    currentSysRunDisk = Regex.Match(mo.Properties["Name"].Value.ToString().ToLower(), @"harddisk\d+").Value;
+                }
+                var results = dict.Where(x => Regex.IsMatch(x.Key, @"physicaldrive" + Regex.Match(currentSysRunDisk, @"\d+$").Value));
+                if (results.Any()) return results.ElementAt(0).Value;
                 return "";
             }
             catch

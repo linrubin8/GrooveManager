@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
@@ -37,7 +38,18 @@ namespace LB.Web.ServerTemp
             string strServerName = iniClass.ReadValue("Remoting", "ServerName");
             string strServerURL = iniClass.ReadValue("Remoting", "ServerURL");
             string strDBName = iniClass.ReadValue("Remoting", "DBName");
+            string strCurrentDirect = Directory.GetCurrentDirectory();
+            string strDBData = Path.Combine(strCurrentDirect, "DBData");
             string strDBServer = iniClass.ReadValue("Remoting", "DBServer");
+            if (Directory.Exists(strDBData))
+            {
+                strDBServer = strDBData;
+            }
+            else
+            {
+                strDBServer = iniClass.ReadValue("Remoting", "DBServer");
+            }
+            
             string strDBType = iniClass.ReadValue("Remoting", "DBType");
             bool bolLoginSecure = iniClass.ReadValue("Remoting", "LoginSecure") == "1" ? true : false;
             string strDBUser = iniClass.ReadValue("Remoting", "DBUser");

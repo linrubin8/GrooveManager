@@ -21,7 +21,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LB.Web.SM", "..\LB.Web.SM\L
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LB.Web.IBLL", "..\LB.Web.IBLL\LB.Web.IBLL.csproj", "{DF0FFE8C-33B4-46FE-85A1-44689EC20F01}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LB.Web.Encrypt", "..\LB.Web.Encrypt\LB.Web.Encrypt.csproj", "{CDF00A86-5BFA-4B80-AA97-FB96AD59FDE8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LB.Web.Encrypt", "..\..\..\WeightManager\QuarryServer\LB.Web.Encrypt\LB.Web.Encrypt.csproj", "{CDF00A86-5BFA-4B80-AA97-FB96AD59FDE8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

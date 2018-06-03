@@ -22,50 +22,14 @@ namespace LB.SysConfig.SysConfig
         {
             base.OnLoad(e);
 
-            this.txtSysSaleBillType.DataSource = LB.Common.LBConst.GetConstData("SysSaleBillType");//地磅类型
-            this.txtSysSaleBillType.DisplayMember = "ConstText";
-            this.txtSysSaleBillType.ValueMember = "ConstValue";
-
             ReadSysConfigValue();
 
         }
 
         private void ReadSysConfigValue()
         {
-            DataTable dtConfigValue = ExecuteSQL.CallView(129, "", "", "");
-            foreach(DataRow dr in dtConfigValue.Rows)
-            {
-                string strSysConfigFieldName = dr["SysConfigFieldName"].ToString().TrimEnd();
-                int iSysConfigDataType =Convert.ToInt16( dr["SysConfigDataType"]);
-                string strSysConfigDefaultValue = dr["SysConfigDefaultValue"].ToString().TrimEnd();
-                string strSysConfigValue = dr["SysConfigValue"].ToString().TrimEnd();
-
-                string strConfigValue = strSysConfigValue == "" ? strSysConfigDefaultValue : strSysConfigValue;
-                int iValue;
-                switch (strSysConfigFieldName)
-                {
-                    case "SysSaleReceiveOverdue"://入场磅单有效时间(分钟)
-                        int.TryParse(strConfigValue, out iValue);
-                        this.txtSysSaleReceiveOverdue.Text = iValue.ToString();
-                        break;
-
-
-                    case "SysSaleBillType"://
-                        int.TryParse(strConfigValue, out iValue);
-                        this.txtSysSaleBillType.SelectedValue = iValue;
-                        break;
-
-                    case "AllowPrintInReportCount"://允许补打小票次数
-                        int.TryParse(strConfigValue, out iValue);
-                        this.txtAllowPrintInReportCount.Text = iValue.ToString();
-                        break;
-
-                    case "AllowPrintOutReportCount"://允许补打磅单次数
-                        int.TryParse(strConfigValue, out iValue);
-                        this.txtAllowPrintOutReportCount.Text = iValue.ToString();
-                        break;
-                }
-            }
+            SystemConfigValue.ReadAllConfigValue();
+            this.txtSysReadCardLimit.Text = SystemConfigValue.SysReadCardLimit.ToString();
         }
 
         private void SaveSysConfigValue()
@@ -75,25 +39,14 @@ namespace LB.SysConfig.SysConfig
             dtSPIN.Columns.Add("SysConfigValue", typeof(string));
             
             DataRow drNew = dtSPIN.NewRow();
-            drNew["SysConfigFieldName"] = "SysSaleReceiveOverdue";
-            drNew["SysConfigValue"] = this.txtSysSaleReceiveOverdue.Text;
+            drNew["SysConfigFieldName"] = "SysReadCardLimit";
+            drNew["SysConfigValue"] = this.txtSysReadCardLimit.Text;
             dtSPIN.Rows.Add(drNew);
-            drNew = dtSPIN.NewRow();
-            drNew["SysConfigFieldName"] = "SysSaleBillType";
-            drNew["SysConfigValue"] = this.txtSysSaleBillType.SelectedValue;
-            dtSPIN.Rows.Add(drNew);
-            drNew = dtSPIN.NewRow();
-            drNew["SysConfigFieldName"] = "AllowPrintInReportCount";
-            drNew["SysConfigValue"] = this.txtAllowPrintInReportCount.Text;
-            dtSPIN.Rows.Add(drNew);
-            drNew = dtSPIN.NewRow();
-            drNew["SysConfigFieldName"] = "AllowPrintOutReportCount";
-            drNew["SysConfigValue"] = this.txtAllowPrintOutReportCount.Text;
-            dtSPIN.Rows.Add(drNew);
-
             DataSet dsReturn;
             DataTable dtResult;
             ExecuteSQL.CallSP(14300, dtSPIN, out dsReturn, out dtResult);
+
+            ReadSysConfigValue();
         }
 
         private void btnClose_Click(object sender, EventArgs e)

@@ -34,15 +34,9 @@
             this.btnClose = new LB.Controls.LBToolStripButton(this.components);
             this.btnSave = new LB.Controls.LBToolStripButton(this.components);
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.skinLabel4 = new CCWin.SkinControl.SkinLabel();
-            this.txtSysSaleBillType = new LB.Controls.LBMetroComboBox(this.components);
-            this.skinLabel3 = new CCWin.SkinControl.SkinLabel();
             this.skinLabel1 = new CCWin.SkinControl.SkinLabel();
             this.skinLabel2 = new CCWin.SkinControl.SkinLabel();
-            this.txtSysSaleReceiveOverdue = new LB.Controls.LBSkinTextBox(this.components);
-            this.txtAllowPrintInReportCount = new CCWin.SkinControl.SkinTextBox();
-            this.skinLabel5 = new CCWin.SkinControl.SkinLabel();
-            this.txtAllowPrintOutReportCount = new CCWin.SkinControl.SkinTextBox();
+            this.txtSysReadCardLimit = new LB.Controls.LBSkinTextBox(this.components);
             this.skinToolStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -122,65 +116,23 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.txtAllowPrintOutReportCount);
-            this.groupBox1.Controls.Add(this.skinLabel5);
-            this.groupBox1.Controls.Add(this.txtAllowPrintInReportCount);
-            this.groupBox1.Controls.Add(this.skinLabel4);
-            this.groupBox1.Controls.Add(this.txtSysSaleBillType);
-            this.groupBox1.Controls.Add(this.skinLabel3);
             this.groupBox1.Controls.Add(this.skinLabel1);
             this.groupBox1.Controls.Add(this.skinLabel2);
-            this.groupBox1.Controls.Add(this.txtSysSaleReceiveOverdue);
+            this.groupBox1.Controls.Add(this.txtSysReadCardLimit);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Location = new System.Drawing.Point(0, 40);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(501, 95);
+            this.groupBox1.Size = new System.Drawing.Size(501, 65);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "销售订单系统设置";
-            // 
-            // skinLabel4
-            // 
-            this.skinLabel4.BackColor = System.Drawing.Color.Transparent;
-            this.skinLabel4.BorderColor = System.Drawing.Color.White;
-            this.skinLabel4.Font = new System.Drawing.Font("微软雅黑", 9F);
-            this.skinLabel4.Location = new System.Drawing.Point(-1, 48);
-            this.skinLabel4.Name = "skinLabel4";
-            this.skinLabel4.Size = new System.Drawing.Size(115, 32);
-            this.skinLabel4.TabIndex = 14;
-            this.skinLabel4.Text = "允许补打小票次数";
-            this.skinLabel4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // txtSysSaleBillType
-            // 
-            this.txtSysSaleBillType.CanBeEmpty = false;
-            this.txtSysSaleBillType.Caption = "每周";
-            this.txtSysSaleBillType.DM_UseSelectable = true;
-            this.txtSysSaleBillType.FormattingEnabled = true;
-            this.txtSysSaleBillType.ItemHeight = 24;
-            this.txtSysSaleBillType.Location = new System.Drawing.Point(337, 19);
-            this.txtSysSaleBillType.Name = "txtSysSaleBillType";
-            this.txtSysSaleBillType.Size = new System.Drawing.Size(158, 30);
-            this.txtSysSaleBillType.TabIndex = 13;
-            // 
-            // skinLabel3
-            // 
-            this.skinLabel3.BackColor = System.Drawing.Color.Transparent;
-            this.skinLabel3.BorderColor = System.Drawing.Color.White;
-            this.skinLabel3.Font = new System.Drawing.Font("微软雅黑", 9F);
-            this.skinLabel3.Location = new System.Drawing.Point(260, 17);
-            this.skinLabel3.Name = "skinLabel3";
-            this.skinLabel3.Size = new System.Drawing.Size(71, 32);
-            this.skinLabel3.TabIndex = 12;
-            this.skinLabel3.Text = "地磅类型";
-            this.skinLabel3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // skinLabel1
             // 
             this.skinLabel1.BackColor = System.Drawing.Color.Transparent;
             this.skinLabel1.BorderColor = System.Drawing.Color.White;
             this.skinLabel1.Font = new System.Drawing.Font("微软雅黑", 9F);
-            this.skinLabel1.Location = new System.Drawing.Point(190, 16);
+            this.skinLabel1.Location = new System.Drawing.Point(215, 23);
             this.skinLabel1.Name = "skinLabel1";
             this.skinLabel1.Size = new System.Drawing.Size(32, 32);
             this.skinLabel1.TabIndex = 11;
@@ -192,167 +144,61 @@
             this.skinLabel2.BackColor = System.Drawing.Color.Transparent;
             this.skinLabel2.BorderColor = System.Drawing.Color.White;
             this.skinLabel2.Font = new System.Drawing.Font("微软雅黑", 9F);
-            this.skinLabel2.Location = new System.Drawing.Point(6, 16);
+            this.skinLabel2.Location = new System.Drawing.Point(6, 21);
             this.skinLabel2.Name = "skinLabel2";
-            this.skinLabel2.Size = new System.Drawing.Size(95, 32);
+            this.skinLabel2.Size = new System.Drawing.Size(140, 32);
             this.skinLabel2.TabIndex = 10;
-            this.skinLabel2.Text = "入场单有效时间";
+            this.skinLabel2.Text = "刷卡时间间隔限制";
             this.skinLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // txtSysSaleReceiveOverdue
+            // txtSysReadCardLimit
             // 
-            this.txtSysSaleReceiveOverdue.BackColor = System.Drawing.Color.Transparent;
-            this.txtSysSaleReceiveOverdue.CanBeEmpty = false;
-            this.txtSysSaleReceiveOverdue.Caption = "方案名称";
-            this.txtSysSaleReceiveOverdue.DownBack = null;
-            this.txtSysSaleReceiveOverdue.Icon = null;
-            this.txtSysSaleReceiveOverdue.IconIsButton = false;
-            this.txtSysSaleReceiveOverdue.IconMouseState = CCWin.SkinClass.ControlState.Normal;
-            this.txtSysSaleReceiveOverdue.IsPasswordChat = '\0';
-            this.txtSysSaleReceiveOverdue.IsSystemPasswordChar = false;
-            this.txtSysSaleReceiveOverdue.Lines = new string[0];
-            this.txtSysSaleReceiveOverdue.Location = new System.Drawing.Point(124, 21);
-            this.txtSysSaleReceiveOverdue.Margin = new System.Windows.Forms.Padding(0);
-            this.txtSysSaleReceiveOverdue.MaxLength = 32767;
-            this.txtSysSaleReceiveOverdue.MinimumSize = new System.Drawing.Size(28, 28);
-            this.txtSysSaleReceiveOverdue.MouseBack = null;
-            this.txtSysSaleReceiveOverdue.MouseState = CCWin.SkinClass.ControlState.Normal;
-            this.txtSysSaleReceiveOverdue.Multiline = false;
-            this.txtSysSaleReceiveOverdue.Name = "txtSysSaleReceiveOverdue";
-            this.txtSysSaleReceiveOverdue.NormlBack = null;
-            this.txtSysSaleReceiveOverdue.Padding = new System.Windows.Forms.Padding(5);
-            this.txtSysSaleReceiveOverdue.ReadOnly = false;
-            this.txtSysSaleReceiveOverdue.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.txtSysSaleReceiveOverdue.Size = new System.Drawing.Size(63, 28);
+            this.txtSysReadCardLimit.BackColor = System.Drawing.Color.Transparent;
+            this.txtSysReadCardLimit.CanBeEmpty = false;
+            this.txtSysReadCardLimit.Caption = "方案名称";
+            this.txtSysReadCardLimit.DownBack = null;
+            this.txtSysReadCardLimit.Icon = null;
+            this.txtSysReadCardLimit.IconIsButton = false;
+            this.txtSysReadCardLimit.IconMouseState = CCWin.SkinClass.ControlState.Normal;
+            this.txtSysReadCardLimit.IsPasswordChat = '\0';
+            this.txtSysReadCardLimit.IsSystemPasswordChar = false;
+            this.txtSysReadCardLimit.Lines = new string[0];
+            this.txtSysReadCardLimit.Location = new System.Drawing.Point(149, 23);
+            this.txtSysReadCardLimit.Margin = new System.Windows.Forms.Padding(0);
+            this.txtSysReadCardLimit.MaxLength = 32767;
+            this.txtSysReadCardLimit.MinimumSize = new System.Drawing.Size(28, 28);
+            this.txtSysReadCardLimit.MouseBack = null;
+            this.txtSysReadCardLimit.MouseState = CCWin.SkinClass.ControlState.Normal;
+            this.txtSysReadCardLimit.Multiline = false;
+            this.txtSysReadCardLimit.Name = "txtSysReadCardLimit";
+            this.txtSysReadCardLimit.NormlBack = null;
+            this.txtSysReadCardLimit.Padding = new System.Windows.Forms.Padding(5);
+            this.txtSysReadCardLimit.ReadOnly = false;
+            this.txtSysReadCardLimit.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.txtSysReadCardLimit.Size = new System.Drawing.Size(63, 28);
             // 
             // 
             // 
-            this.txtSysSaleReceiveOverdue.SkinTxt.AccessibleName = "";
-            this.txtSysSaleReceiveOverdue.SkinTxt.AutoCompleteCustomSource.AddRange(new string[] {
+            this.txtSysReadCardLimit.SkinTxt.AccessibleName = "";
+            this.txtSysReadCardLimit.SkinTxt.AutoCompleteCustomSource.AddRange(new string[] {
             "asdfasdf",
             "adsfasdf"});
-            this.txtSysSaleReceiveOverdue.SkinTxt.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.txtSysSaleReceiveOverdue.SkinTxt.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.txtSysSaleReceiveOverdue.SkinTxt.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtSysSaleReceiveOverdue.SkinTxt.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtSysSaleReceiveOverdue.SkinTxt.Font = new System.Drawing.Font("微软雅黑", 9.75F);
-            this.txtSysSaleReceiveOverdue.SkinTxt.Location = new System.Drawing.Point(5, 5);
-            this.txtSysSaleReceiveOverdue.SkinTxt.Name = "BaseText";
-            this.txtSysSaleReceiveOverdue.SkinTxt.Size = new System.Drawing.Size(53, 18);
-            this.txtSysSaleReceiveOverdue.SkinTxt.TabIndex = 0;
-            this.txtSysSaleReceiveOverdue.SkinTxt.WaterColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.txtSysSaleReceiveOverdue.SkinTxt.WaterText = "";
-            this.txtSysSaleReceiveOverdue.TabIndex = 9;
-            this.txtSysSaleReceiveOverdue.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.txtSysSaleReceiveOverdue.WaterColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.txtSysSaleReceiveOverdue.WaterText = "";
-            this.txtSysSaleReceiveOverdue.WordWrap = true;
-            // 
-            // txtAllowPrintInReportCount
-            // 
-            this.txtAllowPrintInReportCount.BackColor = System.Drawing.Color.Transparent;
-            this.txtAllowPrintInReportCount.DownBack = null;
-            this.txtAllowPrintInReportCount.Icon = null;
-            this.txtAllowPrintInReportCount.IconIsButton = false;
-            this.txtAllowPrintInReportCount.IconMouseState = CCWin.SkinClass.ControlState.Normal;
-            this.txtAllowPrintInReportCount.IsPasswordChat = '\0';
-            this.txtAllowPrintInReportCount.IsSystemPasswordChar = false;
-            this.txtAllowPrintInReportCount.Lines = new string[0];
-            this.txtAllowPrintInReportCount.Location = new System.Drawing.Point(124, 52);
-            this.txtAllowPrintInReportCount.Margin = new System.Windows.Forms.Padding(0);
-            this.txtAllowPrintInReportCount.MaxLength = 32767;
-            this.txtAllowPrintInReportCount.MinimumSize = new System.Drawing.Size(28, 28);
-            this.txtAllowPrintInReportCount.MouseBack = null;
-            this.txtAllowPrintInReportCount.MouseState = CCWin.SkinClass.ControlState.Normal;
-            this.txtAllowPrintInReportCount.Multiline = false;
-            this.txtAllowPrintInReportCount.Name = "txtAllowPrintInReportCount";
-            this.txtAllowPrintInReportCount.NormlBack = null;
-            this.txtAllowPrintInReportCount.Padding = new System.Windows.Forms.Padding(5);
-            this.txtAllowPrintInReportCount.ReadOnly = false;
-            this.txtAllowPrintInReportCount.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.txtAllowPrintInReportCount.Size = new System.Drawing.Size(63, 28);
-            // 
-            // 
-            // 
-            this.txtAllowPrintInReportCount.SkinTxt.AccessibleName = "";
-            this.txtAllowPrintInReportCount.SkinTxt.AutoCompleteCustomSource.AddRange(new string[] {
-            "asdfasdf",
-            "adsfasdf"});
-            this.txtAllowPrintInReportCount.SkinTxt.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.txtAllowPrintInReportCount.SkinTxt.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.txtAllowPrintInReportCount.SkinTxt.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtAllowPrintInReportCount.SkinTxt.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtAllowPrintInReportCount.SkinTxt.Font = new System.Drawing.Font("微软雅黑", 9.75F);
-            this.txtAllowPrintInReportCount.SkinTxt.Location = new System.Drawing.Point(5, 5);
-            this.txtAllowPrintInReportCount.SkinTxt.Name = "BaseText";
-            this.txtAllowPrintInReportCount.SkinTxt.Size = new System.Drawing.Size(53, 18);
-            this.txtAllowPrintInReportCount.SkinTxt.TabIndex = 0;
-            this.txtAllowPrintInReportCount.SkinTxt.WaterColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.txtAllowPrintInReportCount.SkinTxt.WaterText = "";
-            this.txtAllowPrintInReportCount.TabIndex = 15;
-            this.txtAllowPrintInReportCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.txtAllowPrintInReportCount.WaterColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.txtAllowPrintInReportCount.WaterText = "";
-            this.txtAllowPrintInReportCount.WordWrap = true;
-            // 
-            // skinLabel5
-            // 
-            this.skinLabel5.BackColor = System.Drawing.Color.Transparent;
-            this.skinLabel5.BorderColor = System.Drawing.Color.White;
-            this.skinLabel5.Font = new System.Drawing.Font("微软雅黑", 9F);
-            this.skinLabel5.Location = new System.Drawing.Point(216, 49);
-            this.skinLabel5.Name = "skinLabel5";
-            this.skinLabel5.Size = new System.Drawing.Size(115, 32);
-            this.skinLabel5.TabIndex = 16;
-            this.skinLabel5.Text = "允许补打磅单次数";
-            this.skinLabel5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // txtAllowPrintOutReportCount
-            // 
-            this.txtAllowPrintOutReportCount.BackColor = System.Drawing.Color.Transparent;
-            this.txtAllowPrintOutReportCount.DownBack = null;
-            this.txtAllowPrintOutReportCount.Icon = null;
-            this.txtAllowPrintOutReportCount.IconIsButton = false;
-            this.txtAllowPrintOutReportCount.IconMouseState = CCWin.SkinClass.ControlState.Normal;
-            this.txtAllowPrintOutReportCount.IsPasswordChat = '\0';
-            this.txtAllowPrintOutReportCount.IsSystemPasswordChar = false;
-            this.txtAllowPrintOutReportCount.Lines = new string[0];
-            this.txtAllowPrintOutReportCount.Location = new System.Drawing.Point(337, 53);
-            this.txtAllowPrintOutReportCount.Margin = new System.Windows.Forms.Padding(0);
-            this.txtAllowPrintOutReportCount.MaxLength = 32767;
-            this.txtAllowPrintOutReportCount.MinimumSize = new System.Drawing.Size(28, 28);
-            this.txtAllowPrintOutReportCount.MouseBack = null;
-            this.txtAllowPrintOutReportCount.MouseState = CCWin.SkinClass.ControlState.Normal;
-            this.txtAllowPrintOutReportCount.Multiline = false;
-            this.txtAllowPrintOutReportCount.Name = "txtAllowPrintOutReportCount";
-            this.txtAllowPrintOutReportCount.NormlBack = null;
-            this.txtAllowPrintOutReportCount.Padding = new System.Windows.Forms.Padding(5);
-            this.txtAllowPrintOutReportCount.ReadOnly = false;
-            this.txtAllowPrintOutReportCount.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.txtAllowPrintOutReportCount.Size = new System.Drawing.Size(69, 28);
-            // 
-            // 
-            // 
-            this.txtAllowPrintOutReportCount.SkinTxt.AccessibleName = "";
-            this.txtAllowPrintOutReportCount.SkinTxt.AutoCompleteCustomSource.AddRange(new string[] {
-            "asdfasdf",
-            "adsfasdf"});
-            this.txtAllowPrintOutReportCount.SkinTxt.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.txtAllowPrintOutReportCount.SkinTxt.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.txtAllowPrintOutReportCount.SkinTxt.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtAllowPrintOutReportCount.SkinTxt.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtAllowPrintOutReportCount.SkinTxt.Font = new System.Drawing.Font("微软雅黑", 9.75F);
-            this.txtAllowPrintOutReportCount.SkinTxt.Location = new System.Drawing.Point(5, 5);
-            this.txtAllowPrintOutReportCount.SkinTxt.Name = "BaseText";
-            this.txtAllowPrintOutReportCount.SkinTxt.Size = new System.Drawing.Size(59, 18);
-            this.txtAllowPrintOutReportCount.SkinTxt.TabIndex = 0;
-            this.txtAllowPrintOutReportCount.SkinTxt.WaterColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.txtAllowPrintOutReportCount.SkinTxt.WaterText = "";
-            this.txtAllowPrintOutReportCount.TabIndex = 8;
-            this.txtAllowPrintOutReportCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.txtAllowPrintOutReportCount.WaterColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.txtAllowPrintOutReportCount.WaterText = "";
-            this.txtAllowPrintOutReportCount.WordWrap = true;
+            this.txtSysReadCardLimit.SkinTxt.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.txtSysReadCardLimit.SkinTxt.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.txtSysReadCardLimit.SkinTxt.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtSysReadCardLimit.SkinTxt.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtSysReadCardLimit.SkinTxt.Font = new System.Drawing.Font("微软雅黑", 9.75F);
+            this.txtSysReadCardLimit.SkinTxt.Location = new System.Drawing.Point(5, 5);
+            this.txtSysReadCardLimit.SkinTxt.Name = "BaseText";
+            this.txtSysReadCardLimit.SkinTxt.Size = new System.Drawing.Size(53, 18);
+            this.txtSysReadCardLimit.SkinTxt.TabIndex = 0;
+            this.txtSysReadCardLimit.SkinTxt.WaterColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.txtSysReadCardLimit.SkinTxt.WaterText = "";
+            this.txtSysReadCardLimit.TabIndex = 9;
+            this.txtSysReadCardLimit.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtSysReadCardLimit.WaterColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.txtSysReadCardLimit.WaterText = "";
+            this.txtSysReadCardLimit.WordWrap = true;
             // 
             // frmSysConfig
             // 
@@ -362,7 +208,7 @@
             this.Controls.Add(this.skinToolStrip1);
             this.LBPageTitle = "系统设置";
             this.Name = "frmSysConfig";
-            this.Size = new System.Drawing.Size(501, 153);
+            this.Size = new System.Drawing.Size(501, 113);
             this.skinToolStrip1.ResumeLayout(false);
             this.skinToolStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -378,13 +224,7 @@
         private Controls.LBToolStripButton btnSave;
         private System.Windows.Forms.GroupBox groupBox1;
         private CCWin.SkinControl.SkinLabel skinLabel2;
-        private Controls.LBSkinTextBox txtSysSaleReceiveOverdue;
+        private Controls.LBSkinTextBox txtSysReadCardLimit;
         private CCWin.SkinControl.SkinLabel skinLabel1;
-        private CCWin.SkinControl.SkinLabel skinLabel3;
-        private Controls.LBMetroComboBox txtSysSaleBillType;
-        private CCWin.SkinControl.SkinLabel skinLabel4;
-        private CCWin.SkinControl.SkinTextBox txtAllowPrintInReportCount;
-        private CCWin.SkinControl.SkinLabel skinLabel5;
-        private CCWin.SkinControl.SkinTextBox txtAllowPrintOutReportCount;
     }
 }

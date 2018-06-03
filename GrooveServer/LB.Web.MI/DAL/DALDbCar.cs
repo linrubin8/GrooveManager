@@ -77,7 +77,7 @@ where CarID  =@CarID
             parms.Add(new LBDbParameter("CarID", CarID));
 
             string strSQL = @"
-delete dbo.DbCar
+delete from dbo.DbCar
 where CarID = @CarID
 ";
             DBHelper.ExecuteNonQuery(args, System.Data.CommandType.Text, strSQL, parms, false);

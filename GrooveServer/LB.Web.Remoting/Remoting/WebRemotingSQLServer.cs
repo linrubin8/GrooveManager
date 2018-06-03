@@ -542,11 +542,12 @@ from {1}
 
         }
 
-        public void ReadRegister(out bool IsRegister, out int ProductType, out DateTime DeadLine)
+        public void ReadRegister(out bool IsRegister, out int ProductType, out string RegisterInfoJson, out DateTime DeadLine)
         {
             IsRegister = LB.Web.Encrypt.LBEncrypt.IsRegister;
             DeadLine = LB.Web.Encrypt.LBEncrypt.DeadLine;
             ProductType = LB.Web.Encrypt.LBEncrypt.ProductType;
+            RegisterInfoJson = LB.Web.Encrypt.LBEncrypt.RegisterInfoJson;
         }
 
         #region -- 数据压缩 --

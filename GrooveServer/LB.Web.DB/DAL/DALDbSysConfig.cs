@@ -26,16 +26,16 @@ select 1 from DbSysConfigValue where rtrim(SysConfigFieldName)=rtrim(@SysConfigF
                 if (dtResult.Rows.Count > 0)
                 {
                     strSQL = @"
-                        insert dbo.DbSysConfigValue( SysConfigFieldName,SysConfigValue)
-                        values(@SysConfigFieldName,@SysConfigValue)";
+                        update dbo.DbSysConfigValue
+                        set SysConfigValue = @SysConfigValue
+                        where SysConfigFieldName = @SysConfigFieldName";
                     DBHelper.ExecuteNonQuery(args, System.Data.CommandType.Text, strSQL, parms, false);
                 }
                 else
                 {
                     strSQL = @"
-                        update dbo.DbSysConfigValue
-                        set SysConfigValue = @SysConfigValue
-                        where SysConfigFieldName = @SysConfigFieldName";
+                        insert into dbo.DbSysConfigValue( SysConfigFieldName,SysConfigValue)
+                        values(@SysConfigFieldName,@SysConfigValue)";
                     DBHelper.ExecuteNonQuery(args, System.Data.CommandType.Text, strSQL, parms, false);
                 }
             }

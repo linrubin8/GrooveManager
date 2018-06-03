@@ -33,15 +33,25 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WeightFormCalcalute));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WeightFormCalcalute));
             this.pnlRight = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.pnlBill = new System.Windows.Forms.Panel();
             this.grdMain = new LB.Controls.LBDataGridView(this.components);
+            this.SaleCarInBillCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SupplierName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CarNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TotalWeight = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CarTare = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SuttleWeight = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SuttleWeightT = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BillDateIn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CardCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SaleCarInBillID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel5 = new System.Windows.Forms.Panel();
             this.lblAllCar = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -94,16 +104,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.lblCurrentTime = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.SaleCarInBillCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SupplierName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CarNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TotalWeight = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CarTare = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SuttleWeight = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SuttleWeightT = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BillDateIn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CardCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SaleCarInBillID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnSystemConfig = new System.Windows.Forms.ToolStripMenuItem();
             this.panel2.SuspendLayout();
             this.pnlBill.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdMain)).BeginInit();
@@ -201,6 +202,100 @@
             this.grdMain.TitleBack = null;
             this.grdMain.TitleBackColorBegin = System.Drawing.Color.White;
             this.grdMain.TitleBackColorEnd = System.Drawing.SystemColors.ActiveBorder;
+            // 
+            // SaleCarInBillCode
+            // 
+            this.SaleCarInBillCode.DataPropertyName = "SaleCarInBillCode";
+            this.SaleCarInBillCode.HeaderText = "单号";
+            this.SaleCarInBillCode.Name = "SaleCarInBillCode";
+            this.SaleCarInBillCode.ReadOnly = true;
+            this.SaleCarInBillCode.Width = 120;
+            // 
+            // SupplierName
+            // 
+            this.SupplierName.DataPropertyName = "SupplierName";
+            this.SupplierName.HeaderText = "经销商名称";
+            this.SupplierName.Name = "SupplierName";
+            this.SupplierName.ReadOnly = true;
+            this.SupplierName.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.SupplierName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // CarNum
+            // 
+            this.CarNum.DataPropertyName = "CarNum";
+            this.CarNum.HeaderText = "车号";
+            this.CarNum.Name = "CarNum";
+            this.CarNum.ReadOnly = true;
+            this.CarNum.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.CarNum.Width = 150;
+            // 
+            // TotalWeight
+            // 
+            this.TotalWeight.DataPropertyName = "TotalWeight";
+            dataGridViewCellStyle3.Format = "N0";
+            dataGridViewCellStyle3.NullValue = null;
+            this.TotalWeight.DefaultCellStyle = dataGridViewCellStyle3;
+            this.TotalWeight.HeaderText = "毛重";
+            this.TotalWeight.Name = "TotalWeight";
+            this.TotalWeight.ReadOnly = true;
+            this.TotalWeight.Visible = false;
+            this.TotalWeight.Width = 90;
+            // 
+            // CarTare
+            // 
+            this.CarTare.DataPropertyName = "CarTare";
+            dataGridViewCellStyle4.Format = "N0";
+            this.CarTare.DefaultCellStyle = dataGridViewCellStyle4;
+            this.CarTare.HeaderText = "皮重";
+            this.CarTare.Name = "CarTare";
+            this.CarTare.ReadOnly = true;
+            this.CarTare.Visible = false;
+            this.CarTare.Width = 90;
+            // 
+            // SuttleWeight
+            // 
+            this.SuttleWeight.DataPropertyName = "SuttleWeight";
+            dataGridViewCellStyle5.Format = "N0";
+            this.SuttleWeight.DefaultCellStyle = dataGridViewCellStyle5;
+            this.SuttleWeight.HeaderText = "净重";
+            this.SuttleWeight.Name = "SuttleWeight";
+            this.SuttleWeight.ReadOnly = true;
+            this.SuttleWeight.Visible = false;
+            this.SuttleWeight.Width = 90;
+            // 
+            // SuttleWeightT
+            // 
+            this.SuttleWeightT.DataPropertyName = "SuttleWeightT";
+            this.SuttleWeightT.HeaderText = "净重(吨)";
+            this.SuttleWeightT.Name = "SuttleWeightT";
+            this.SuttleWeightT.ReadOnly = true;
+            this.SuttleWeightT.Visible = false;
+            // 
+            // BillDateIn
+            // 
+            this.BillDateIn.DataPropertyName = "BillDateIn";
+            dataGridViewCellStyle6.Format = "G";
+            dataGridViewCellStyle6.NullValue = null;
+            this.BillDateIn.DefaultCellStyle = dataGridViewCellStyle6;
+            this.BillDateIn.HeaderText = "打卡时间";
+            this.BillDateIn.Name = "BillDateIn";
+            this.BillDateIn.ReadOnly = true;
+            this.BillDateIn.Width = 180;
+            // 
+            // CardCode
+            // 
+            this.CardCode.DataPropertyName = "CardCode";
+            this.CardCode.HeaderText = "卡号";
+            this.CardCode.Name = "CardCode";
+            this.CardCode.ReadOnly = true;
+            this.CardCode.Width = 80;
+            // 
+            // SaleCarInBillID
+            // 
+            this.SaleCarInBillID.DataPropertyName = "SaleCarInBillID";
+            this.SaleCarInBillID.HeaderText = "SaleCarInBillID";
+            this.SaleCarInBillID.Name = "SaleCarInBillID";
+            this.SaleCarInBillID.Visible = false;
             // 
             // panel5
             // 
@@ -498,6 +593,7 @@
             this.btnDDSystemManager.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnChangePassword,
             this.btnCancel,
+            this.btnSystemConfig,
             this.btnUserManager,
             this.btnCameraConfig,
             this.btnInfraredDeviceConfig,
@@ -771,99 +867,12 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "当前时间：";
             // 
-            // SaleCarInBillCode
+            // btnSystemConfig
             // 
-            this.SaleCarInBillCode.DataPropertyName = "SaleCarInBillCode";
-            this.SaleCarInBillCode.HeaderText = "单号";
-            this.SaleCarInBillCode.Name = "SaleCarInBillCode";
-            this.SaleCarInBillCode.ReadOnly = true;
-            this.SaleCarInBillCode.Width = 120;
-            // 
-            // SupplierName
-            // 
-            this.SupplierName.DataPropertyName = "SupplierName";
-            this.SupplierName.HeaderText = "经销商名称";
-            this.SupplierName.Name = "SupplierName";
-            this.SupplierName.ReadOnly = true;
-            this.SupplierName.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.SupplierName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // CarNum
-            // 
-            this.CarNum.DataPropertyName = "CarNum";
-            this.CarNum.HeaderText = "车号";
-            this.CarNum.Name = "CarNum";
-            this.CarNum.ReadOnly = true;
-            this.CarNum.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.CarNum.Width = 150;
-            // 
-            // TotalWeight
-            // 
-            this.TotalWeight.DataPropertyName = "TotalWeight";
-            dataGridViewCellStyle3.Format = "N0";
-            dataGridViewCellStyle3.NullValue = null;
-            this.TotalWeight.DefaultCellStyle = dataGridViewCellStyle3;
-            this.TotalWeight.HeaderText = "毛重";
-            this.TotalWeight.Name = "TotalWeight";
-            this.TotalWeight.ReadOnly = true;
-            this.TotalWeight.Visible = false;
-            this.TotalWeight.Width = 90;
-            // 
-            // CarTare
-            // 
-            this.CarTare.DataPropertyName = "CarTare";
-            dataGridViewCellStyle4.Format = "N0";
-            this.CarTare.DefaultCellStyle = dataGridViewCellStyle4;
-            this.CarTare.HeaderText = "皮重";
-            this.CarTare.Name = "CarTare";
-            this.CarTare.ReadOnly = true;
-            this.CarTare.Visible = false;
-            this.CarTare.Width = 90;
-            // 
-            // SuttleWeight
-            // 
-            this.SuttleWeight.DataPropertyName = "SuttleWeight";
-            dataGridViewCellStyle5.Format = "N0";
-            this.SuttleWeight.DefaultCellStyle = dataGridViewCellStyle5;
-            this.SuttleWeight.HeaderText = "净重";
-            this.SuttleWeight.Name = "SuttleWeight";
-            this.SuttleWeight.ReadOnly = true;
-            this.SuttleWeight.Visible = false;
-            this.SuttleWeight.Width = 90;
-            // 
-            // SuttleWeightT
-            // 
-            this.SuttleWeightT.DataPropertyName = "SuttleWeightT";
-            this.SuttleWeightT.HeaderText = "净重(吨)";
-            this.SuttleWeightT.Name = "SuttleWeightT";
-            this.SuttleWeightT.ReadOnly = true;
-            this.SuttleWeightT.Visible = false;
-            // 
-            // BillDateIn
-            // 
-            this.BillDateIn.DataPropertyName = "BillDateIn";
-            dataGridViewCellStyle6.Format = "G";
-            dataGridViewCellStyle6.NullValue = null;
-            this.BillDateIn.DefaultCellStyle = dataGridViewCellStyle6;
-            this.BillDateIn.HeaderText = "打卡时间";
-            this.BillDateIn.Name = "BillDateIn";
-            this.BillDateIn.ReadOnly = true;
-            this.BillDateIn.Width = 180;
-            // 
-            // CardCode
-            // 
-            this.CardCode.DataPropertyName = "CardCode";
-            this.CardCode.HeaderText = "卡号";
-            this.CardCode.Name = "CardCode";
-            this.CardCode.ReadOnly = true;
-            this.CardCode.Width = 80;
-            // 
-            // SaleCarInBillID
-            // 
-            this.SaleCarInBillID.DataPropertyName = "SaleCarInBillID";
-            this.SaleCarInBillID.HeaderText = "SaleCarInBillID";
-            this.SaleCarInBillID.Name = "SaleCarInBillID";
-            this.SaleCarInBillID.Visible = false;
+            this.btnSystemConfig.Name = "btnSystemConfig";
+            this.btnSystemConfig.Size = new System.Drawing.Size(160, 22);
+            this.btnSystemConfig.Text = "系统设置";
+            this.btnSystemConfig.Click += new System.EventHandler(this.btnSystemConfig_Click);
             // 
             // WeightFormCalcalute
             // 
@@ -961,5 +970,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn BillDateIn;
         private System.Windows.Forms.DataGridViewTextBoxColumn CardCode;
         private System.Windows.Forms.DataGridViewTextBoxColumn SaleCarInBillID;
+        private System.Windows.Forms.ToolStripMenuItem btnSystemConfig;
     }
 }

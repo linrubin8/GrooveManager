@@ -380,7 +380,7 @@ namespace LB.Web.SM.BLL
         {
             try
             {
-                string strDatePath = GetPicturePath(enImagePathType.InBillPath, DateTime.Now);
+                string strDatePath = GetPicturePath(args,enImagePathType.InBillPath, DateTime.Now);
 
                 if (MonitoreImg1.Value != null)
                 {
@@ -416,7 +416,7 @@ namespace LB.Web.SM.BLL
         {
             try
             {
-                string strDatePath = GetPicturePath(enImagePathType.OutBillPath, DateTime.Now);
+                string strDatePath = GetPicturePath(args, enImagePathType.OutBillPath, DateTime.Now);
 
                 if (MonitoreImg1.Value != null)
                 {
@@ -474,7 +474,7 @@ namespace LB.Web.SM.BLL
             //读取入场图片
             if (BillDateIn.Value != null)
             {
-                string strInPath = GetPicturePath(enImagePathType.InBillPath, (DateTime)BillDateIn.Value);
+                string strInPath = GetPicturePath(args, enImagePathType.InBillPath, (DateTime)BillDateIn.Value);
                 string strPathImg1 = Path.Combine(strInPath, SaleCarInBillID.Value.ToString() + "_Image1.jpg");
                 string strPathImg2 = Path.Combine(strInPath, SaleCarInBillID.Value.ToString() + "_Image2.jpg");
                 string strPathImg3 = Path.Combine(strInPath, SaleCarInBillID.Value.ToString() + "_Image3.jpg");
@@ -499,10 +499,15 @@ namespace LB.Web.SM.BLL
             }
         }
 
-        private string GetPicturePath(enImagePathType pathType, DateTime dtDate)
+        private string GetPicturePath(FactoryArgs args, enImagePathType pathType, DateTime dtDate)
         {
-            string strPath = AppDomain.CurrentDomain.BaseDirectory;
-            string strCameraPath = Path.Combine(strPath, "LBCameraPicture");
+            string strCameraPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "LBCameraPicture");
+            //读取图片保存路径
+            string strSavePath = _DALSaleCarInOutBill.GetDbSysConfigValue(args, new t_String("CameraImageSavePath"));
+            if (strSavePath != "" && Directory.Exists(strSavePath))
+            {
+                strCameraPath = strSavePath;
+            }
             if (!Directory.Exists(strCameraPath))
             {
                 Directory.CreateDirectory(strCameraPath);

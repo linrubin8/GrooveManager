@@ -71,6 +71,9 @@ namespace LB.SysConfig.SysConfig
                 this.cbUserCamera3.Checked = LBConverter.ToBoolean(dr["UseCamera3"]);
                 this.cbUserCamera4.Checked = LBConverter.ToBoolean(dr["UseCamera4"]);
             }
+            string strCameraImageSavePath;
+            SysConfigValue.GetSysConfig("CameraImageSavePath", out strCameraImageSavePath);
+            this.txtImageAddress.Text = strCameraImageSavePath;
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -114,6 +117,9 @@ namespace LB.SysConfig.SysConfig
                 DataSet dsReturn;
                 Dictionary<string, object> dictValue;
                 ExecuteSQL.CallSP(13900, parmCol, out dsReturn, out dictValue);
+
+
+                SysConfigValue.SaveSysConfig("CameraImageSavePath", this.txtImageAddress.Text);
 
                 LB.WinFunction.LBCommonHelper.ShowCommonMessage("保存成功！");
             }
@@ -184,6 +190,22 @@ namespace LB.SysConfig.SysConfig
                 viewCamera4.Password = this.txtPassword4.Text;
 
                 viewCamera4.OpenCamera(9);
+            }
+            catch (Exception ex)
+            {
+                LB.WinFunction.LBCommonHelper.DealWithErrorMessage(ex);
+            }
+        }
+
+        private void btnSelectPath_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if(this.folderBrowserDialog1.ShowDialog()== DialogResult.OK)
+                {
+                    string strPath = this.folderBrowserDialog1.SelectedPath;
+                    this.txtImageAddress.Text = strPath;
+                }
             }
             catch (Exception ex)
             {

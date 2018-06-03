@@ -76,7 +76,7 @@ namespace LB.MainForm
 
             LoadAllSalesBill();//磅单清单
             InitData();
-            LBSerialHelper.StartSerial();//启动串口
+            //LBSerialHelper.StartSerial();//启动串口
             LBInFrareHelper.StartSerial();//红外线对射串口
             LBCardHelper.StartSerial(enCardType.ReadCard);//开启打开器端口
 
@@ -100,7 +100,7 @@ namespace LB.MainForm
         private void InitData()
         {
             LBPermission.ReadAllPermission();//加载所有权限信息
-
+            SystemConfigValue.ReadAllConfigValue();
             LBLog.AssemblyStart();
 
             this.grdMain.LBLoadConst();
@@ -164,7 +164,7 @@ namespace LB.MainForm
                             DateTime.TryParse(strPreviousCardCodeTime, out previousReadCardTime);
                         }
                         //判断依据为如果本次打开与上次打卡(已成功生成单据)一致，以及本次称重值与上次称重值一致时，认为是重复打开
-                        if (DateTime.Now.Subtract(previousReadCardTime).TotalMinutes < 15)
+                        if (DateTime.Now.Subtract(previousReadCardTime).TotalMinutes < SystemConfigValue.SysReadCardLimit)
                         {
                             bolIsSameCardCode = true;
                         }
@@ -193,12 +193,12 @@ namespace LB.MainForm
                                 throw new Exception("卡号无效！");
                             }
                         }
-                        else
-                        {
-                            //mReadCardFailTimes = 0;
-                            SendStatus(enAlermStatus.Fail);
-                            LBSpeakHelper.SpeakString = "记录无效请离开！";
-                        }
+                        //else
+                        //{
+                        //    //mReadCardFailTimes = 0;
+                        //    SendStatus(enAlermStatus.Fail);
+                        //    LBSpeakHelper.SpeakString = "记录无效请离开！";
+                        //}
                     }
 
                     //LBCardHelper.LstCardCode.Clear();
@@ -1426,6 +1426,19 @@ where PermissionDataID = {4};
         private void btnSQLBuilder_Click(object sender, EventArgs e)
         {
             ExportSQLConfig.ExportAction();
+        }
+
+        private void btnSystemConfig_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                frmSysConfig frm = new frmSysConfig();
+                LBShowForm.ShowDialog(frm);
+            }
+            catch (Exception ex)
+            {
+                LB.WinFunction.LBCommonHelper.DealWithErrorMessage(ex);
+            }
         }
     }
 }

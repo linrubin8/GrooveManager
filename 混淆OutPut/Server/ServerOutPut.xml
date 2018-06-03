@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE dotfuscator SYSTEM "http://www.preemptive.com/dotfuscator/dtd/dotfuscator_v2.3.dtd">
+<dotfuscator version="2.3">
+  <!--This is application generated code. Do not edit manually.-->
+  <propertylist>
+    <property name="ILASM_v4.0.30319" value="C:\Windows\Microsoft.NET\Framework\v4.0.30319\ilasm.exe" />
+    <property name="ILDASM_v4.0.30319" value="C:\Program Files (x86)\Microsoft SDKs\Windows\v8.1A\bin\NETFX 4.5.1 Tools\ildasm.exe" />
+  </propertylist>
+  <input>
+    <loadpaths />
+    <asmlist>
+      <inputassembly refid="b40ad6e6-19c7-4037-a4d2-ee7e66d5f9d4">
+        <option>honoroas</option>
+        <option>stripoa</option>
+        <option>library</option>
+        <option>transformxaml</option>
+        <file dir="G:\MyProject\GrooveManager\GrooveServer\LB.Web.ServiceMonitor\bin\Debug" name="LB.Web.Base.dll" />
+      </inputassembly>
+      <inputassembly refid="9e9baff7-9306-4d3a-a936-6297b250a60b">
+        <option>honoroas</option>
+        <option>stripoa</option>
+        <option>library</option>
+        <option>transformxaml</option>
+        <file dir="G:\MyProject\GrooveManager\GrooveServer\LB.Web.ServiceMonitor\bin\Debug" name="LB.Web.Contants.dll" />
+      </inputassembly>
+      <inputassembly refid="8c385235-ae65-44c0-a3bc-9d1891a8df64">
+        <option>honoroas</option>
+        <option>stripoa</option>
+        <option>library</option>
+        <option>transformxaml</option>
+        <file dir="G:\MyProject\GrooveManager\GrooveServer\LB.Web.ServiceMonitor\bin\Debug" name="LB.Web.IRemoting.dll" />
+      </inputassembly>
+      <inputassembly refid="55b9d685-9daa-4dfd-8739-e894f6b07211">
+        <option>honoroas</option>
+        <option>stripoa</option>
+        <option>library</option>
+        <option>transformxaml</option>
+        <file dir="G:\MyProject\GrooveManager\GrooveServer\LB.Web.ServiceMonitor\bin\Debug" name="LB.Web.Remoting.dll" />
+      </inputassembly>
+      <inputassembly refid="7ea52d6b-a606-42dc-ba64-c58f58d8276f">
+        <option>honoroas</option>
+        <option>stripoa</option>
+        <option>library</option>
+        <option>transformxaml</option>
+        <file dir="G:\MyProject\GrooveManager\GrooveServer\LB.Web.ServiceMonitor\bin\Debug" name="LB.Web.ServerTool.exe" />
+      </inputassembly>
+      <inputassembly refid="3934a85b-46ee-4f0b-aa6e-724b82e77321">
+        <option>honoroas</option>
+        <option>stripoa</option>
+        <option>library</option>
+        <option>transformxaml</option>
+        <file dir="G:\MyProject\GrooveManager\GrooveServer\LB.Web.ServiceMonitor\bin\Debug" name="LB.Web.MI.dll" />
+      </inputassembly>
+      <inputassembly refid="2c3ce7fd-b1ce-4d10-b165-a4ef26654bb7">
+        <option>honoroas</option>
+        <option>stripoa</option>
+        <option>library</option>
+        <option>transformxaml</option>
+        <file dir="G:\MyProject\GrooveManager\GrooveServer\LB.Web.ServiceMonitor\bin\Debug" name="LB.Web.DB.dll" />
+      </inputassembly>
+      <inputassembly refid="8f71b295-9bb8-401b-95c2-947c870b1a8b">
+        <option>honoroas</option>
+        <option>stripoa</option>
+        <option>library</option>
+        <option>transformxaml</option>
+        <file dir="G:\MyProject\GrooveManager\GrooveServer\LB.Web.ServiceMonitor\bin\Debug" name="LB.Web.IBLL.dll" />
+      </inputassembly>
+      <inputassembly refid="069107db-8361-4626-9e7c-e566db7b3fa9">
+        <option>honoroas</option>
+        <option>stripoa</option>
+        <option>library</option>
+        <option>transformxaml</option>
+        <file dir="G:\MyProject\GrooveManager\GrooveServer\LB.Web.ServiceMonitor\bin\Debug" name="LB.Web.SM.dll" />
+      </inputassembly>
+      <inputassembly refid="4911be8a-28fe-42eb-b80b-83a9d01fd345">
+        <option>honoroas</option>
+        <option>stripoa</option>
+        <option>library</option>
+        <option>transformxaml</option>
+        <file dir="G:\MyProject\GrooveManager\GrooveServer\LB.Web.ServiceMonitor\bin\Debug" name="LB.Web.ServiceTool.dll" />
+      </inputassembly>
+      <inputassembly refid="6bb342e2-b1d3-4b1f-b24c-96f8392554e5">
+        <option>honoroas</option>
+        <option>stripoa</option>
+        <option>library</option>
+        <option>transformxaml</option>
+        <file dir="G:\MyProject\GrooveManager\GrooveServer\LB.Web.ServiceMonitor\bin\Debug" name="LB.Web.Server.exe" />
+      </inputassembly>
+      <inputassembly refid="c3ca4e7e-c232-441d-8987-bd39e59729c9">
+        <option>honoroas</option>
+        <option>stripoa</option>
+        <option>library</option>
+        <option>transformxaml</option>
+        <file dir="G:\MyProject\GrooveManager\GrooveServer\LB.Web.ServiceMonitor\bin\Debug" name="LB.Web.RP.dll" />
+      </inputassembly>
+      <inputassembly refid="0e1f26f6-b1fb-4633-8e18-5196224183c7">
+        <option>honoroas</option>
+        <option>stripoa</option>
+        <option>library</option>
+        <option>transformxaml</option>
+        <file dir="G:\MyProject\GrooveManager\GrooveServer\LB.Web.ServiceMonitor\bin\Debug" name="LB.RMT.Base.dll" />
+      </inputassembly>
+      <inputassembly refid="03111a49-a152-4ecf-8b6d-6c1b8395d798">
+        <option>honoroas</option>
+        <option>stripoa</option>
+        <option>library</option>
+        <option>transformxaml</option>
+        <file dir="G:\MyProject\GrooveManager\GrooveServer\LB.Web.ServiceMonitor\bin\Debug" name="LB.Web.Encrypt.dll" />
+      </inputassembly>
+    </asmlist>
+  </input>
+  <output>
+    <file dir="${configdir}\Dotfuscated" />
+  </output>
+  <renaming>
+    <option>enhancedOI</option>
+    <excludelist>
+      <assembly>
+        <file dir="G:\MyProject\GrooveManager\GrooveServer\LB.Web.ServiceMonitor\bin\Debug" name="LB.RMT.Base.dll" />
+      </assembly>
+      <assembly>
+        <file dir="G:\MyProject\GrooveManager\GrooveServer\LB.Web.ServiceMonitor\bin\Debug" name="LB.Web.Base.dll" />
+      </assembly>
+      <assembly>
+        <file dir="G:\MyProject\GrooveManager\GrooveServer\LB.Web.ServiceMonitor\bin\Debug" name="LB.Web.Contants.dll" />
+      </assembly>
+      <assembly>
+        <file dir="G:\MyProject\GrooveManager\GrooveServer\LB.Web.ServiceMonitor\bin\Debug" name="LB.Web.DB.dll" />
+      </assembly>
+      <assembly>
+        <file dir="G:\MyProject\GrooveManager\GrooveServer\LB.Web.ServiceMonitor\bin\Debug" name="LB.Web.IBLL.dll" />
+      </assembly>
+      <assembly>
+        <file dir="G:\MyProject\GrooveManager\GrooveServer\LB.Web.ServiceMonitor\bin\Debug" name="LB.Web.IRemoting.dll" />
+      </assembly>
+      <assembly>
+        <file dir="G:\MyProject\GrooveManager\GrooveServer\LB.Web.ServiceMonitor\bin\Debug" name="LB.Web.MI.dll" />
+      </assembly>
+      <assembly>
+        <file dir="G:\MyProject\GrooveManager\GrooveServer\LB.Web.ServiceMonitor\bin\Debug" name="LB.Web.Remoting.dll" />
+      </assembly>
+      <assembly>
+        <file dir="G:\MyProject\GrooveManager\GrooveServer\LB.Web.ServiceMonitor\bin\Debug" name="LB.Web.RP.dll" />
+      </assembly>
+      <assembly>
+        <file dir="G:\MyProject\GrooveManager\GrooveServer\LB.Web.ServiceMonitor\bin\Debug" name="LB.Web.Server.exe" />
+      </assembly>
+      <assembly>
+        <file dir="G:\MyProject\GrooveManager\GrooveServer\LB.Web.ServiceMonitor\bin\Debug" name="LB.Web.ServerTool.exe" />
+      </assembly>
+      <assembly>
+        <file dir="G:\MyProject\GrooveManager\GrooveServer\LB.Web.ServiceMonitor\bin\Debug" name="LB.Web.SM.dll" />
+      </assembly>
+      <assembly>
+        <file dir="G:\MyProject\GrooveManager\GrooveServer\LB.Web.ServiceMonitor\bin\Debug" name="LB.Web.ServiceTool.dll" />
+      </assembly>
+    </excludelist>
+    <mapping>
+      <mapoutput overwrite="false">
+        <file dir="${configdir}\Dotfuscated" name="Map.xml" />
+      </mapoutput>
+    </mapping>
+    <referencerulelist>
+      <referencerule rulekey="{6655B10A-FD58-462d-8D4F-5B1316DFF0FF}" />
+      <referencerule rulekey="{229FD6F8-5BCC-427b-8F72-A7A413ECDF1A}" />
+      <referencerule rulekey="{2B7E7C8C-A39A-4db8-9DFC-6AFD38509061}" />
+      <referencerule rulekey="{7D9C8B02-2383-420f-8740-A9760394C2C1}" />
+      <referencerule rulekey="{89769974-93E9-4e71-8D92-BE70E855ACFC}" />
+      <referencerule rulekey="{494EA3BA-B947-44B5-BEE8-A11CC85AAF9B}" />
+    </referencerulelist>
+  </renaming>
+  <controlflow level="high" />
+  <stringencrypt />
+  <sos mergeruntime="true">
+    <option>dontsendtamper</option>
+  </sos>
+  <smartobfuscation>
+    <smartobfuscationreport verbosity="all" overwrite="false" />
+  </smartobfuscation>
+</dotfuscator>

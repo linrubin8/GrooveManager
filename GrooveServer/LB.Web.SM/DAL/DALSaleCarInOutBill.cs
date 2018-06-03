@@ -628,5 +628,24 @@ where SaleCarInBillID = @SaleCarInBillID
 ";
             DBHelper.ExecuteNonQuery(args, System.Data.CommandType.Text, strSQL, parms, false);
         }
+
+        public string GetDbSysConfigValue(FactoryArgs args, t_String SysConfigFieldName)
+        {
+            string strValue = "";
+            LBDbParameterCollection parms = new LBDbParameterCollection();
+            parms.Add(new LBDbParameter("SysConfigFieldName", SysConfigFieldName));
+
+            string strSQL = @"
+select *
+from dbo.DbSysConfigValue
+where SysConfigFieldName = @SysConfigFieldName
+";
+            DataTable dt = DBHelper.ExecuteQuery(args, strSQL, parms);
+            if (dt.Rows.Count > 0)
+            {
+                strValue = dt.Rows[0]["SysConfigValue"].ToString().TrimEnd();
+            }
+            return strValue;
+        }
     }
 }
