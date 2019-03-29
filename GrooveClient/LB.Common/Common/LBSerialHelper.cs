@@ -243,8 +243,14 @@ namespace LB.Common
                 //缓存数据  
                 buffer.AddRange(buf);
                 //完整性判断
+                int whileCount = 0;
                 while (buffer.Count >= 12)
                 {
+                    whileCount++;
+                    if (whileCount == 1000)
+                    {
+                        break;
+                    }
                     if (buffer[0].ToString("X2") == "02" && buffer[11].ToString("X2") == "03")
                     {
                         //异或校验，逐个字节异或得到校验码  
@@ -274,6 +280,11 @@ namespace LB.Common
                     }
                 }
 
+                if (whileCount == 1000)
+                {
+                    LBErrorLog.InsertFileLog("_comm_DataReceived：循环次数太大");
+                }
+
                 //分析数据  
                 if (data_1_catched)
                 {
@@ -288,7 +299,6 @@ namespace LB.Common
                     mReceiveData.AppendLine("-" + data + "-");
                     string strData = "";
                     int.TryParse(data, out WeightValue);
-                    WeightValue = WeightValue * 1000;
                     if (WeightValue == PreWeightValue)
                     {
                         WeightCount++;

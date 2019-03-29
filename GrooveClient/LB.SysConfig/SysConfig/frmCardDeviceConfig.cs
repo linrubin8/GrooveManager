@@ -124,5 +124,18 @@ namespace LB.SysConfig.SysConfig
             frmInfraredDeviceConnectPic frmConnect = new SysConfig.frmInfraredDeviceConnectPic();
             LBShowForm.ShowDialog(frmConnect);
         }
+
+        private void btnReadCard_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.txtCardCode.Text = "";
+                this.txtCardCode.Text = LBCardHelper.ReadCardDirect();
+            }
+            catch (Exception ex)
+            {
+                LB.WinFunction.LBCommonHelper.DealWithErrorMessage(ex);
+            }
+        }
     }
 }

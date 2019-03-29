@@ -130,7 +130,7 @@ namespace LB.Common
             }
             catch(Exception ex)
             {
-
+                LBErrorLog.InsertFileLog("StartSerial：" + ex.Message);
             }
 
             try

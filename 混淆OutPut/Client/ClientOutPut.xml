@@ -9,89 +9,89 @@
   <input>
     <loadpaths />
     <asmlist>
-      <inputassembly refid="b3f4a4cc-7b6d-4921-a4d0-f214e6239d05">
+      <inputassembly refid="2ab741f2-432a-4750-8d69-6d6bca5c6f5f">
         <option>honoroas</option>
         <option>stripoa</option>
         <option>library</option>
         <option>transformxaml</option>
-        <file dir="G:\MyProject\GrooveManager\GrooveClient\LB.MainForm\bin\Debug" name="LB.MainForm.exe" />
+        <file dir="D:\私人\Git Source\Weight\GrooveManager\GrooveClient\LB.MainForm\bin\Debug" name="LB.MainForm.exe" />
       </inputassembly>
-      <inputassembly refid="8c175193-9f4e-45c3-8d91-02f396c33f97">
+      <inputassembly refid="d42f8c4b-d1fa-428c-b728-7e679b4a92b3">
         <option>honoroas</option>
         <option>stripoa</option>
         <option>library</option>
         <option>transformxaml</option>
-        <file dir="G:\MyProject\GrooveManager\GrooveClient\LB.MainForm\bin\Debug" name="LB.Login.dll" />
+        <file dir="D:\私人\Git Source\Weight\GrooveManager\GrooveClient\LB.MainForm\bin\Debug" name="LB.MI.dll" />
       </inputassembly>
-      <inputassembly refid="1b4e3479-9225-4d3d-b192-c44c3db8f9cc">
+      <inputassembly refid="291f2568-bdee-4f5e-bf85-4a411a467cc7">
         <option>honoroas</option>
         <option>stripoa</option>
         <option>library</option>
         <option>transformxaml</option>
-        <file dir="G:\MyProject\GrooveManager\GrooveClient\LB.MainForm\bin\Debug" name="LB.MI.dll" />
+        <file dir="D:\私人\Git Source\Weight\GrooveManager\GrooveClient\LB.MainForm\bin\Debug" name="LB.Login.dll" />
       </inputassembly>
-      <inputassembly refid="a50f4733-de75-46ac-83a4-2b451aa9de39">
+      <inputassembly refid="d2c66e22-3f46-4e2b-aaaf-d9cf073858ba">
         <option>honoroas</option>
         <option>stripoa</option>
         <option>library</option>
         <option>transformxaml</option>
-        <file dir="G:\MyProject\GrooveManager\GrooveClient\LB.MainForm\bin\Debug" name="LB.SysConfig.dll" />
+        <file dir="D:\私人\Git Source\Weight\GrooveManager\GrooveClient\LB.MainForm\bin\Debug" name="LB.SysConfig.dll" />
       </inputassembly>
-      <inputassembly refid="57aae289-0de9-40bd-803f-39873628bff5">
+      <inputassembly refid="7d431860-2f8f-4838-ba03-665eb05a576e">
         <option>honoroas</option>
         <option>stripoa</option>
         <option>library</option>
         <option>transformxaml</option>
-        <file dir="G:\MyProject\GrooveManager\GrooveClient\LB.MainForm\bin\Debug" name="LB.Base.dll" />
+        <file dir="D:\私人\Git Source\Weight\GrooveManager\GrooveClient\LB.MainForm\bin\Debug" name="LB.Common.dll" />
       </inputassembly>
-      <inputassembly refid="437d4768-e8aa-431d-8a84-a8b1b26757f9">
+      <inputassembly refid="2989bb26-3fe4-4bbc-808e-cfd6d33a0439">
         <option>honoroas</option>
         <option>stripoa</option>
         <option>library</option>
         <option>transformxaml</option>
-        <file dir="G:\MyProject\GrooveManager\GrooveClient\LB.MainForm\bin\Debug" name="LB.Common.dll" />
+        <file dir="D:\私人\Git Source\Weight\GrooveManager\GrooveClient\LB.MainForm\bin\Debug" name="LB.Controls.dll" />
       </inputassembly>
-      <inputassembly refid="c58ca836-3e35-4f70-a85d-b6ba5fac1660">
+      <inputassembly refid="dc8e900f-80e0-470c-a7e3-607f562d4437">
         <option>honoroas</option>
         <option>stripoa</option>
         <option>library</option>
         <option>transformxaml</option>
-        <file dir="G:\MyProject\GrooveManager\GrooveClient\LB.MainForm\bin\Debug" name="LB.Controls.dll" />
+        <file dir="D:\私人\Git Source\Weight\GrooveManager\GrooveClient\LB.MainForm\bin\Debug" name="LB.Base.dll" />
       </inputassembly>
-      <inputassembly refid="5f3ebe21-3fac-4d68-831e-791da005dcff">
+      <inputassembly refid="ab69da59-aaa7-4a61-8d32-c5d4d884b2ad">
         <option>honoroas</option>
         <option>stripoa</option>
         <option>library</option>
         <option>transformxaml</option>
-        <file dir="G:\MyProject\GrooveManager\GrooveClient\LB.MainForm\bin\Debug" name="LB.StyleResource.dll" />
+        <file dir="D:\私人\Git Source\Weight\GrooveManager\GrooveClient\LB.MainForm\bin\Debug" name="LB.PageType.dll" />
       </inputassembly>
-      <inputassembly refid="7d944596-7619-440c-815d-a13be99db676">
+      <inputassembly refid="6ec101dd-78c5-4f19-8a35-a5c436d7e4e0">
         <option>honoroas</option>
         <option>stripoa</option>
         <option>library</option>
         <option>transformxaml</option>
-        <file dir="G:\MyProject\GrooveManager\GrooveClient\LB.MainForm\bin\Debug" name="LB.Web.IRemoting.dll" />
+        <file dir="D:\私人\Git Source\Weight\GrooveManager\GrooveClient\LB.MainForm\bin\Debug" name="LB.RPReceive.dll" />
       </inputassembly>
-      <inputassembly refid="cba0e7f9-715d-4b87-8595-3773a671c07b">
+      <inputassembly refid="7368b952-4e4c-4f2c-922c-684c6d2fa2ad">
         <option>honoroas</option>
         <option>stripoa</option>
         <option>library</option>
         <option>transformxaml</option>
-        <file dir="G:\MyProject\GrooveManager\GrooveClient\LB.MainForm\bin\Debug" name="LB.PageType.dll" />
+        <file dir="D:\私人\Git Source\Weight\GrooveManager\GrooveClient\LB.MainForm\bin\Debug" name="LB.Report.dll" />
       </inputassembly>
-      <inputassembly refid="b1b99d20-c084-4f38-baea-150252db140e">
+      <inputassembly refid="4904796a-0264-4f4d-98aa-2cfbc180a6c0">
         <option>honoroas</option>
         <option>stripoa</option>
         <option>library</option>
         <option>transformxaml</option>
-        <file dir="G:\MyProject\GrooveManager\GrooveClient\LB.MainForm\bin\Debug" name="LB.Report.dll" />
+        <file dir="D:\私人\Git Source\Weight\GrooveManager\GrooveClient\LB.MainForm\bin\Debug" name="LB.StyleResource.dll" />
       </inputassembly>
-      <inputassembly refid="adcf442b-da61-4b7a-a5d6-e3dd2befc711">
+      <inputassembly refid="91fef161-4157-4835-83c7-6707fe0f09e1">
         <option>honoroas</option>
         <option>stripoa</option>
         <option>library</option>
         <option>transformxaml</option>
-        <file dir="G:\MyProject\GrooveManager\GrooveClient\LB.MainForm\bin\Debug" name="LB.RPReceive.dll" />
+        <file dir="D:\私人\Git Source\Weight\GrooveManager\GrooveClient\LB.MainForm\bin\Debug" name="LB.Web.IRemoting.dll" />
       </inputassembly>
     </asmlist>
   </input>
@@ -100,44 +100,6 @@
   </output>
   <renaming>
     <option>enhancedOI</option>
-    <excludelist>
-      <assembly>
-        <file dir="G:\MyProject\GrooveManager\GrooveClient\LB.MainForm\bin\Debug" name="LB.Base.dll" />
-      </assembly>
-      <assembly>
-        <file dir="G:\MyProject\GrooveManager\GrooveClient\LB.MainForm\bin\Debug" name="LB.Common.dll" />
-      </assembly>
-      <assembly>
-        <file dir="G:\MyProject\GrooveManager\GrooveClient\LB.MainForm\bin\Debug" name="LB.Controls.dll" />
-      </assembly>
-      <assembly>
-        <file dir="G:\MyProject\GrooveManager\GrooveClient\LB.MainForm\bin\Debug" name="LB.MainForm.exe" />
-      </assembly>
-      <assembly>
-        <file dir="G:\MyProject\GrooveManager\GrooveClient\LB.MainForm\bin\Debug" name="LB.Login.dll" />
-      </assembly>
-      <assembly>
-        <file dir="G:\MyProject\GrooveManager\GrooveClient\LB.MainForm\bin\Debug" name="LB.MI.dll" />
-      </assembly>
-      <assembly>
-        <file dir="G:\MyProject\GrooveManager\GrooveClient\LB.MainForm\bin\Debug" name="LB.PageType.dll" />
-      </assembly>
-      <assembly>
-        <file dir="G:\MyProject\GrooveManager\GrooveClient\LB.MainForm\bin\Debug" name="LB.Report.dll" />
-      </assembly>
-      <assembly>
-        <file dir="G:\MyProject\GrooveManager\GrooveClient\LB.MainForm\bin\Debug" name="LB.RPReceive.dll" />
-      </assembly>
-      <assembly>
-        <file dir="G:\MyProject\GrooveManager\GrooveClient\LB.MainForm\bin\Debug" name="LB.SysConfig.dll" />
-      </assembly>
-      <assembly>
-        <file dir="G:\MyProject\GrooveManager\GrooveClient\LB.MainForm\bin\Debug" name="LB.StyleResource.dll" />
-      </assembly>
-      <assembly>
-        <file dir="G:\MyProject\GrooveManager\GrooveClient\LB.MainForm\bin\Debug" name="LB.Web.IRemoting.dll" />
-      </assembly>
-    </excludelist>
     <mapping>
       <mapoutput overwrite="false">
         <file dir="${configdir}\Dotfuscated" name="Map.xml" />
@@ -147,9 +109,9 @@
       <referencerule rulekey="{6655B10A-FD58-462d-8D4F-5B1316DFF0FF}" />
       <referencerule rulekey="{229FD6F8-5BCC-427b-8F72-A7A413ECDF1A}" />
       <referencerule rulekey="{2B7E7C8C-A39A-4db8-9DFC-6AFD38509061}" />
-      <referencerule rulekey="{7D9C8B02-2383-420f-8740-A9760394C2C1}" />
-      <referencerule rulekey="{89769974-93E9-4e71-8D92-BE70E855ACFC}" />
       <referencerule rulekey="{494EA3BA-B947-44B5-BEE8-A11CC85AAF9B}" />
+      <referencerule rulekey="{89769974-93E9-4e71-8D92-BE70E855ACFC}" />
+      <referencerule rulekey="{7D9C8B02-2383-420f-8740-A9760394C2C1}" />
     </referencerulelist>
   </renaming>
   <controlflow level="high" />
