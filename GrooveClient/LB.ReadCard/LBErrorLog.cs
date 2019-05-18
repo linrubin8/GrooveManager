@@ -1,39 +1,37 @@
-﻿using LB.WinFunction;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace LB.Common
+namespace LB.ReadCard
 {
     public class LBErrorLog
     {
-        public static void InsertErrorLog(string strlog,int iLogType)
-        {
-            try
-            {
-                LBDbParameterCollection parms = new LBDbParameterCollection();
-                parms.Add(new LBParameter("ErrorLogMsg", enLBDbType.String, strlog));
-                parms.Add(new LBParameter("LogType", enLBDbType.Int32, iLogType));
-                DataSet dsReturn;
-                Dictionary<string, object> dictResult;
-                ExecuteSQL.CallSP(20000, parms, out dsReturn, out dictResult);
-            }
-            catch (Exception ex)
-            {
+        //public static void InsertErrorLog(string strlog, int iLogType)
+        //{
+        //    try
+        //    {
+        //        LBDbParameterCollection parms = new LBDbParameterCollection();
+        //        parms.Add(new LBParameter("ErrorLogMsg", enLBDbType.String, strlog));
+        //        parms.Add(new LBParameter("LogType", enLBDbType.Int32, iLogType));
+        //        DataSet dsReturn;
+        //        Dictionary<string, object> dictResult;
+        //        ExecuteSQL.CallSP(20000, parms, out dsReturn, out dictResult);
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-            }
-        }
+        //    }
+        //}
 
         private static int _InsertRowCount = 0;
         private static string _LogFileName = "";
         public static void InsertFileLog(string strMsg)
         {
             //FileStream fs = null;
-            string logPath =Path.Combine( Application.StartupPath,"AppLogProcess");
+            string logPath = Path.Combine(Application.StartupPath, "AppLogProcess");
             if (!Directory.Exists(logPath))
             {
                 Directory.CreateDirectory(logPath);
@@ -44,7 +42,7 @@ namespace LB.Common
                 _LogFileName = Path.Combine(logPath, "Log" + DateTime.Now.ToString("yyMMddHHmmss") + ".txt");
                 _InsertRowCount = 0;
             }
-            
+
             //将待写的入数据从字符串转换为字节数组  
             //Encoding encoder = Encoding.UTF8;
             //byte[] bytes = encoder.GetBytes(DateTime.Now.ToString("yyMMdd HHmmss")+"---"+ strMsg+"\n");

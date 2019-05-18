@@ -13,6 +13,7 @@ namespace LB.Common
     public class LBSerialHelper
     {
         private static Timer mTimer = null;
+        private static Timer mTimerSteady = null;//定时器判断是否稳定
         private static SerialPort _comm;
         private static bool Listening;
         private static string _SerialName = "";
@@ -26,11 +27,13 @@ namespace LB.Common
         public static bool IsSteady = true;
         public static bool IsUnConnected = true;
         private static int WeightCount = 0;//稳定值次数
-        private static int PreWeightValue = 0;//上次重量值
+        //private static int PreWeightValue = 0;//上次重量值
         private static DateTime mPreReceiveDataTime = DateTime.Now;//记录上一次接收地磅数据的时间
         private static StringBuilder mReceiveData = new StringBuilder();
         private static int mTimeOutInterval = 0;//地磅断开连接持续时间
-        
+        private static List<int> mLstWeightValue = new List<int>();
+        public static int WeightSteadyCount = 3;//校验稳定次数
+        private static bool IsDisConnected = false;//是否断开连接
 
         public static void StartSerial()
         {
@@ -42,7 +45,75 @@ namespace LB.Common
             mTimer.Interval = 2000;
             mTimer.Tick += MTimer_Tick;
             mTimer.Enabled = true;
+
+            mTimerSteady = new Timer();
+            mTimerSteady.Interval = 1000;
+            mTimerSteady.Tick += MTimerSteady_Tick;
+            mTimerSteady.Enabled = true;
+
+            string strConfig = Path.Combine(Application.StartupPath, "LBConfig.ini");
+            IniClass iniClass = new IniClass(strConfig);
+            string strSteadyCount = iniClass.ReadValue("Config", "WeightSteadyCount");
+            int.TryParse(strSteadyCount, out WeightSteadyCount);
+            if (WeightSteadyCount <= 0)
+            {
+                WeightSteadyCount = 3;
+            }
+
             InitSerialPort();
+        }
+
+        private static void MTimerSteady_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                //WeightValue = 300000;
+                //IsSteady = true;
+                //return;
+
+                int lastWeight = WeightValue;
+                mLstWeightValue.Add(lastWeight);
+
+                if (IsUnConnected)
+                {
+                    IsSteady = false;
+                    return;
+                }
+                //判断最近记录的重量值是否一样
+                int isteadyCount = 0;
+                bool bolIsSteady = false;
+                if (mLstWeightValue.Count > WeightSteadyCount)
+                {
+                    for (int i = mLstWeightValue.Count-WeightSteadyCount; i < mLstWeightValue.Count; i++)
+                    {
+                        int currentWeight = mLstWeightValue[i];
+                        if (currentWeight == lastWeight)
+                        {
+                            isteadyCount++;
+                            if (WeightSteadyCount == isteadyCount)
+                            {
+                                bolIsSteady = true;
+
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            isteadyCount = 0;
+                        }
+                    }
+                }
+
+                IsSteady = bolIsSteady;
+                //只保留最新的数据
+                while (mLstWeightValue.Count > WeightSteadyCount)
+                {
+                    mLstWeightValue.RemoveRange(0, mLstWeightValue.Count - WeightSteadyCount);
+                }
+            }
+            catch (Exception ex)
+            {
+            }
         }
 
         private static void MTimer_Tick(object sender, EventArgs e)
@@ -55,13 +126,13 @@ namespace LB.Common
                 {
                     WriteRecevieLog(strReceiveData);
                 }
-
-
+                
                 //如果超过两秒都未接收到数据，说明地磅已断电
                 if (DateTime.Now.Subtract(mPreReceiveDataTime).TotalSeconds > 2)
                 {
                     WeightValue = 0;
                     IsSteady = false;
+                    IsUnConnected = true;
                 }
 
                 if (_comm!=null && _comm.IsOpen)
@@ -299,24 +370,24 @@ namespace LB.Common
                     mReceiveData.AppendLine("-" + data + "-");
                     string strData = "";
                     int.TryParse(data, out WeightValue);
-                    if (WeightValue == PreWeightValue)
-                    {
-                        WeightCount++;
-                    }
-                    else
-                    {
-                        WeightCount = 0;
-                        PreWeightValue = WeightValue;
-                    }
+                    //if (WeightValue == PreWeightValue)
+                    //{
+                    //    WeightCount++;
+                    //}
+                    //else
+                    //{
+                    //    WeightCount = 0;
+                    //    PreWeightValue = WeightValue;
+                    //}
 
-                    if (WeightCount > 5)
-                    {
-                        IsSteady = true;
-                    }
-                    else
-                    {
-                        IsSteady = false;
-                    }
+                    //if (WeightCount > 5)
+                    //{
+                    //    IsSteady = true;
+                    //}
+                    //else
+                    //{
+                    //    IsSteady = false;
+                    //}
                 }
             }
             catch(Exception ex)

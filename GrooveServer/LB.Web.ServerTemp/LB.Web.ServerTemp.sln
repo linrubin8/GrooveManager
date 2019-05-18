@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.572
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LB.Web.ServerTool", "LB.Web.ServerTool.csproj", "{DE8A2928-9BF6-4AB9-A593-ECCBAB04A206}"
 EndProject
@@ -21,7 +21,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LB.Web.SM", "..\LB.Web.SM\L
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LB.Web.IBLL", "..\LB.Web.IBLL\LB.Web.IBLL.csproj", "{DF0FFE8C-33B4-46FE-85A1-44689EC20F01}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LB.Web.Encrypt", "..\..\..\WeightManager\QuarryServer\LB.Web.Encrypt\LB.Web.Encrypt.csproj", "{CDF00A86-5BFA-4B80-AA97-FB96AD59FDE8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LB.Web.Encrypt", "..\LB.Web.Encrypt\LB.Web.Encrypt.csproj", "{CDF00A86-5BFA-4B80-AA97-FB96AD59FDE8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -72,5 +72,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C46C4E77-3D6C-4236-9384-3826E5658C2F}
 	EndGlobalSection
 EndGlobal

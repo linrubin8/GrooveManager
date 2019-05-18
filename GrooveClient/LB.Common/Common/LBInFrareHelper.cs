@@ -323,7 +323,7 @@ namespace LB.Common
         /// 
         /// </summary>
         /// <param name="i"></param>
-        private static void SendY(int Y)
+        public static void SendY(int Y)
         {
             try
             {

@@ -14,6 +14,35 @@ namespace LB.Web.Encrypt
     {
         public static bool IsRegister = false;
         public static DateTime DeadLine = DateTime.MinValue;
+        public static int ProductType=-1;
+        private static string _RegisterInfoJson = "";
+        public static bool UseSessionLimit = false;//启用站点数限制功能
+        public static int SessionLimitCount = 0;//站点数限制个数
+
+        public static string RegisterInfoJson
+        {
+            get
+            {
+                return _RegisterInfoJson;
+            }
+            set
+            {
+                _RegisterInfoJson = value;
+                if (_RegisterInfoJson != "")
+                {
+                    Dictionary<string, string> dictRegister = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, string>>(_RegisterInfoJson);
+                    if (dictRegister.ContainsKey("UseSessionLimit"))
+                    {
+                        if (dictRegister["UseSessionLimit"] == "1")
+                            UseSessionLimit = true;
+                    }
+                    if (dictRegister.ContainsKey("SessionLimitCount"))
+                    {
+                        int.TryParse(dictRegister["SessionLimitCount"], out SessionLimitCount);
+                    }
+                }
+            }
+        }
 
         public static void Decrypt()
         {
@@ -68,6 +97,14 @@ namespace LB.Web.Encrypt
                             {
                                 DateTime.TryParse(value, out DeadLine);
                             }
+                            else if (key.Equals("ProductType"))
+                            {
+                                int.TryParse(value, out ProductType);
+                            }
+                            else if (key.Equals("RegisterInfoJson"))
+                            {
+                                RegisterInfoJson = value;
+                            }
                         }
                     }
                 }
@@ -98,25 +135,26 @@ namespace LB.Web.Encrypt
         {
             try
             {
-                ManagementClass cimObject = new ManagementClass("Win32_PhysicalMedia");
-                ManagementObjectCollection moc = cimObject.GetInstances();
-                Dictionary<string, string> dict = new Dictionary<string, string>();
-                foreach (ManagementObject mo in moc)
-                {
-                    string tag = mo.Properties["Tag"].Value.ToString().ToLower().Trim();
-                    string hdId = (string)mo.Properties["SerialNumber"].Value ?? string.Empty;
-                    hdId = hdId.Trim();
-                    dict.Add(tag, hdId);
-                }
-                cimObject = new ManagementClass("Win32_OperatingSystem");
-                moc = cimObject.GetInstances();
-                string currentSysRunDisk = string.Empty;
-                foreach (ManagementObject mo in moc)
-                {
-                    currentSysRunDisk = Regex.Match(mo.Properties["Name"].Value.ToString().ToLower(), @"harddisk\d+").Value;
-                }
-                var results = dict.Where(x => Regex.IsMatch(x.Key, @"physicaldrive" + Regex.Match(currentSysRunDisk, @"\d+$").Value));
-                if (results.Any()) return results.ElementAt(0).Value;
+                return HardwareInfo.GetCurrentVal();
+                //ManagementClass cimObject = new ManagementClass("Win32_PhysicalMedia");
+                //ManagementObjectCollection moc = cimObject.GetInstances();
+                //Dictionary<string, string> dict = new Dictionary<string, string>();
+                //foreach (ManagementObject mo in moc)
+                //{
+                //    string tag = mo.Properties["Tag"].Value.ToString().ToLower().Trim();
+                //    string hdId = (string)mo.Properties["SerialNumber"].Value ?? string.Empty;
+                //    hdId = hdId.Trim();
+                //    dict.Add(tag, hdId);
+                //}
+                //cimObject = new ManagementClass("Win32_OperatingSystem");
+                //moc = cimObject.GetInstances();
+                //string currentSysRunDisk = string.Empty;
+                //foreach (ManagementObject mo in moc)
+                //{
+                //    currentSysRunDisk = Regex.Match(mo.Properties["Name"].Value.ToString().ToLower(), @"harddisk\d+").Value;
+                //}
+                //var results = dict.Where(x => Regex.IsMatch(x.Key, @"physicaldrive" + Regex.Match(currentSysRunDisk, @"\d+$").Value));
+                //if (results.Any()) return results.ElementAt(0).Value;
                 return "";
             }
             catch

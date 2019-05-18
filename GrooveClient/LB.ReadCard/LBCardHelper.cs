@@ -1,5 +1,4 @@
 ﻿
-using LB.WinFunction;
 using ReaderB;
 using System;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace LB.Common
+namespace LB.ReadCard
 {
     public class LBCardHelper
     {
@@ -17,8 +16,8 @@ namespace LB.Common
         static int frmcomportindex;//串口号：当串口为COM1时值为1
         private static byte fBaud;//波特率
         public static bool COMIsOpen = false;//是否已开启
-        private static byte powerDbm = 1;//功率
-        public static bool IsUseReadCard = false;//是否启用读卡器或者写卡器
+        private static byte powerDbm = 8;//功率
+        public static bool IsUseReadCard = true;//是否启用读卡器或者写卡器
         public static bool ReadCardIsReady = false;//是否正在读卡（打卡）
         
         private static System.Windows.Forms.Timer mTimer = null;
@@ -29,7 +28,7 @@ namespace LB.Common
         private static string _Com="";
         private static string _NetIPAddress = "";
         private static int _NetPort = 0;
-        private static bool _IsUseNet = false;
+        private static bool _IsUseNet = true;
 
         private static Thread mThread = null;
         //public static List<CardInfo> LstCardCode = new List<CardInfo>();
@@ -100,38 +99,11 @@ namespace LB.Common
             }
         }
 
-        public static void StartSerial(enCardType cardType)
+        public static void StartSerial()
         {
             //bool bolIsUse = false;//是否启用读卡器或者写卡器
             try
             {
-                DataTable dtDesc = ExecuteSQL.CallView(140, "", "MachineName='" + LoginInfo.MachineName + "'", "");
-                if (dtDesc.Rows.Count > 0)
-                {
-                    if (cardType == enCardType.ReadCard)
-                    {
-                        _Com = dtDesc.Rows[0]["ReadCardSerialCOM"].ToString().TrimEnd();
-                        IsUseReadCard = LBConverter.ToBoolean(dtDesc.Rows[0]["UseReadCard"]);
-                        _IsUseNet = LBConverter.ToInt32(dtDesc.Rows[0]["ConnectType"].ToString().TrimEnd()) == 1 ? true : false;
-                        _NetIPAddress = dtDesc.Rows[0]["IPAddress"].ToString().TrimEnd();
-                        _NetPort = LBConverter.ToInt32(dtDesc.Rows[0]["IPPort"].ToString().TrimEnd());
-                    }
-                    else
-                    {
-                        _Com = dtDesc.Rows[0]["WriteCardSerialCOM"].ToString().TrimEnd();
-                        IsUseReadCard = LBConverter.ToBoolean(dtDesc.Rows[0]["UseWriteCard"]);
-                    }
-                    powerDbm = LBConverter.ToByte(dtDesc.Rows[0]["ReadCardBaud"]);
-                }
-
-                //if (mTimer == null)
-                //{
-                //    mTimer = new System.Windows.Forms.Timer();
-                //    mTimer.Interval = 500;
-                //    mTimer.Tick += MTimer_Tick;
-                //    mTimer.Enabled = true;
-                //}
-
                 if (mTimerVerify == null)
                 {
                     mTimerVerify = new System.Windows.Forms.Timer();
@@ -171,25 +143,6 @@ namespace LB.Common
             }
         }
 
-        public static void StartSerial4Process()
-        {
-            try
-            {
-                if (COMIsOpen)
-                {
-                    ClosePort();
-                }
-                if (IsUseReadCard && !COMIsOpen)
-                {
-                    COMIsOpen = OpenPort();
-                }
-            }
-            catch (Exception ex)
-            {
-
-            }
-        }
-
         //private static void MTimer_Tick(object sender, EventArgs e)
         //{
         //    try
@@ -202,24 +155,24 @@ namespace LB.Common
         //    }
         //}
 
-
+            
         private static void mTimerVerify_Tick(object sender, EventArgs e)
         {
             try
             {
-                lock (mLstCard)
-                {
-                    if (_PreReadCardLinesCount>0 && _PreReadCardLinesCount != mLstCard.Count)
-                    {
-                        ReadCardIsReady = true;
-                    }
-                    else
-                    {
-                        ReadCardIsReady = false;
-                    }
+                //lock (mLstCard)
+                //{
+                //    if (_PreReadCardLinesCount>0 && _PreReadCardLinesCount != mLstCard.Count)
+                //    {
+                //        ReadCardIsReady = true;
+                //    }
+                //    else
+                //    {
+                //        ReadCardIsReady = false;
+                //    }
 
-                    _PreReadCardLinesCount = mLstCard.Count;
-                }
+                //    _PreReadCardLinesCount = mLstCard.Count;
+                //}
             }
             catch (Exception ex)
             {
@@ -288,13 +241,15 @@ namespace LB.Common
                 }
                 else
                 {
+                    LBErrorLog.InsertFileLog("OpenPort:" + _NetIPAddress + "_" + _NetPort + "_" + Rate);
                     openresult = StaticClassReaderB.OpenNetPort(_NetPort, _NetIPAddress, ref fComAdr, ref frmcomportindex);
                 }
                 
                 fOpenComIndex = frmcomportindex;
                 if (openresult == 0x35)
                 {
-                    throw new Exception("串口已打开");
+                    LBErrorLog.InsertFileLog("网口已打开");
+                    ComOpen = true;
                 }
                 if (openresult == 0)
                 {
@@ -313,7 +268,7 @@ namespace LB.Common
                     {
                         ComOpen = false;
                         StaticClassReaderB.CloseSpecComPort(frmcomportindex);
-                        throw new Exception("串口通讯错误");
+                        LBErrorLog.InsertFileLog("CloseSpecComPort串口通讯错误");
                     }
 
                     fCmdRet = StaticClassReaderB.SetPowerDbm(ref fComAdr, powerDbm, frmcomportindex);//设置功率
@@ -326,7 +281,7 @@ namespace LB.Common
             }
             
             if ((fOpenComIndex == -1) && (openresult == 0x30))
-                throw new Exception("串口通讯错误");
+                LBErrorLog.InsertFileLog("串口通讯错误");
             return ComOpen;
         }
 
@@ -369,9 +324,8 @@ namespace LB.Common
             byte AdrTID = 0;
             byte LenTID = 0;
             byte TIDFlag = 0;
-            LBErrorLog.InsertFileLog("Inventory_G2：Start");
+            LBErrorLog.InsertFileLog("开始读卡");
             int fCmdRet = StaticClassReaderB.Inventory_G2(ref fComAdr, AdrTID, LenTID, TIDFlag, EPC, ref Totallen, ref CardNum, frmcomportindex);
-            LBErrorLog.InsertFileLog("Inventory_G2：End");
             if ((fCmdRet == 1) | (fCmdRet == 2) | (fCmdRet == 3) | (fCmdRet == 4) | (fCmdRet == 0xFB))//代表已查找结束，
             {
                 byte[] daw = new byte[Totallen];

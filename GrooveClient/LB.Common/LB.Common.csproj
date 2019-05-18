@@ -90,6 +90,7 @@
     <Compile Include="Common\CommonHelper.cs" />
     <Compile Include="Common\Enum\EnumHelper.cs" />
     <Compile Include="Common\LBCardHelper.cs" />
+    <Compile Include="Common\LBCardReader.cs" />
     <Compile Include="Common\LBConst.cs" />
     <Compile Include="Common\LBConverter.cs" />
     <Compile Include="Common\LBEnum.cs" />

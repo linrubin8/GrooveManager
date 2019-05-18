@@ -56,10 +56,6 @@
     <Compile Include="Remoting\WebRemotingSQLServer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\WeightManager\QuarryServer\LB.Web.Encrypt\LB.Web.Encrypt.csproj">
-      <Project>{cdf00a86-5bfa-4b80-aa97-fb96ad59fde8}</Project>
-      <Name>LB.Web.Encrypt</Name>
-    </ProjectReference>
     <ProjectReference Include="..\LB.Web.Base\LB.Web.Base.csproj">
       <Project>{2dcbbc87-24b2-42d4-b680-21ea0245fe01}</Project>
       <Name>LB.Web.Base</Name>
@@ -67,6 +63,10 @@
     <ProjectReference Include="..\LB.Web.Contants\LB.Web.Contants.csproj">
       <Project>{dad2cbf3-e516-412b-8350-e4e0e717b09e}</Project>
       <Name>LB.Web.Contants</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LB.Web.Encrypt\LB.Web.Encrypt.csproj">
+      <Project>{cdf00a86-5bfa-4b80-aa97-fb96ad59fde8}</Project>
+      <Name>LB.Web.Encrypt</Name>
     </ProjectReference>
     <ProjectReference Include="..\LB.Web.IRemoting\LB.Web.IRemoting.csproj">
       <Project>{deb53b6e-b9ce-4d89-8451-f87b6dd3fd4a}</Project>
