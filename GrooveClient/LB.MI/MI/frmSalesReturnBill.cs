@@ -312,7 +312,7 @@ namespace LB.MI.MI
         //判断地磅数值是否稳定以及红外线设备是否报警
         private void VerifyDeviceIsSteady()
         {
-            if (!LBSerialHelper.IsSteady)
+            if (LBSerialHelper.WeightStatus != enWeightChangeType.WeightStable)
             {
                 throw new Exception("地磅数值未稳定，无法保存！");
             }

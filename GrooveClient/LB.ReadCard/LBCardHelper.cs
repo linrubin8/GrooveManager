@@ -33,7 +33,7 @@ namespace LB.ReadCard
         private static Thread mThread = null;
         //public static List<CardInfo> LstCardCode = new List<CardInfo>();
         public static string CardCode = "";
-        public static bool BeginReadCard = false;
+        //public static bool BeginReadCard = false;
 
         public static string COM
         {

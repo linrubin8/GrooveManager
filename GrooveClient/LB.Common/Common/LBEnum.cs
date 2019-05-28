@@ -5,6 +5,23 @@ using System.Text;
 
 namespace LB.Common
 {
+    public enum enWeightChangeType
+    {
+        UnStable,
+        /// <summary>
+        /// 增长
+        /// </summary>
+        WeightRise,
+        /// <summary>
+        /// 减少
+        /// </summary>
+        WeightReduce,
+        /// <summary>
+        /// 稳定
+        /// </summary>
+        WeightStable
+    }
+
     public enum enBillStatus
     {
         /// <summary>

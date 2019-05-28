@@ -68,7 +68,7 @@ namespace LB.MainForm
                 
                 Pen pen = new Pen(Brushes.Black);
                 Brush brush = Brushes.Green;
-                if (LBSerialHelper.IsSteady)
+                if (LBSerialHelper.WeightStatus == enWeightChangeType.WeightStable)
                 {
                     brush = Brushes.Green;
                     this.lblSteady.Text = "稳定";
@@ -195,211 +195,138 @@ namespace LB.MainForm
             }
         }
 
+        #region-- 定时读卡逻辑 --
+        private bool IsBeginWeight = true;//防止长时间停车造成的重复打卡,保存成功后置为false，当空磅是为true
         private void MTimerCard_Tick(object sender, EventArgs e)
         {
             try
             {
-                mTimerCard.Enabled = false;
-                //string strCardCode = "";
+                mTimerCard.Enabled = false;//停止计时器
+                enWeightChangeType enWeightStatus = LBSerialHelper.WeightStatus;//地磅数值稳定状态
 
-                bool bolSerialIsSteady = LBSerialHelper.IsSteady;
-
-                if (LBSerialHelper.WeightValue <= 0)
+                if (LBSerialHelper.WeightValue <= 1000)//地磅数值小于1吨，则关闭警示灯
                 {
-                    lblCardNum.Text = "";
-                    _CurrentReadCardCode = "";
-                    PreWeightDeviceStatus = enWeightDeviceStatus.Zero;
+                    LBSerialHelper.ClearWeightListValue();//清楚重量缓存
                     LBInFrareHelper.SendY(-1);
+                    SetCardNum("");//清除卡号
+                    IsBeginWeight = true;
+
+                    ReCreateCardKey();//重新生成读卡钥匙
                 }
-
-                if (LBSerialHelper.WeightValue <= 1000)
+                else if(IsBeginWeight)
                 {
-                    this.lblCardSteady.Text = "不稳定";
-                    this.lblCardSteady.ForeColor = Color.Red;
-                    this.pnlReadCardStatus.BackColor = Color.Red;
-                    SendStatus(enAlermStatus.None);
-
-                    LBCardHelper.BeginReadCard = false;
-                    PreWeightDeviceStatus = enWeightDeviceStatus.Zero;
-                    lblWeightMsg.Text = "";
-                    mReadCardFailTimes = 0;
-                    lblCardNum.Text = "";
-                    _CurrentReadCardCode = "";
-
-                    if (_eCarWeightStatus == enCarWeightStatus.CarSteady)
+                    if (enWeightStatus == enWeightChangeType.WeightRise || enWeightStatus == enWeightChangeType.WeightStable)
                     {
-                        SaveWeightLogThread();//记录出磅的相关图片信息
-                    }
-                    return;
-                }
-
-                
-                //皮重少于23吨时不记录
-                if (LBSerialHelper.WeightValue < mMinWeightValue)
-                {
-                    LBErrorLog.InsertFileLog("MTimerCard_Tick:皮重" + LBSerialHelper.WeightValue);
-                    this.lblCardSteady.Text = "不稳定";
-                    this.lblCardSteady.ForeColor = Color.Red;
-                    this.pnlReadCardStatus.BackColor = Color.Red;
-                    LBCardHelper.BeginReadCard = false;
-                    PreWeightDeviceStatus = enWeightDeviceStatus.Zero;
-                    mReadCardFailTimes = 0;
-                    lblCardNum.Text = "";
-                    _CurrentReadCardCode = "";
-
-                    if (_eCarWeightStatus == enCarWeightStatus.None)
-                    {
-                        LBErrorLog.InsertFileLog("MTimerCard_Tick:保存榜单信息");
-                        SaveWeightLogThread();//记录入磅或者出磅的相关图片信息
-                    }
-                    return;
-                }
-
-                if (_CurrentReadCardCode == "" && LBSerialHelper.WeightValue > mMinWeightValue)
-                {
-                    LBErrorLog.InsertFileLog("MTimerCard_Tick:自动模式，准备读取卡号");
-                    //strCardCode = LBCardHelper.ReadCardDirect();
-                    _CurrentReadCardCode = LBCardReader.ReadProcessCard(LBCardHelper.NetIPAddress, LBCardHelper.NetPort.ToString(), LBCardHelper.Rate.ToString());
-                    LBErrorLog.InsertFileLog("MTimerCard_Tick:自动模式，卡号为：" + _CurrentReadCardCode);
-                    lblCardNum.Text = _CurrentReadCardCode;
-                }
-
-                if (!bolSerialIsSteady)
-                {
-                    LBCardHelper.BeginReadCard = false;
-                    mReadCardFailTimes = 0;
-                    //_CurrentReadCardCode = "";
-                }
-
-                if (this.rbAutoMode.Checked)//自动模式
-                {
-                    if (bolSerialIsSteady)//地磅数值已稳定
-                    {
-                        LBErrorLog.InsertFileLog("MTimerCard_Tick:自动模式，地磅数值稳定");
-                        if (_eCarWeightStatus == enCarWeightStatus.CarBeginIn)
+                        //如果数值在递增或者处于稳定状态，则开始读卡
+                        if (enWeightStatus == enWeightChangeType.WeightRise)
                         {
-                            SaveWeightLogThread();//记录地磅稳定后的相关图片信息
+                            SendStatus(enAlermStatus.None);
                         }
-                        
-                        //if (PreWeightDeviceStatus == enWeightDeviceStatus.Zero)
-                        //{
-                        //    LBErrorLog.InsertFileLog("MTimerCard_Tick:自动模式，准备读取卡号");
-                        //    //strCardCode = LBCardHelper.ReadCardDirect();
-                        //    _CurrentReadCardCode = LBCardReader.ReadProcessCard(LBCardHelper.NetIPAddress, LBCardHelper.NetPort.ToString(), LBCardHelper.Rate.ToString());
-                        //    LBErrorLog.InsertFileLog("MTimerCard_Tick:自动模式，卡号为：" + _CurrentReadCardCode);
-                        //    lblCardNum.Text = _CurrentReadCardCode;
-
-                        //}
-
-                        if (_CurrentReadCardCode == "")//读卡失败
+                        if (LBSerialHelper.WeightValue > mMinWeightValue)//当地磅值大于设置的最小值
                         {
-                            LBErrorLog.InsertFileLog("MTimerCard_Tick:自动模式，读卡失败！");
-                            this.lblCardSteady.Text = "不稳定";
-                            this.lblCardSteady.ForeColor = Color.Red;
-                            this.pnlReadCardStatus.BackColor = Color.Red;
-                            mReadCardFailTimes += mTimerCard.Interval;
-
-                            if (mReadCardFailTimes > mReadCardFailTimesLimit*1000)//超过10秒还没有打开成功的，自动生成入槽单
+                            if (this.rbAutoMode.Checked)//自动模式
                             {
-                                decimal decWeight = LBConverter.ToDecimal(lblWeight.Text);//读皮重
-                                LBErrorLog.InsertFileLog("MTimerCard_Tick:自动模式，超过10秒还没有打开成功的，准备自动生成入槽单，重量：" + decWeight);
-                                if (PreWeightDeviceStatus == enWeightDeviceStatus.Zero)
+                                if (_CurrentReadCardCode == "" && LBSerialHelper.WeightValue > 8000)
                                 {
-                                    this.txtTotalWeight.Text = decWeight.ToString();
-                                    VerifyDeviceIsSteady();//校验地磅数值是否稳定以及红外线对射是否正常
+                                    string strCardNum = ReadCardNum(mCardKey);//读卡
+                                    SetCardNum(strCardNum);//显示卡号
 
-                                    long lInBillID = SaveBillAction("");
-                                    if (lInBillID > 0)
+                                    #region -- 自动生成无车牌入槽单 --
+                                    if (enWeightStatus == enWeightChangeType.WeightStable)
                                     {
-                                        mReadCardFailTimes = 0;
-                                        PreWeightDeviceStatus = enWeightDeviceStatus.InWeight;
-                                        LBErrorLog.InsertFileLog("生成无车辆入槽单：" + lInBillID.ToString() + "-PreWeightDeviceStatus=" + PreWeightDeviceStatus.ToString());
-                                    }
-                                }
-                                else
-                                {
-                                    SendStatus(enAlermStatus.Success);
-                                    LBSpeakHelper.SpeakString = "称重完毕，请离开！";
-                                }
-                            }
-                        }
-                    }
+                                        mReadCardFailTimes += mTimerCard.Interval;
 
-                    #region -- 读取卡号 --
-                    if (_CurrentReadCardCode != "")//读取返回信息
-                    {
-                        LBErrorLog.InsertFileLog("MTimerCard_Tick:读取卡号，卡号为：" + _CurrentReadCardCode);
-                        this.lblCardSteady.Text = "稳定";
-                        this.lblCardSteady.ForeColor = Color.Green;
-                        this.pnlReadCardStatus.BackColor = Color.Green;
-
-                        long lInBillID = 0;
-                        //_CurrentReadCardCode = strCardCode;//读取卡号
-
-                        if (_CurrentReadCardCode != "")//卡号读取成功
-                        {
-                            LBErrorLog.InsertFileLog("MTimerCard_Tick:读取卡号成功，卡号为：" + _CurrentReadCardCode);
-                            bool bolIsSameCardCode = false;
-
-                            #region -- 判断是否重复打开 --
-                            //判断依据为如果本次打开与上次打卡(已成功生成单据)一致，以及本次称重值与上次称重值一致时，认为是重复打开
-                            decimal decWeight = LBConverter.ToDecimal(lblWeight.Text);//读皮重
-                            if (_CurrentReadCardCode == _PreviousReadCardCode &&
-                                (DateTime.Now.Subtract(_PreviousReadCardTime).TotalMinutes < 15 ||
-                                Math.Abs(decWeight - _PreviousWeightValue) < 100))
-                            {
-                                bolIsSameCardCode = true;
-                            }
-
-                            #endregion
-
-                            if (PreWeightDeviceStatus == enWeightDeviceStatus.Zero && !bolIsSameCardCode)
-                            {
-                                //读取该卡对应的车辆以及供应商信息
-                                DataTable dtCarInfo = ExecuteSQL.CallView(117, "CarID,CarNum,SupplierID", "CardCode='" + _CurrentReadCardCode + "'", "");
-                                if (dtCarInfo.Rows.Count > 0)
-                                {
-                                    DataRow drCarInfo = dtCarInfo.Rows[0];
-                                    long lCarID = LBConverter.ToInt64(drCarInfo["CarID"]);
-                                    long lSupplierID = LBConverter.ToInt64(drCarInfo["SupplierID"]);
-
-                                    this.txtCarID.TextBox.SelectedItemID = lCarID;
-                                    //this.txtCarID.TextBox.Text = drCarInfo["CarNum"].ToString();
-                                    LBErrorLog.InsertFileLog("MTimerCard_Tick:读取卡号成功，车牌号为：" + drCarInfo["CarNum"].ToString() + " CarID:" + lCarID);
-                                    bool bolReadWeight = ReadTareWeight();//地磅重量读取成功
-                                    if (bolReadWeight)
-                                    {
-                                        lInBillID = SaveBillAction(_CurrentReadCardCode);
-                                        if (lInBillID > 0)
+                                        if (mReadCardFailTimes > mReadCardFailTimesLimit * 1000)//超过10秒还没有打开成功的，自动生成入槽单
                                         {
-                                            LBErrorLog.InsertFileLog("MTimerCard_Tick:读取卡号成功，生成单号：" + lInBillID.ToString());
-                                            PreWeightDeviceStatus = enWeightDeviceStatus.InWeight;
-                                            mReadCardFailTimes = 0;
-                                            //break;
+                                            decimal decWeight = LBConverter.ToDecimal(lblWeight.Text);//读皮重
+                                            LBErrorLog.InsertFileLog("MTimerCard_Tick:自动模式，超过10秒还没有打开成功的，准备自动生成入槽单，重量：" + decWeight);
+                                            this.txtTotalWeight.Text = decWeight.ToString();
+                                            VerifyDeviceIsSteady();//校验地磅数值是否稳定以及红外线对射是否正常
+
+                                            long lInBillID = SaveBillAction("");
+                                            if (lInBillID > 0)
+                                            {
+                                                IsBeginWeight = false;
+                                                mReadCardFailTimes = 0;
+                                                SendStatus(enAlermStatus.Success);
+                                                LBErrorLog.InsertFileLog("生成无车辆入槽单：" + lInBillID.ToString() + "-PreWeightDeviceStatus=" + PreWeightDeviceStatus.ToString());
+                                            }
                                         }
                                     }
+                                    #endregion -- 自动生成无车牌入槽单 --
                                 }
                                 else
                                 {
-                                    LBErrorLog.InsertFileLog("MTimerCard_Tick:读取卡号成功，该卡号未绑定车辆！");
-                                    throw new Exception("该卡号未绑定车辆！");
+                                    #region -- 地磅稳定且读卡成功，则生成入槽单 --
+                                    if (enWeightStatus == enWeightChangeType.WeightStable)
+                                    {
+                                        bool bolIsSameCardCode = false;
+
+                                        #region -- 判断是否重复打开 --
+                                        //判断依据为如果本次打开与上次打卡(已成功生成单据)一致，以及本次称重值与上次称重值一致时，认为是重复打开
+                                        decimal decWeight = LBConverter.ToDecimal(lblWeight.Text);//读皮重
+                                        if (_CurrentReadCardCode == _PreviousReadCardCode &&
+                                            (DateTime.Now.Subtract(_PreviousReadCardTime).TotalMinutes < 15 ||
+                                            Math.Abs(decWeight - _PreviousWeightValue) < 100))
+                                        {
+                                            bolIsSameCardCode = true;
+                                        }
+                                        #endregion -- 判断是否重复打开 --
+                                        if (!bolIsSameCardCode)
+                                        {
+                                            //读取该卡对应的车辆以及供应商信息
+                                            DataTable dtCarInfo = ExecuteSQL.CallView(117, "CarID,CarNum,SupplierID", "CardCode='" + _CurrentReadCardCode + "'", "");
+                                            if (dtCarInfo.Rows.Count > 0)
+                                            {
+                                                DataRow drCarInfo = dtCarInfo.Rows[0];
+                                                long lCarID = LBConverter.ToInt64(drCarInfo["CarID"]);
+                                                long lSupplierID = LBConverter.ToInt64(drCarInfo["SupplierID"]);
+
+                                                this.txtCarID.TextBox.SelectedItemID = lCarID;
+                                                //this.txtCarID.TextBox.Text = drCarInfo["CarNum"].ToString();
+                                                LBErrorLog.InsertFileLog("MTimerCard_Tick:读取卡号成功，车牌号为：" + drCarInfo["CarNum"].ToString() + " CarID:" + lCarID);
+                                                bool bolReadWeight = ReadTareWeight();//地磅重量读取成功
+                                                if (bolReadWeight)
+                                                {
+                                                    long lInBillID = SaveBillAction(_CurrentReadCardCode);
+                                                    if (lInBillID > 0)
+                                                    {
+                                                        LBErrorLog.InsertFileLog("MTimerCard_Tick:读取卡号成功，生成单号：" + lInBillID.ToString());
+                                                        PreWeightDeviceStatus = enWeightDeviceStatus.InWeight;
+                                                        mReadCardFailTimes = 0;
+                                                        IsBeginWeight = false;//保存成功后，设置为false，防止长时间停车造成的重复打卡
+                                                        //break;
+                                                    }
+                                                }
+                                            }
+                                            else
+                                            {
+                                                LBErrorLog.InsertFileLog("MTimerCard_Tick:读取卡号成功，该卡号未绑定车辆！");
+                                                throw new Exception("该卡号未绑定车辆！");
+                                            }
+                                        }
+                                        else
+                                        {
+                                            mReadCardFailTimes = 0;
+                                        }
+                                        
+                                    }
+                                    #endregion
                                 }
                             }
-                            else
-                            {
-                                mReadCardFailTimes = 0;
-                                SendStatus(enAlermStatus.Success);
-                                LBSpeakHelper.SpeakString = "称重完毕，请离开！";
-                                LBErrorLog.InsertFileLog("MTimerCard_Tick:称重完毕，请离开！");
-                            }
                         }
-                        LBCardHelper.CardCode = "";
+                        else
+                        {
+                            SetCardNum("");//清除卡号
+                            ReCreateCardKey();//重新生成读卡钥匙
+                        }
                     }
                     else
                     {
-                        lblCardNum.Text = "";
+                        //如果数值未稳定或者在递减，则清楚读卡数据
+                        ReCreateCardKey();//重新生成读卡钥匙
+                        SetCardNum("");//清除卡号
                     }
-                    #endregion -- 读取卡号 --
                 }
             }
             catch (Exception ex)
@@ -409,20 +336,286 @@ namespace LB.MainForm
                 LBSpeakHelper.SpeakString = ex.Message;
                 lblWeightMsg.ForeColor = Color.Red;
                 lblWeightMsg.Text = ex.Message;
-                //LBSpeakHelper.Speak(ex.Message);
-                //LBErrorLog.InsertErrorLog("称重失败："+ex.Message, 1);
             }
             finally
             {
-                //    lock (LBCardHelper.LstCardCode)
-                //    {
-                //        LBCardHelper.LstCardCode.Clear();
-                //    }
-                LBCardHelper.CardCode = "";
-                //_CurrentReadCardCode = "";
                 mTimerCard.Enabled = true;
             }
         }
+
+        private List<string> mlstReadCardNum = new List<string>();//读卡记录，记录最新三次的读卡值
+        private string mCardKey = "";
+
+        private string ReadCardNum(string readCardKey)
+        {
+            string strCardNum = LBCardReader.ReadProcessCard(readCardKey, LBCardHelper.NetIPAddress, LBCardHelper.NetPort.ToString(), LBCardHelper.Rate.ToString());
+            if (strCardNum != "")
+            {
+                if (mlstReadCardNum.Count == 2)
+                {
+                    mlstReadCardNum.RemoveAt(0);
+                }
+                mlstReadCardNum.Add(strCardNum);
+
+                if (mlstReadCardNum.Count >= 2)//连续两次读卡值一样时才返回卡号
+                {
+                    foreach (string strCard in mlstReadCardNum)
+                    {
+                        if (!strCardNum.Equals(strCard))
+                        {
+                            strCardNum = "";
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    strCardNum = "";
+                }
+            }
+            return strCardNum;
+        }
+
+        private void SetCardNum(string strCardNum)
+        {
+            lblCardNum.Text = strCardNum;
+            _CurrentReadCardCode = strCardNum;
+
+            if (string.IsNullOrEmpty(strCardNum))
+            {
+                this.lblCardSteady.Text = "不稳定";
+                this.lblCardSteady.ForeColor = Color.Red;
+                this.pnlReadCardStatus.BackColor = Color.Red;
+            }
+            else
+            {
+                this.lblCardSteady.Text = "稳定";
+                this.lblCardSteady.ForeColor = Color.Green;
+                this.pnlReadCardStatus.BackColor = Color.Green;
+            }
+        }
+
+        private void ReCreateCardKey()
+        {
+            mCardKey = DateTime.Now.ToString("yyMMddHHmmss");
+        }
+
+        #endregion-- 定时读卡逻辑 --
+
+        //private void MTimerCardTemp_Tick(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        mTimerCard.Enabled = false;
+        //        //string strCardCode = "";
+
+        //        bool bolSerialIsSteady = LBSerialHelper.IsSteady;
+
+        //        if (LBSerialHelper.WeightValue <= 0)
+        //        {
+        //            lblCardNum.Text = "";
+        //            _CurrentReadCardCode = "";
+        //            PreWeightDeviceStatus = enWeightDeviceStatus.Zero;
+        //            LBInFrareHelper.SendY(-1);
+        //        }
+
+        //        if (LBSerialHelper.WeightValue <= 1000)
+        //        {
+        //            this.lblCardSteady.Text = "不稳定";
+        //            this.lblCardSteady.ForeColor = Color.Red;
+        //            this.pnlReadCardStatus.BackColor = Color.Red;
+        //            SendStatus(enAlermStatus.None);
+
+        //            LBCardHelper.BeginReadCard = false;
+        //            PreWeightDeviceStatus = enWeightDeviceStatus.Zero;
+        //            lblWeightMsg.Text = "";
+        //            mReadCardFailTimes = 0;
+        //            lblCardNum.Text = "";
+        //            _CurrentReadCardCode = "";
+
+        //            if (_eCarWeightStatus == enCarWeightStatus.CarSteady)
+        //            {
+        //                SaveWeightLogThread();//记录出磅的相关图片信息
+        //            }
+        //            return;
+        //        }
+
+
+        //        //皮重少于23吨时不记录
+        //        if (LBSerialHelper.WeightValue < mMinWeightValue)
+        //        {
+        //            LBErrorLog.InsertFileLog("MTimerCard_Tick:皮重" + LBSerialHelper.WeightValue);
+        //            this.lblCardSteady.Text = "不稳定";
+        //            this.lblCardSteady.ForeColor = Color.Red;
+        //            this.pnlReadCardStatus.BackColor = Color.Red;
+        //            LBCardHelper.BeginReadCard = false;
+        //            PreWeightDeviceStatus = enWeightDeviceStatus.Zero;
+        //            mReadCardFailTimes = 0;
+        //            lblCardNum.Text = "";
+        //            _CurrentReadCardCode = "";
+
+        //            if (_eCarWeightStatus == enCarWeightStatus.None)
+        //            {
+        //                LBErrorLog.InsertFileLog("MTimerCard_Tick:保存榜单信息");
+        //                SaveWeightLogThread();//记录入磅或者出磅的相关图片信息
+        //            }
+        //            return;
+        //        }
+
+        //        if (_CurrentReadCardCode == "" && LBSerialHelper.WeightValue > 8000)
+        //        {
+        //            LBErrorLog.InsertFileLog("MTimerCard_Tick:自动模式，准备读取卡号");
+        //            //strCardCode = LBCardHelper.ReadCardDirect();
+        //            _CurrentReadCardCode = LBCardReader.ReadProcessCard(LBCardHelper.NetIPAddress, LBCardHelper.NetPort.ToString(), LBCardHelper.Rate.ToString());
+        //            LBErrorLog.InsertFileLog("MTimerCard_Tick:自动模式，卡号为：" + _CurrentReadCardCode);
+
+        //            lblCardNum.Text = _CurrentReadCardCode;
+        //        }
+
+        //        if (!bolSerialIsSteady)
+        //        {
+        //            LBCardHelper.BeginReadCard = false;
+        //            mReadCardFailTimes = 0;
+        //            //_CurrentReadCardCode = "";
+        //        }
+
+        //        if (this.rbAutoMode.Checked)//自动模式
+        //        {
+        //            if (bolSerialIsSteady)//地磅数值已稳定
+        //            {
+        //                LBErrorLog.InsertFileLog("MTimerCard_Tick:自动模式，地磅数值稳定");
+        //                if (_eCarWeightStatus == enCarWeightStatus.CarBeginIn)
+        //                {
+        //                    SaveWeightLogThread();//记录地磅稳定后的相关图片信息
+        //                }
+
+        //                //if (PreWeightDeviceStatus == enWeightDeviceStatus.Zero)
+        //                //{
+        //                //    LBErrorLog.InsertFileLog("MTimerCard_Tick:自动模式，准备读取卡号");
+        //                //    //strCardCode = LBCardHelper.ReadCardDirect();
+        //                //    _CurrentReadCardCode = LBCardReader.ReadProcessCard(LBCardHelper.NetIPAddress, LBCardHelper.NetPort.ToString(), LBCardHelper.Rate.ToString());
+        //                //    LBErrorLog.InsertFileLog("MTimerCard_Tick:自动模式，卡号为：" + _CurrentReadCardCode);
+        //                //    lblCardNum.Text = _CurrentReadCardCode;
+
+        //                //}
+
+        //                if (_CurrentReadCardCode == "")//读卡失败
+        //                {
+        //                    LBErrorLog.InsertFileLog("MTimerCard_Tick:自动模式，读卡失败！");
+        //                    this.lblCardSteady.Text = "不稳定";
+        //                    this.lblCardSteady.ForeColor = Color.Red;
+        //                    this.pnlReadCardStatus.BackColor = Color.Red;
+        //                    mReadCardFailTimes += mTimerCard.Interval;
+
+        //                    if (mReadCardFailTimes > mReadCardFailTimesLimit * 1000)//超过10秒还没有打开成功的，自动生成入槽单
+        //                    {
+        //                        decimal decWeight = LBConverter.ToDecimal(lblWeight.Text);//读皮重
+        //                        LBErrorLog.InsertFileLog("MTimerCard_Tick:自动模式，超过10秒还没有打开成功的，准备自动生成入槽单，重量：" + decWeight);
+        //                        if (PreWeightDeviceStatus == enWeightDeviceStatus.Zero)
+        //                        {
+        //                            this.txtTotalWeight.Text = decWeight.ToString();
+        //                            VerifyDeviceIsSteady();//校验地磅数值是否稳定以及红外线对射是否正常
+
+        //                            long lInBillID = SaveBillAction("");
+        //                            if (lInBillID > 0)
+        //                            {
+        //                                mReadCardFailTimes = 0;
+        //                                PreWeightDeviceStatus = enWeightDeviceStatus.InWeight;
+        //                                LBErrorLog.InsertFileLog("生成无车辆入槽单：" + lInBillID.ToString() + "-PreWeightDeviceStatus=" + PreWeightDeviceStatus.ToString());
+        //                            }
+        //                        }
+        //                        else
+        //                        {
+        //                            SendStatus(enAlermStatus.Success);
+        //                            LBSpeakHelper.SpeakString = "称重完毕，请离开！";
+        //                        }
+        //                    }
+        //                }
+        //                else
+        //                {
+        //                    LBErrorLog.InsertFileLog("MTimerCard_Tick:读取卡号，卡号为：" + _CurrentReadCardCode);
+        //                    this.lblCardSteady.Text = "稳定";
+        //                    this.lblCardSteady.ForeColor = Color.Green;
+        //                    this.pnlReadCardStatus.BackColor = Color.Green;
+
+        //                    long lInBillID = 0;
+        //                    //_CurrentReadCardCode = strCardCode;//读取卡号
+
+        //                    LBErrorLog.InsertFileLog("MTimerCard_Tick:读取卡号成功，卡号为：" + _CurrentReadCardCode);
+        //                    bool bolIsSameCardCode = false;
+
+        //                    #region -- 判断是否重复打开 --
+        //                    //判断依据为如果本次打开与上次打卡(已成功生成单据)一致，以及本次称重值与上次称重值一致时，认为是重复打开
+        //                    decimal decWeight = LBConverter.ToDecimal(lblWeight.Text);//读皮重
+        //                    if (_CurrentReadCardCode == _PreviousReadCardCode &&
+        //                        (DateTime.Now.Subtract(_PreviousReadCardTime).TotalMinutes < 15 ||
+        //                        Math.Abs(decWeight - _PreviousWeightValue) < 100))
+        //                    {
+        //                        bolIsSameCardCode = true;
+        //                    }
+
+        //                    #endregion
+
+        //                    if (PreWeightDeviceStatus == enWeightDeviceStatus.Zero && !bolIsSameCardCode)
+        //                    {
+        //                        //读取该卡对应的车辆以及供应商信息
+        //                        DataTable dtCarInfo = ExecuteSQL.CallView(117, "CarID,CarNum,SupplierID", "CardCode='" + _CurrentReadCardCode + "'", "");
+        //                        if (dtCarInfo.Rows.Count > 0)
+        //                        {
+        //                            DataRow drCarInfo = dtCarInfo.Rows[0];
+        //                            long lCarID = LBConverter.ToInt64(drCarInfo["CarID"]);
+        //                            long lSupplierID = LBConverter.ToInt64(drCarInfo["SupplierID"]);
+
+        //                            this.txtCarID.TextBox.SelectedItemID = lCarID;
+        //                            //this.txtCarID.TextBox.Text = drCarInfo["CarNum"].ToString();
+        //                            LBErrorLog.InsertFileLog("MTimerCard_Tick:读取卡号成功，车牌号为：" + drCarInfo["CarNum"].ToString() + " CarID:" + lCarID);
+        //                            bool bolReadWeight = ReadTareWeight();//地磅重量读取成功
+        //                            if (bolReadWeight)
+        //                            {
+        //                                lInBillID = SaveBillAction(_CurrentReadCardCode);
+        //                                if (lInBillID > 0)
+        //                                {
+        //                                    LBErrorLog.InsertFileLog("MTimerCard_Tick:读取卡号成功，生成单号：" + lInBillID.ToString());
+        //                                    PreWeightDeviceStatus = enWeightDeviceStatus.InWeight;
+        //                                    mReadCardFailTimes = 0;
+        //                                    //break;
+        //                                }
+        //                            }
+        //                        }
+        //                        else
+        //                        {
+        //                            LBErrorLog.InsertFileLog("MTimerCard_Tick:读取卡号成功，该卡号未绑定车辆！");
+        //                            throw new Exception("该卡号未绑定车辆！");
+        //                        }
+        //                    }
+        //                    else
+        //                    {
+        //                        mReadCardFailTimes = 0;
+        //                        SendStatus(enAlermStatus.Success);
+        //                        LBSpeakHelper.SpeakString = "称重完毕，请离开！";
+        //                        LBErrorLog.InsertFileLog("MTimerCard_Tick:称重完毕，请离开！");
+        //                    }
+
+        //                    LBCardHelper.CardCode = "";
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LBErrorLog.InsertFileLog("MTimerCard_Tick:Catch：" + ex.Message);
+        //        SendStatus(enAlermStatus.Fail);
+        //        LBSpeakHelper.SpeakString = ex.Message;
+        //        lblWeightMsg.ForeColor = Color.Red;
+        //        lblWeightMsg.Text = ex.Message;
+        //    }
+        //    finally
+        //    {
+        //        LBCardHelper.CardCode = "";
+        //        //_CurrentReadCardCode = "";
+        //        mTimerCard.Enabled = true;
+        //    }
+        //}
 
         private void mTimerFrare_Tick(object sender, EventArgs e)
         {
@@ -452,7 +645,7 @@ namespace LB.MainForm
 
                 if(_WeightStatus== enWeightStatus.CarIn)
                 {
-                    if (LBSerialHelper.WeightValue>0 && !LBSerialHelper.IsSteady)
+                    if (LBSerialHelper.WeightValue>0 && LBSerialHelper.WeightStatus != enWeightChangeType.WeightStable)
                     {
                         _WeightStatus = enWeightStatus.CarInUnSteady;
                     }
@@ -460,7 +653,7 @@ namespace LB.MainForm
 
                 if(_WeightStatus == enWeightStatus.CarInUnSteady)
                 {
-                    if (LBSerialHelper.WeightValue > 0 && LBSerialHelper.IsSteady&&
+                    if (LBSerialHelper.WeightValue > 0 && LBSerialHelper.WeightStatus == enWeightChangeType.WeightStable &&
                         LBInFrareHelper.HeaderClosed && LBInFrareHelper.TailClosed)
                     {
                         _WeightStatus = enWeightStatus.WeightSteady;
@@ -758,7 +951,7 @@ namespace LB.MainForm
         //判断地磅数值是否稳定以及红外线设备是否报警
         private void VerifyDeviceIsSteady()
         {
-            if (!LBSerialHelper.IsSteady)
+            if (LBSerialHelper.WeightStatus != enWeightChangeType.WeightStable)
             {
                 throw new Exception("数值未稳定！");
             }
@@ -1731,13 +1924,6 @@ where PermissionDataID = {4};
         }
 
         #region -- 车辆进出地磅日志 --
-
-        private void SaveWeightLogThread()
-        {
-            return;
-            Thread thread = new Thread(SaveWeightLog);
-            thread.Start();
-        }
 
         enCarWeightStatus _eCarWeightStatus = enCarWeightStatus.None;
         long _WeightLogID=0;

@@ -24,7 +24,7 @@ namespace LB.Common
 
 
         public static int WeightValue = 0;
-        public static bool IsSteady = true;
+        //public static bool IsSteady = true;
         public static bool IsUnConnected = true;
         private static int WeightCount = 0;//稳定值次数
         //private static int PreWeightValue = 0;//上次重量值
@@ -47,7 +47,7 @@ namespace LB.Common
             mTimer.Enabled = true;
 
             mTimerSteady = new Timer();
-            mTimerSteady.Interval = 1000;
+            mTimerSteady.Interval = 200;
             mTimerSteady.Tick += MTimerSteady_Tick;
             mTimerSteady.Enabled = true;
 
@@ -61,58 +61,124 @@ namespace LB.Common
             }
 
             InitSerialPort();
+
+            //CreateAutoWeightValue();//临时，模拟称重使用
         }
 
         private static void MTimerSteady_Tick(object sender, EventArgs e)
         {
             try
             {
-                //WeightValue = 300000;
-                //IsSteady = true;
-                //return;
+                InsertWeightValue(WeightValue);
 
-                int lastWeight = WeightValue;
-                mLstWeightValue.Add(lastWeight);
+                //int lastWeight = WeightValue;
+                //InsertWeightValue(lastWeight);
 
-                if (IsUnConnected)
-                {
-                    IsSteady = false;
-                    return;
-                }
-                //判断最近记录的重量值是否一样
-                int isteadyCount = 0;
-                bool bolIsSteady = false;
-                if (mLstWeightValue.Count > WeightSteadyCount)
-                {
-                    for (int i = mLstWeightValue.Count-WeightSteadyCount; i < mLstWeightValue.Count; i++)
-                    {
-                        int currentWeight = mLstWeightValue[i];
-                        if (currentWeight == lastWeight)
-                        {
-                            isteadyCount++;
-                            if (WeightSteadyCount == isteadyCount)
-                            {
-                                bolIsSteady = true;
+                //if (IsUnConnected)
+                //{
+                //    IsSteady = false;
+                //    return;
+                //}
+                ////判断最近记录的重量值是否一样
+                //int isteadyCount = 0;
+                //bool bolIsSteady = false;
+                //if (mLstWeightValue.Count > WeightSteadyCount)
+                //{
+                //    for (int i = mLstWeightValue.Count-WeightSteadyCount; i < mLstWeightValue.Count; i++)
+                //    {
+                //        int currentWeight = mLstWeightValue[i];
+                //        if (currentWeight == lastWeight)
+                //        {
+                //            isteadyCount++;
+                //            if (WeightSteadyCount == isteadyCount)
+                //            {
+                //                bolIsSteady = true;
 
-                                break;
-                            }
-                        }
-                        else
-                        {
-                            isteadyCount = 0;
-                        }
-                    }
-                }
+                //                break;
+                //            }
+                //        }
+                //        else
+                //        {
+                //            isteadyCount = 0;
+                //        }
+                //    }
+                //}
 
-                IsSteady = bolIsSteady;
-                //只保留最新的数据
-                while (mLstWeightValue.Count > WeightSteadyCount)
-                {
-                    mLstWeightValue.RemoveRange(0, mLstWeightValue.Count - WeightSteadyCount);
-                }
+                //IsSteady = bolIsSteady;
+                ////只保留最新的数据
+                //while (mLstWeightValue.Count > WeightSteadyCount)
+                //{
+                //    mLstWeightValue.RemoveRange(0, mLstWeightValue.Count - WeightSteadyCount);
+                //}
             }
             catch (Exception ex)
             {
+            }
+        }
+
+
+        public static void ClearWeightListValue()
+        {
+            mLstWeightValue.Clear();
+        }
+
+
+        private static void InsertWeightValue(int iWeight)
+        {
+            if (mLstWeightValue.Count == 100)
+            {
+                mLstWeightValue.RemoveAt(0);
+            }
+            mLstWeightValue.Add(iWeight);
+        }
+
+        /// <summary>
+        /// 获取当前地磅的稳定状态
+        /// </summary>
+        /// <returns></returns>
+        public static enWeightChangeType WeightStatus
+        {
+            get
+            {
+                enWeightChangeType status = enWeightChangeType.UnStable;
+                if (mLstWeightValue.Count >= 10)
+                {
+                    int[] weightArray = mLstWeightValue.ToArray();
+
+                    int iWeightSteadyCount = WeightSteadyCount;
+                    int LastWeight = mLstWeightValue[mLstWeightValue.Count - 1];
+                    while (iWeightSteadyCount > 0)
+                    {
+                        int CurrentWeight = mLstWeightValue[mLstWeightValue.Count - iWeightSteadyCount];
+                        if(LastWeight != CurrentWeight)
+                        {
+                            break;
+                        }
+                        iWeightSteadyCount--;
+                    }
+
+                    if (iWeightSteadyCount == 0)
+                    {
+                        status = enWeightChangeType.WeightStable;//稳定
+                    }
+                    
+                    if(status == enWeightChangeType.UnStable)//不稳定，则判断地磅数值在递减还是在递增，取第一个、中间值和最后一个值作比较
+                    {
+                        int firstWeight = weightArray[0];
+                        int midWeight = weightArray[weightArray.Length / 2-1];
+                        int lastWeight = weightArray[weightArray.Length - 1];
+
+                        if(midWeight> firstWeight&& lastWeight > midWeight)
+                        {
+                            status = enWeightChangeType.WeightRise;
+                        }
+                        else if (midWeight < firstWeight && lastWeight < midWeight)
+                        {
+                            status = enWeightChangeType.WeightReduce;
+                        }
+                    }
+                }
+                return status;
             }
         }
 
@@ -131,7 +197,7 @@ namespace LB.Common
                 if (DateTime.Now.Subtract(mPreReceiveDataTime).TotalSeconds > 2)
                 {
                     WeightValue = 0;
-                    IsSteady = false;
+                    mLstWeightValue.Clear();
                     IsUnConnected = true;
                 }
 
@@ -532,6 +598,48 @@ namespace LB.Common
             //{
             //    fs.Close();
             //}
+        }
+
+        private static Timer mTimerTemp = null;
+        static List<int>  mlstTempWeight = new List<int>();
+        private static void CreateAutoWeightValue()
+        {
+            for (int m = 0; m < 100; m++)
+            {
+                for (int i = 0; i <= 50; i++)
+                {
+                    mlstTempWeight.Add(i * 600);
+                }
+
+                for (int i = 0; i <= 40; i++)
+                {
+                    mlstTempWeight.Add(50 * 600);
+                }
+
+                for (int i = 50; i >= 0; i--)
+                {
+                    mlstTempWeight.Add(i * 600);
+                }
+
+                for (int i = 0; i <= 50; i++)
+                {
+                    mlstTempWeight.Add(0);
+                }
+            }
+            mTimerTemp = new Timer();
+            mTimerTemp.Interval = 200;
+            mTimerTemp.Tick += MTimerTemp_Tick;
+            mTimerTemp.Enabled = true;
+        }
+
+        private static void MTimerTemp_Tick(object sender, EventArgs e)
+        {
+            if (mlstTempWeight.Count > 0)
+            {
+                WeightValue = mlstTempWeight[0];
+                mlstTempWeight.RemoveAt(0);
+            }
+            mPreReceiveDataTime = DateTime.Now;
         }
     }
 

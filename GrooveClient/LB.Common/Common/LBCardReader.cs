@@ -17,16 +17,17 @@ namespace LB.Common
         private static int ReadCount = 0;//已读卡次数
         private static System.Diagnostics.Process process = null;
 
-        public static string ReadProcessCard(string ip,string port,string rate)
+        public static string ReadProcessCard(string readCardKey, string ip,string port,string rate)
         {
             string strCardCode = "";
             try
             {
-                if (!IsReading)
+                if ( strReadCardKey!= readCardKey || !IsReading)//如果传入来的Key值与上一次的值不一样则重新启动读卡
                 {
+                    strReadCardKey = readCardKey;
                     KillProcess(); 
                     ReadCount = 0;
-                    strReadCardKey = DateTime.Now.ToString("yyMMddHHmmss");//生成Key
+                    //readCardKey = DateTime.Now.ToString("yyMMddHHmmss");//生成Key
 
                     process = new System.Diagnostics.Process();
                     process.StartInfo.Arguments = string.Format(@"IP={0}&Port={1}&Rate={2}&Key={3}", ip, port, rate, strReadCardKey);
